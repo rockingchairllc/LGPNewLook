@@ -1,0 +1,36 @@
+.app_head {
+	position: relative;
+	padding: 5px 10px;
+	border-bottom: 1px solid rgba(0,0,0,.4);
+	clear: both;
+}
+.app_head:after {
+	content: "";
+	position: absolute;
+	display: block;
+	left: 0px;
+	bottom: -2px;
+	width: 100%;
+	border-bottom: 1px solid rgba(255,255,255, 1);
+}
+.logotype {
+	float: left;
+	width: 295px;
+	height: 50px;
+	background: url(image-path("logo.png")) left center no-repeat;
+	background-size: auto 100%;
+}
+nav {float: left; margin-left: 20px;}
+nav a {
+	display: inline-block;
+	vertical-align: middle;
+	height: 50px;
+	line-height: 50px;
+	padding: 0 10px;
+}
+
+.current_user {float: right;}
+
+.sub_head {padding: 5px 10px;}
+.sub_head h2 {float: left;}
+.sub_head form {float: right;}

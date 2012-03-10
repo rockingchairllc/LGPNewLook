@@ -1,0 +1,15 @@
+@import url("../stylesheets/reset.css");
+
+nav.message_navigation {
+	height: 100%;
+}
+.message_navigation a {
+	display: block;
+	color: purple;
+}
+/* float the elements */
+section, article, aside {float: left;}
+img.user_thumb {
+	width: 60px;
+	height: 60px;
+}

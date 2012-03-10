@@ -1,0 +1,53 @@
+<% content_for :head do %>
+	<%= stylesheet_link_tag "profile", :media => "all" %>
+<% end %>
+
+<section>
+	<article class="user_images">
+		<%= image_tag "user.jpeg", :class=>"user_hero" %>
+		<div class="alt_images">
+			<% 3.times do |num| %>
+				<%= image_tag "user.jpeg", :class=>"user_thumb" %>
+			<% end %>
+		</div><!-- .alt_images -->
+	</article><!-- .user_images -->
+	<article class="user_details">
+		Vinod <br />
+		32/M/Straight/Manhattan
+		
+		<h3>Summary:</h3>
+		<% 3.times do |num| %>
+			<p>I like cheese.</p>
+		<% end %>
+
+		<h3>Favorite Movie:</h3>
+		<p>Titanic</p>
+	</article><!-- .user_details -->
+	<article>
+		<%= link_to "Message", message_path %>
+		<%= link_to "Save" %>
+	</article>
+	
+	<!-- clear the float -->
+	<div class="clearfloat"></div>
+	
+</section>
+
+<section>
+	<h3>Watchlist:</h3>
+	<ul>
+		<% 2.times do |num| %>
+			<li>
+				<%= link_to "Let's Get Popcorn", :class=>"lgp_cta" %>
+			
+				<%= link_to "Horrible Bosses PG-13" %><br />
+				Genre: Comedy <br />
+				Have you ever wanted to kill your boss?<br />
+				Preferred show times:
+				<%= link_to "9:15pm Today @ AMC Theater 34th St" %>
+				and 
+				<%= link_to "8 more" %>
+			</li>
+		<% end %>
+	</ul>
+</section>

@@ -1,0 +1,36 @@
+/* layout */
+aside, section {padding: 10px; float: left;}
+aside {width: 20%;}
+section {width: 40%; border-right: 1px solid rgba(155, 85, 185, .7);}
+h3 {margin: 10px 0;}
+.cta {padding: 10px; border: 1px solid purple; outline: 1px solid white; text-align: center;}
+
+/* lists */
+li {
+	padding: 5px 0;
+	border-top: 1px solid rgba(155,155,155, 1);
+	border-bottom: 1px solid rgba(255,255,255, 1);
+}
+li:nth-child(1) {border-top: none;}
+li:nth-last-child(1) {border-bottom: none;}
+.user_list {margin: 5px 0;}
+.user_list li {border: none; display: inline-block;}
+.recent_reviews li {font-size: .8em;}
+.your_visitors li {min-height: 55px;}
+/* thumbs */
+.user_thumb {
+	display: block;
+	float: left;
+	margin-right: 5px;
+}
+.buddies_near_you .user_thumb {width: auto;height: 60px;}
+.user_list li img.user_thumb {margin-right: 0px;}
+.movie_thumb {
+	height: 120px; 
+	float: left; 
+	display: block; 
+	margin-right: 5px;
+	-webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,.7);
+	   -moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,.7);
+			box-shadow: 0px 1px 5px 0px rgba(0,0,0,.7);
+}

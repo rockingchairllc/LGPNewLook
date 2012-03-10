@@ -1,0 +1,35 @@
+/*
+ *= require_self
+ *= require reset
+*/
+*{
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+		 -o-box-sizing: border-box;
+			box-sizing: border-box;
+}
+a {color: purple;}
+h1,h2,h3,h4,h5,h6 {color: rgba(100,75,130,1);}
+input[type=submit]{font-weight: bold; color: rgba(100,75,130,1);}
+input, textarea {
+	border: rgba(155,85,185, 1);
+	background: #fff;
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+			border-radius: 3px;
+	-webkit-box-shadow: 0px 1px 3px 0px rgba(155, 85, 185, .9);
+	   -moz-box-shadow: 0px 1px 3px 0px rgba(155, 85, 185, .9);
+			box-shadow: 0px 1px 3px 0px rgba(155, 85, 185, .9);
+}
+body {
+	background: rgb(239,227,242);
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VmZTNmMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjM3JSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+	background: -moz-linear-gradient(top, rgba(239,227,242,1) 0%, rgba(255,255,255,1) 37%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(239,227,242,1)), color-stop(37%,rgba(255,255,255,1)));
+	background: -webkit-linear-gradient(top, rgba(239,227,242,1) 0%,rgba(255,255,255,1) 37%);
+	background: -o-linear-gradient(top, rgba(239,227,242,1) 0%,rgba(255,255,255,1) 37%);
+	background: -ms-linear-gradient(top, rgba(239,227,242,1) 0%,rgba(255,255,255,1) 37%);
+	background: linear-gradient(top, rgba(239,227,242,1) 0%,rgba(255,255,255,1) 37%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efe3f2', endColorstr='#ffffff',GradientType=0 );
+}
+.user_thumb {height: 45px; width: 45px;}

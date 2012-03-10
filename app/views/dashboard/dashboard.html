@@ -1,0 +1,86 @@
+<% content_for :head do %>
+	<%= stylesheet_link_tag "dashboard", :media => "all" %>
+<% end %>
+
+	<header class="sub_head">
+		<h2>Welcome to Let's Get Popcorn!</h2>
+		<form>
+			<label>Search Members and Movies: </label>
+			<input type="search" placeholder="Start Typing" />
+		</form>
+		
+		<!-- clear the float -->
+		<div class="clearfloat"></div>
+	</header>
+	
+	<section class="buddies_near_you">
+		<h3>
+			Popcorn Buddies near you 
+			(<%= link_to "browse all" %>):
+		</h3>
+		<ul>
+			<% 4.times do |num| %>
+				<li>
+					<%= image_tag 'user.jpeg', :class=>'user_thumb' %>
+					<%= link_to "Vinod" %>
+					32/M/Girls/Manhattan<br />
+					Wants to see: "BullHead" <br />
+					Favorite Movie: "Harold and Kumar's Christmas Vacation"
+				</li>
+			<% end %>
+		</ul>
+	</section><!-- .buddies_near_you -->
+	
+	<section class="popular_movies">
+		<h3 class="cta">
+			Add a movie to your watchlist today and start connecting with nearby moviegoers!
+		</h3><!-- .cta -->
+		<h3>
+			Popular Movies: 
+			(<%= link_to "browse all" %>):
+		</h3>
+		<ul class="popular_movies">
+			<% 2.times do |num| %>
+				<li>
+					<a href="#">
+						<%= image_tag 'movie.jpg', :class=>'movie_thumb' %>
+						<%= link_to "Horrible Bosses (PG-13)" %> <br />
+						Ever wanted to kill your boss?
+						<ul class="user_list">
+							<% 3.times do |num| %>
+								<li><%= image_tag 'user.jpeg', :class=>'user_thumb' %></li>
+							<% end %>
+						</ul>
+						<small>
+							<%= link_to "8 people near you want to see this (see all)" %>
+						</small>
+					</a>
+				</li>
+			<% end %>
+		</ul>
+	</section><!-- .popular_movies -->
+	
+	<aside>
+		<h3>Recent Reviews:</h3>
+		<ul class="recent_reviews">
+			<% 2.times do |num| %>
+				<li><%= link_to "John" %> reviewed <%= link_to "Horrible Bosses" %></li>
+			<% end %>
+		</ul><!-- .recent_reviews -->
+	</aside>
+	<aside>
+		<h3>Your Visitors</h3>
+		<ul class="your_visitors">
+			<% 4.times do |num|  %>			
+				<li>
+					<a href="#">
+						<%= image_tag 'user.jpeg', :class=>'user_thumb' %>
+						Vinod <br />32/M
+					</a>
+				</li>
+			<% end %>
+		</ul><!-- .your_visitors -->
+	</aside>
+	
+	<!-- clear the float -->
+	<div class="clearfloat"></div>

@@ -1,0 +1,18 @@
+/* layout */
+section {
+	clear: both;
+	padding: 10px;
+	border-top: 1px solid rgba(255,255,255, 1);
+	border-bottom: 1px solid rgba(0,0,0,.4);
+}
+section:nth-last-child(1) { border-bottom: none;}
+
+article {
+	float: left;
+	width: 33%;
+}
+
+.lgp_cta {
+	float: right;
+	padding: 5px 10px;
+}
