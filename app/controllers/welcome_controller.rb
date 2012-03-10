@@ -7,7 +7,7 @@ class WelcomeController < ApplicationController
   def verify_code
     @code=params[:code_value]
     if(@code=='popcorn')
-      redirect_to signup_url
+      redirect_to "/users/sign_up"
     elsif
       @results="You're not in"
     end

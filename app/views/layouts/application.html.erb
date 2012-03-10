@@ -9,6 +9,7 @@
   <%= yield :head %>
 </head>
 <body>
+	<%if user_signed_in?%>
 	<header class="app_head">
 		<div class="logotype"></div>
 		
@@ -26,8 +27,10 @@
 		<!-- clear the float -->
 		<div class="clearfloat"></div>
 	</header>
+	<%end%>
 <!-- end header -->
-
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
 <%= yield %>
 
 </body>

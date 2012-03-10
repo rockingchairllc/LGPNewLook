@@ -1,6 +1,7 @@
 class InviteCodesController < ApplicationController
   # GET /invite_codes
   # GET /invite_codes.json
+  before_filter :authenticate_user!
   def index
     @invite_codes = InviteCode.all
 

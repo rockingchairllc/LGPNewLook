@@ -5,7 +5,6 @@
   <%= stylesheet_link_tag    "welcome", :media => "all" %>
 </head>
 <body>
-	<a href="#" class="login_link">Login</a>
 
 	<section>
 		<div class="logotype"></div>
@@ -13,19 +12,17 @@
 		<h2>Find a movie buddy today!</h2>
 		
 		<%= form_tag "/welcome/verify_code", {:id => 'invite_code'} do %>
-		<!-- <form id="invite_code"> -->
 			<label>Username: </label>
-			<input type="text" placeholder="Enter your code" name="code_value" id="code_value" size="30" type="text" /><br/>
+			<input type="text" placeholder="username" name="code_value" size="30" type="text" /><br/>
 			<label>Password: </label>
-			<input type="text" placeholder="Enter your code" name="code_value" id="code_value" size="30" type="text" /><br/>
+			<input type="text" placeholder="Password" name="code_value"  size="30" type="text" /><br/>
 			<label>Password (again): </label>
-			<input type="text" placeholder="Enter your code" name="code_value" id="code_value" size="30" type="text" /><br/>
+			<input type="text" placeholder="Password(again)" name="code_value"  size="30" type="text" /><br/>
 			<label>Gender: </label>
-			<input type="text" placeholder="Enter your code" name="code_value" id="code_value" size="30" type="text" /><br/>
+			<%= select :user, :gender, options_for_select([["A Girl", "female"],["A Guy", "male"]]) %><br/>
 			<label>Interested In: </label>
-			<input type="text" placeholder="Enter your code" name="code_value" id="code_value" size="30" type="text" /><br/>
-			<input type="submit" value="Get Popcorn!" />
-		<!-- </form> -->
+			<%= select :user, :orientation, options_for_select([["A Guy", "men"], ["A Girl", "women"], ["Any","any"]]) %><br/>
+			<input type="submit" value="Register" />
 		<%end%>
 
 	</section>

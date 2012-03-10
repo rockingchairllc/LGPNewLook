@@ -61,6 +61,17 @@ Lgp::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  # these options are only needed if you choose smtp delivery
+  config.action_mailer.smtp_settings = {
+      :address              => 'smtp.gmail.com',
+      :port                 => 587,
+      :domain               => 'imap.gmail.com',
+      :user_name            => 'kiplmailtest@gmail.com',
+      :password             => 'kipltest',
+      :authentication       => 'login',
+      :enable_starttls_auto => true
+    }
+
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
