@@ -54,6 +54,9 @@ Lgp::Application.routes.draw do
   match "/profile" => "profile#profile", :as=>"profile"
   match "/message" => "message#message", :as=>"message"
   match "/watchlist" => "watchlist#watchlist", :as=>"watchlist"
+  
+  match "/welcome/verify_code" => "welcome#verify_code"
+  match "/signup" => "welcome#signup"
 
   # See how all your routes lay out with "rake routes"
 

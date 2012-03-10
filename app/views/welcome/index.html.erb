@@ -12,11 +12,13 @@
 
 		<h2>Find a movie buddy today!</h2>
 		
-		<form id="invite_code">
+		<%= form_tag "/welcome/verify_code", {:id => 'invite_code'} do %>
+		<!-- <form id="invite_code"> -->
 			<label>Invite Code: </label>
-			<input type="text" placeholder="Enter your code" value="" />
+			<input type="text" placeholder="Enter your code" name="code_value" id="code_value" size="30" type="text" />
 			<input type="submit" value="Get Popcorn!" />
-		</form>
+		<!-- </form> -->
+		<%end%>
 
 	</section>
 	<footer>
