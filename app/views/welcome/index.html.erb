@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+ <%= javascript_include_tag :defaults %>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= stylesheet_link_tag    "welcome", :media => "all" %>
 </head>
 <body>
-	<a href="#" class="login_link">Login</a>
+	
+	<%if user_signed_in?%>
+			<a href="/users/sign_out" class="login_link">Logout</a>
+	<%else%>
+		<a href="/users/sign_in" class="login_link">Login</a>
+	<%end%>
 
 	<section>
 		<div class="logotype"></div>

@@ -1,7 +1,7 @@
 class WelcomeController < ApplicationController
   layout false, {:only=>[:index,:signup]}
   def index
-    
+    @signed_in=user_signed_in?
   end
   
   def verify_code
