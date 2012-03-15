@@ -10,6 +10,7 @@ gem 'sqlite3'
 gem 'json'
 
 gem 'devise'
+gem "paperclip", "~> 2.7"
 
 # Gems used only for assets and not required
 # in production environments by default.

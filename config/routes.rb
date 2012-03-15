@@ -3,7 +3,9 @@ Lgp::Application.routes.draw do
   resources :questions
 
   devise_for :users, :controllers => { :registrations => "registrations" }
-
+  devise_scope :user do
+    match "/registration/step2" => "registrations#step2"
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

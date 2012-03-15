@@ -1,21 +1,34 @@
 class RegistrationsController < Devise::RegistrationsController
   def new
-      super
+      @user = User.new
+      @user.username='elarson120120'
+      @user.user_images.build
   end
   
   def create
-       
-       check_zip = Zipcode.find_by_codes(params[:user][:zip])
-       
-        unless check_zip.nil?
-          super
-        else
-          
-          futurecity = Futurecitydemand.create(:email=> params[:user][:email], :zipcode => params[:user][:zip])
-          Futurecitymailer.deliver_future_city_email(futurecity)
-          
-          redirect_to("/thank-you")
-        end
+    @user = User.new(params[:user])
+     respond_to do |format|
+       if @user.save
+         format.html { redirect_to '/registration/step2' }
+       else
+         format.html { render action: "new" }
+       end
+     end
+       # check_zip = Zipcode.find_by_codes(params[:user][:zip])
+       #       
+       #        unless check_zip.nil?
+       #          super
+       #        else
+       #          
+       #          futurecity = Futurecitydemand.create(:email=> params[:user][:email], :zipcode => params[:user][:zip])
+       #          Futurecitymailer.deliver_future_city_email(futurecity)
+       #          
+       #          redirect_to("/thank-you")
+       #        end
+  end
+  
+  def step2
+    
   end
   
   def update

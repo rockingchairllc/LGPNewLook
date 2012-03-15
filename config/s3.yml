@@ -1,0 +1,15 @@
+common: &common
+    access_key_id: AKIAJX6QCB4HG2X7RAZA
+    secret_access_key: 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
+
+development:
+    <<: *common
+    bucket: letsgetpopcorn
+
+test:
+    <<: *common
+    bucket: letsgetpopcorn
+
+production:
+    <<: *common
+    bucket: letsgetpopcorn
