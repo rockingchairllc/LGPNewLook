@@ -27,7 +27,7 @@
 	<% @user.user_images.each do |user_image| %>
 	    <%= f.fields_for :user_images,@user.user_images do |ui|%>
 	      <div><%= ui.label :User_Image %><br />
-			<%= ui.file_field :image %>
+			<%= ui.file_field :photo %>
 	    <% end %>
 	  <% end %>
 	

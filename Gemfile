@@ -10,7 +10,8 @@ gem 'sqlite3'
 gem 'json'
 
 gem 'devise'
-gem "paperclip", "~> 2.7"
+gem 'paperclip', :git => 'git://github.com/thoughtbot/paperclip.git'
+gem 'aws-sdk'
 
 # Gems used only for assets and not required
 # in production environments by default.
