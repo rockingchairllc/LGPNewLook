@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  TMSId: MyString
+  desc_long: MyText
+  genre: MyText
+  rating: MyString
+  release_dt: 2012-03-18
+  trailer_url: MyString
+
+two:
+  TMSId: MyString
+  desc_long: MyText
+  genre: MyText
+  rating: MyString
+  release_dt: 2012-03-18
+  trailer_url: MyString

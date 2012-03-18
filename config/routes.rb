@@ -1,5 +1,9 @@
 Lgp::Application.routes.draw do
 
+  resources :theaters
+
+  resources :movies
+
   resources :questions
 
   devise_for :users, :controllers => { :registrations => "registrations" }

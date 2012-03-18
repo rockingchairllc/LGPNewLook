@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Theatreid:</b>
+  <%= @theater.theatreId %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @theater.name %>
+</p>
+
+<p>
+  <b>Address street:</b>
+  <%= @theater.address_street %>
+</p>
+
+<p>
+  <b>Address city:</b>
+  <%= @theater.address_city %>
+</p>
+
+<p>
+  <b>Address state:</b>
+  <%= @theater.address_state %>
+</p>
+
+<p>
+  <b>Address zip:</b>
+  <%= @theater.address_zip %>
+</p>
+
+<p>
+  <b>Address country:</b>
+  <%= @theater.address_country %>
+</p>
+
+<p>
+  <b>Telephone:</b>
+  <%= @theater.telephone %>
+</p>
+
+<p>
+  <b>Longitude:</b>
+  <%= @theater.longitude %>
+</p>
+
+<p>
+  <b>Latitude:</b>
+  <%= @theater.latitude %>
+</p>
+
+
+<%= link_to 'Edit', edit_theater_path(@theater) %> |
+<%= link_to 'Back', theaters_path %>

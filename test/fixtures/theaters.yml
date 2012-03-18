@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  theatreId: MyString
+  name: MyString
+  address_street: MyString
+  address_city: MyString
+  address_state: MyString
+  address_zip: 1
+  address_country: MyString
+  telephone: MyString
+  longiture: 1.5
+  latitude: 1.5
+
+two:
+  theatreId: MyString
+  name: MyString
+  address_street: MyString
+  address_city: MyString
+  address_state: MyString
+  address_zip: 1
+  address_country: MyString
+  telephone: MyString
+  longiture: 1.5
+  latitude: 1.5
