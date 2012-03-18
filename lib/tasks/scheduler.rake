@@ -88,20 +88,22 @@ task :update_theaters => :environment do
       theater_hash= XmlSimple.xml_in(p.to_s)
       theatreId=theater_hash["theatreId"]
       if Theater.where(:theatreId=>theatreId).first==nil
-        #puts theater_hash.to_s
+        puts theater_hash.to_s
         new_theater=Theater.new
         new_theater.theatreId=theatreId
         new_theater.name=theater_hash['name'][0]
-        new_theater.address_street=theater_hash['address'][0]['street1']
-        new_theater.address_city=theater_hash['address'][0]['city']
-        new_theater.address_state=theater_hash['address'][0]['state']
-        new_theater.address_zip=theater_hash['address'][0]['postalCode']
-        new_theater.address_country=theater_hash['address'][0]['country']
-        new_theater.telephone=theater_hash['telephone']
+        new_theater.address_street=theater_hash['address'][0]['street1'][0]
+        new_theater.address_city=theater_hash['address'][0]['city'][0]
+        new_theater.address_state=theater_hash['address'][0]['state'][0]
+        new_theater.address_zip=theater_hash['address'][0]['postalCode'][0]
+        new_theater.address_country=theater_hash['address'][0]['country'][0]
+        if theater_hash['telephone']
+          new_theater.telephone=theater_hash['telephone'][0]
+        end
         new_theater.latitude=theater_hash['latitude'][0]
         new_theater.longitude=theater_hash['longitude'][0]
         new_theater.save
-        puts new_theater
+        puts new_theater.to_yaml
       end
       #programs = p.to_s
       #programs << p.attributes.inject({}) { |h, a| h[a.name] = a.value; h }
