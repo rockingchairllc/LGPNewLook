@@ -113,7 +113,7 @@ task :update_theaters => :environment do
     puts "done."
 end
 
-task :update_schdules => :environment do
+task :update_schedules => :environment do
     puts "Updating schedules..."
     URL = 'on.tmstv.com'
     username='onsample'
@@ -131,7 +131,33 @@ task :update_schdules => :environment do
     parser, parser.string = XML::Parser.new, xml
     doc, programs = parser.parse, []
     doc.find('//schedules/schedule').each do |p|
-      puts XmlSimple.xml_in(p.to_s).to_yaml
+      schedulehash= XmlSimple.xml_in(p.to_s)
+      #puts schedulehash.to_yaml
+      theatreId=schedulehash['theatreId']
+      schedulehash['event'].each do |movie|
+        TMSId=movie['TMSId']
+        date=movie['date']
+        #puts movie.to_yaml
+        if movie['times']
+          movie['times'][0]['time'].each do |time|
+            if time['content']
+              if time['date']
+                tempDate=time['date']
+              else
+                tempDate=date
+              end
+              temptime=time['content']
+            else
+              tempDate=date
+              temptime=time
+            end
+            puts theatreId, TMSId, tempDate +" "+ temptime
+          end
+        end
+        # movie['times'][0]['time'].each do |time|
+        #           puts theatreId, TMSId, date, time
+        #         end
+      end
       #programs = p.to_s
       #programs << p.attributes.inject({}) { |h, a| h[a.name] = a.value; h }
     end

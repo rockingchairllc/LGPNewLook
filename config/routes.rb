@@ -1,5 +1,7 @@
 Lgp::Application.routes.draw do
 
+  resources :schedules
+
   resources :theaters
 
   resources :movies

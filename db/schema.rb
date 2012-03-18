@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120318211400) do
+ActiveRecord::Schema.define(:version => 20120318221142) do
 
   create_table "answers", :force => true do |t|
     t.text     "response"
@@ -41,12 +41,25 @@ ActiveRecord::Schema.define(:version => 20120318211400) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "movies", ["TMSId"], :name => "index_movies_on_TMSId"
+
   create_table "questions", :force => true do |t|
     t.text     "content"
     t.boolean  "active"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "schedules", :force => true do |t|
+    t.integer  "movie_id"
+    t.integer  "theater_id"
+    t.datetime "showing_dt"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "schedules", ["movie_id"], :name => "index_schedules_on_movie_id"
+  add_index "schedules", ["theater_id"], :name => "index_schedules_on_theater_id"
 
   create_table "theaters", :force => true do |t|
     t.string   "theatreId"
@@ -62,6 +75,8 @@ ActiveRecord::Schema.define(:version => 20120318211400) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
+
+  add_index "theaters", ["theatreId"], :name => "index_theaters_on_theatreId"
 
   create_table "user_images", :force => true do |t|
     t.integer  "user_id"
