@@ -134,24 +134,40 @@ task :update_schedules => :environment do
       schedulehash= XmlSimple.xml_in(p.to_s)
       #puts schedulehash.to_yaml
       theatreId=schedulehash['theatreId']
+      theater_instance=Theater.where(:theatreId=>theatreId).first()
+      #puts theater.to_yaml
       schedulehash['event'].each do |movie|
         TMSId=movie['TMSId']
-        date=movie['date']
+        movie_instance=Movie.where(:TMSId=>TMSId).first()
         #puts movie.to_yaml
-        if movie['times']
-          movie['times'][0]['time'].each do |time|
-            if time['content']
-              if time['date']
-                tempDate=time['date']
+        if(theater_instance && movie_instance)
+          date=movie['date']
+          #puts movie.to_yaml
+          if movie['times']
+            movie['times'][0]['time'].each do |time|
+              puts time
+              if time['content']
+                if time['date']
+                  tempDate=time['date']
+                else
+                  tempDate=date
+                end
+                temptime=time['content']
               else
                 tempDate=date
+                temptime=time
               end
-              temptime=time['content']
-            else
-              tempDate=date
-              temptime=time
+              tempDateTime=tempDate + " " + temptime
+              
+              if !Schedule.where("movie_id=? and theater_id=? and showing_dt=?", movie_instance.id, theater_instance.id,tempDateTime).first()
+                schedule=Schedule.new
+                schedule.movie_id=movie_instance.id
+                schedule.theater_id=theater_instance.id
+                schedule.showing_dt=tempDateTime
+                schedule.save
+                #puts schedule.to_yaml
+              end
             end
-            puts theatreId, TMSId, tempDate +" "+ temptime
           end
         end
         # movie['times'][0]['time'].each do |time|
