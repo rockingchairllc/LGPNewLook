@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Zip:</b>
+  <%= @zip_loc.zip %>
+</p>
+
+<p>
+  <b>Lat:</b>
+  <%= @zip_loc.lat %>
+</p>
+
+<p>
+  <b>Lng:</b>
+  <%= @zip_loc.lng %>
+</p>
+
+
+<%= link_to 'Edit', edit_zip_loc_path(@zip_loc) %> |
+<%= link_to 'Back', zip_locs_path %>

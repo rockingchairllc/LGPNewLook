@@ -1,0 +1,27 @@
+<h1>Listing zip_locs</h1>
+
+<table>
+  <tr>
+    <th>Zip</th>
+    <th>Lat</th>
+    <th>Lng</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @zip_locs.each do |zip_loc| %>
+  <tr>
+    <td><%= zip_loc.zip %></td>
+    <td><%= zip_loc.lat %></td>
+    <td><%= zip_loc.lng %></td>
+    <td><%= link_to 'Show', zip_loc %></td>
+    <td><%= link_to 'Edit', edit_zip_loc_path(zip_loc) %></td>
+    <td><%= link_to 'Destroy', zip_loc, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Zip loc', new_zip_loc_path %>

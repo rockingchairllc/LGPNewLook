@@ -1,4 +1,35 @@
 <h1>Listing movies</h1>
+<br>
+
+
+<%-# new printout for each movie -%>
+<% @movies.each do |movie| %>
+<br>
+<b><%= movie.title %></b>&nbsp; (Rated <%= movie.rating %>)
+<br>
+Released: <%= movie.release_dt.strftime("%b %e") if movie.release_dt %>
+<br>
+Genre: <%= movie.genre %>
+<br>
+Playing at <i><%= movie.theaters.first.name %></i>
+
+ <% theatercount = 
+	movie.theaters.find(:all,
+                         :conditions => ["miles_between_lat_long(?, ?,
+                          				theaters.latitude, theaters.longitude) < ?",
+                                        @z1.lat, @z1.lng, @radius]).count
+	 # here, if there are more theaters, we display "at xx more theater(s)"
+	%>
+	 <% if theatercount > 1 %>
+		and
+	 <%= pluralize(theatercount-1, "more theater", "more theaters") %>
+	 <%end%>
+
+<br>
+<%end%>
+
+<%-# the original code is commented out with an "if false" line -%>
+<% if false %>
 
 <table>
   <tr>
@@ -23,7 +54,7 @@
     <td><%= movie.rating %></td>
     <td><%= movie.release_dt %></td>
     <td><%= movie.trailer_url %></td>
-    <td><%= link_to 'Show', movie %></td>
+	<td><%= link_to 'Show', movie %></td>
     <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
     <td><%= link_to 'Destroy', movie, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
@@ -33,3 +64,5 @@
 <br />
 
 <%= link_to 'New Movie', new_movie_path %>
+
+<% end %>

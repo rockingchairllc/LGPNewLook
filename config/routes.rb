@@ -1,5 +1,7 @@
 Lgp::Application.routes.draw do
 
+  resources :zip_locs
+
   resources :schedules
 
   resources :theaters

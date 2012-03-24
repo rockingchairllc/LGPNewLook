@@ -2,8 +2,27 @@ class MoviesController < ApplicationController
   # GET /movies
   # GET /movies.json
   def index
-    @movies = Movie.all
+    
+    # old index page -- commented out to try new view
+    #@movies = Movie.all
 
+    # new code for movies list that will limit to zip radius
+    @user = User.find(current_user.id)
+    @z1 = ZipLoc.where("zip = ?", @user.zipcode).first
+    @radius = 5
+
+    # uses approach of first finding theaters, then listing movies, but isn't finished
+    # @theaters = Theater.find(:all,
+    #                          :conditions => ["miles_between_lat_long(?, ?,
+    #                            latitude, longitude) < ?",
+    #                            @z1.lat, @z1.lng, @radius])
+
+    # uses left outer join approach to return list of movies
+    @movies = Movie.includes([:theaters]).find(:all,
+                                               :conditions => ["miles_between_lat_long(?, ?,
+                                                theaters.latitude, theaters.longitude) < ?",
+                                                @z1.lat, @z1.lng, @radius])
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @movies }
@@ -21,6 +40,7 @@ class MoviesController < ApplicationController
     end
   end
 
+  
   # GET /movies/new
   # GET /movies/new.json
   def new
