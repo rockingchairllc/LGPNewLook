@@ -1,31 +1,40 @@
-<h1>Listing movies</h1>
-<br>
+<%= form_tag('/movies', :method => :get) do %> 
+        <h1>Movies within</h1>
+		<%= select_tag('movlistradius', options_for_select([1,5,10,15,20,25], @radius)) %>  
+          miles of <%= text_field_tag 'movlistzip', @z1.zip, :onFocus => "this.value='';", :onBlur => "if (this.value == '') this.value = '#{@z1.zip}';" %>
+		<%= submit_tag 'Filter' %>
+<% end %>
 
+<br>
 
 <%-# new printout for each movie -%>
+
+<div class="mov_container">
 <% @movies.each do |movie| %>
-<br>
-<b><%= movie.title %></b>&nbsp; (Rated <%= movie.rating %>)
-<br>
-Released: <%= movie.release_dt.strftime("%b %e") if movie.release_dt %>
-<br>
-Genre: <%= movie.genre %>
-<br>
-Playing at <i><%= movie.theaters.first.name %></i>
+	<br>
+	<%= image_tag movie.poster, :class=>'mov_search_pic' %>
+	<b><%= movie.title %></b>&nbsp; (Rated <%= movie.rating %>)
+	<br>
+	Released: <%= movie.release_dt.strftime("%b %e") if movie.release_dt %>
+	<br>
+	Genre: <%= movie.genre %>
+	<br>
+	Playing at <i><%= movie.theaters.first.name %></i>
 
- <% theatercount = 
-	movie.theaters.find(:all,
-                         :conditions => ["miles_between_lat_long(?, ?,
-                          				theaters.latitude, theaters.longitude) < ?",
-                                        @z1.lat, @z1.lng, @radius]).count
-	 # here, if there are more theaters, we display "at xx more theater(s)"
+ 	<% theatercount = 
+		movie.theaters.find(:all,
+                         	:conditions => ["miles_between_lat_long(?, ?,
+                          					theaters.latitude, theaters.longitude) < ?",
+                                        	@z1.lat, @z1.lng, @radius]).count
+	 										# here, if there are more theaters, we display "at xx more theater(s)"
 	%>
-	 <% if theatercount > 1 %>
+	<% if theatercount > 1 %>
 		and
-	 <%= pluralize(theatercount-1, "more theater", "more theaters") %>
-	 <%end%>
+	 	<%= pluralize(theatercount-1, "more theater", "more theaters") %>
+	<%end%>
+	<br>
+</div>
 
-<br>
 <%end%>
 
 <%-# the original code is commented out with an "if false" line -%>

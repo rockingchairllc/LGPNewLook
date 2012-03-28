@@ -16,7 +16,6 @@ task :update_movies => :environment do
     ftp.connect(URL,21)
     ftp.login(username,password)
     ftp.getbinaryfile(filename,localfile)
-    ftp.close
     gz=Zlib::GzipReader.open(localfile)
     xml=gz.read
     #puts xml
@@ -39,7 +38,7 @@ task :update_movies => :environment do
           new_movie.title=movie_hash['titles'][0]['title'][0]['content']
           new_movie.desc_long=movie_hash['descriptions'][0]['desc'][0]['content']
           new_movie.genre=movie_hash['genres'][0]['genre'][0]['content']
-          if movie_hash['ratings']!=nil
+          if movie_hash['ratings'] && movie_hash['ratings'][0]
             if movie_hash['ratings'][0]['rating']!=nil
               movie_hash['ratings'][0]['rating'].each do |rating|
                 if rating['area']="United States"
@@ -54,6 +53,20 @@ task :update_movies => :environment do
           if(movie_hash['movieInfo'][0]['trailers'])
             new_movie.trailer_url=movie_hash['movieInfo'][0]['trailers'][0]['trailer'][0]['URL'][0]
           end
+          if movie_hash['images'] && movie_hash['images'][0] && movie_hash['images'][0]['image']
+            movie_hash['images'][0]['image'].each do |image|
+              if image['category']=="Poster Art" && image['primary']=="true" && !image['URI'][0].include?("_t.jpg")
+                imagefilename = "/photos/movies/"+image['URI'][0]
+                localimagefile = "#{Rails.root}/tmp/#{imagefilename.split('/').last}"
+                ftp.getbinaryfile(imagefilename,localimagefile)
+                #using file handler to open the tmp file
+                f = File.open(localimagefile)
+                new_movie.poster = f
+                f.close
+              end
+            end
+          end
+                
           puts new_movie.to_yaml
           new_movie.save
          end
@@ -62,6 +75,7 @@ task :update_movies => :environment do
       #programs = p.to_s
       #programs << p.attributes.inject({}) { |h, a| h[a.name] = a.value; h }
     end
+    ftp.close
     puts programs.to_s
     #puts hash
     puts "done."

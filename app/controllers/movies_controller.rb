@@ -1,4 +1,5 @@
 class MoviesController < ApplicationController
+
   # GET /movies
   # GET /movies.json
   def index
@@ -8,9 +9,16 @@ class MoviesController < ApplicationController
 
     # new code for movies list that will limit to zip radius
     @user = User.find(current_user.id)
-    @z1 = ZipLoc.where("zip = ?", @user.zipcode).first
-    @radius = 5
-
+    @z1 = params[:movlistzip]
+    @radius = params[:movlistradius]
+    if @z1==nil
+      @z1 = ZipLoc.where("zip = ?", @user.zipcode).first
+    else
+      @z1 = ZipLoc.where("zip = ?", @z1).first
+    end
+    if @radius==nil
+      @radius = 20
+    end
     # uses approach of first finding theaters, then listing movies, but isn't finished
     # @theaters = Theater.find(:all,
     #                          :conditions => ["miles_between_lat_long(?, ?,

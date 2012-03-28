@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120324022422) do
+ActiveRecord::Schema.define(:version => 20120326215922) do
 
   create_table "answers", :force => true do |t|
     t.text     "response"
@@ -37,8 +37,12 @@ ActiveRecord::Schema.define(:version => 20120324022422) do
     t.string   "rating"
     t.date     "release_dt"
     t.string   "trailer_url"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "poster_file_name"
+    t.string   "poster_content_type"
+    t.integer  "poster_file_size"
+    t.datetime "poster_updated_at"
   end
 
   add_index "movies", ["TMSId"], :name => "index_movies_on_TMSId"

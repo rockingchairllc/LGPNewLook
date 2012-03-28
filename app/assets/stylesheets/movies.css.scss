@@ -1,3 +1,15 @@
 // Place all the styles related to the Movies controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.mov_container {
+   width: 800px; /* in case we want to have image rows later */
+}
+
+.mov_search_pic {
+	clear: both;
+	float: left;
+	height: 75px;
+	width: 50px;
+	margin: 0px 5px 0px 10px;
+}
