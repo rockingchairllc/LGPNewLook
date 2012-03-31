@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120326215922) do
+ActiveRecord::Schema.define(:version => 20120329185740) do
 
   create_table "answers", :force => true do |t|
     t.text     "response"
@@ -93,11 +93,11 @@ ActiveRecord::Schema.define(:version => 20120326215922) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "username",                               :null => false
+    t.string   "firstname",                              :null => false
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "gender",                                 :null => false
-    t.string   "desired",                                :null => false
+    t.string   "orientation",                            :null => false
     t.integer  "zipcode",                                :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

@@ -1,0 +1,37 @@
+<h2>Sign up</h2>
+
+<%= form_for @user, :url => registration_path(@user), :html => { :multipart => true } do |f| %>
+  <%= devise_error_messages! %>
+
+	<div><%= f.label :firstname %><br />
+	  <%= f.text_field :firstname %></div>
+	
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email %></div>
+
+  <div><%= f.label :password %><br />
+  <%= f.password_field :password %></div>
+
+  <div><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %></div>
+
+	<div><%= f.label :gender %><br />
+	<%= select :user, :gender, options_for_select([["A Girl", "female"],["A Guy", "male"]]) %><br/>
+	
+	<div><%= f.label :orientation %><br />
+	<%= select :user, :orientation, options_for_select([["Straight", "straight"], ["Gay/Lesbian", "gay"], ["Bisexual","bisexual"]]) %><br/>
+	
+	<div><%= f.label :zipcode %><br />
+	  <%= f.text_field :zipcode %></div>
+
+	<% @user.user_images.each do |user_image| %>
+	    <%= f.fields_for :user_images,@user.user_images do |ui|%>
+	      <div><%= ui.label :User_Image %><br />
+			<%= ui.file_field :photo %>
+	    <% end %>
+	  <% end %>
+	
+  <div><%= f.submit "Sign up" %></div>
+<% end %>
+
+<%= render "links" %>

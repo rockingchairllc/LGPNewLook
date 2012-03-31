@@ -1,0 +1,39 @@
+<h1>Listing users</h1>
+
+
+
+<% # this is the classic index look, being commented out for now -%>
+<% if false %>
+<table>
+  <tr>
+    <th>Id</th>
+    <th>First Name</th>
+    <th>Email</th>
+    <th>Encrypted_password</th>
+    <th>Gender</th>
+    <th>Orientation</th>
+    <th>Zipcode</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%= user.id %></td>
+	<td><%= user.firstname %></td>
+	<td><%= user.email %></td>
+	<td><%= user.encrypted_password %></td>
+	<td><%= user.gender %></td>
+	<td><%= user.orientation %></td>
+	<td><%= user.zipcode %></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New User', new_user_path %>
+<% end %>
