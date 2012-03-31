@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120329185740) do
+ActiveRecord::Schema.define(:version => 20120331232621) do
 
   create_table "answers", :force => true do |t|
     t.text     "response"
@@ -113,6 +113,25 @@ ActiveRecord::Schema.define(:version => 20120329185740) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "watch_list_preferred_theaters", :force => true do |t|
+    t.integer  "watch_list_id"
+    t.integer  "theater_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "watch_list_preferred_theaters", ["watch_list_id", "theater_id"], :name => "index_uniq_wlpt_wl_theater", :unique => true
+
+  create_table "watch_lists", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "movie_id"
+    t.text     "note"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "watch_lists", ["user_id", "movie_id"], :name => "index_uniq_wl_user_movie", :unique => true
 
   create_table "zip_locs", :force => true do |t|
     t.integer  "zip"

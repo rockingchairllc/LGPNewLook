@@ -10,7 +10,7 @@ task :update_movies => :environment do
     URL = 'on.tmstv.com'
     username='onsample'
     password='125db782'
-    filename = "on_usa_samp_mov_programs_20120323.xml.gz"
+    filename = "on_usa_samp_mov_programs_20120330.xml.gz"
     localfile = "#{Rails.root}/tmp/#{filename}"
     ftp=Net::FTP.new
     ftp.connect(URL,21)
@@ -86,7 +86,7 @@ task :update_theaters => :environment do
     URL = 'on.tmstv.com'
     username='onsample'
     password='125db782'
-    filename = "on_usa_samp_mov_sources_20120323.xml.gz"
+    filename = "on_usa_samp_mov_sources_20120330.xml.gz"
     localfile = "#{Rails.root}/tmp/#{filename}"
     ftp=Net::FTP.new
     ftp.connect(URL,21)
@@ -132,7 +132,7 @@ task :update_schedules => :environment do
     URL = 'on.tmstv.com'
     username='onsample'
     password='125db782'
-    filename = "on_usa_samp_mov_schedules_20120323.xml.gz"
+    filename = "on_usa_samp_mov_schedules_20120330.xml.gz"
     localfile = "#{Rails.root}/tmp/#{filename}"
     ftp=Net::FTP.new
     ftp.connect(URL,21)
