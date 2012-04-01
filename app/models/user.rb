@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   has_many :answers
   has_many :user_images
   has_one :profile_pic, :class_name => "user_image", :conditions => {:is_profile_pic => true}
+  has_many :watch_lists
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,:registerable,

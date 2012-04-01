@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  movie_id: 1
+  theater_id: 1
+  note: MyText
+
+two:
+  user_id: 1
+  movie_id: 1
+  theater_id: 1
+  note: MyText

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  watch_list_id: 1
+  theater_id: 1
+
+two:
+  watch_list_id: 1
+  theater_id: 1
