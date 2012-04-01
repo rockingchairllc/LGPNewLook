@@ -1,4 +1,26 @@
-<h1>Listing users</h1>
+<% # here i am going to insert the filter form based on the theater filter form %>
+
+
+
+<% @users.each do |user| %>
+	<br>
+	<%= image_tag user.user_images.first, :class=>'buddy_search_profile_pic' %>
+	<b><%= user.firstname %></b>
+	<br>
+	<%= user.gender %>
+	/
+	<%= age(user.birthdate) %>
+	/
+	<%= user.orientation %>
+	/
+	<% #we still need to convert zip to manhattan neighborhood %>
+	<%= user.zipcode%>
+	<br>
+	Looking for buddies to see:
+	<br>
+	MOVIE NAME HERE
+	<br>
+<% end %>
 
 
 

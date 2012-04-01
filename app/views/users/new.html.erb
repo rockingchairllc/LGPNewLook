@@ -16,20 +16,19 @@
   <%= f.password_field :password_confirmation %></div>
 
 	<div><%= f.label :gender %><br />
-	<%= select :user, :gender, options_for_select([["A Girl", "female"],["A Guy", "male"]]) %><br/>
+	<%= select :user, :gender, options_for_select([["Female", "F"],["Male", "M"]]) %><br/>
 	
 	<div><%= f.label :orientation %><br />
-	<%= select :user, :orientation, options_for_select([["Straight", "straight"], ["Gay/Lesbian", "gay"], ["Bisexual","bisexual"]]) %><br/>
+	<%= select :user, :orientation, options_for_select([["Straight", "Straight"], ["Gay/Lesbian", "Gay"], ["Bisexual","Bi"]]) %><br/>
 	
 	<div><%= f.label :zipcode %><br />
 	  <%= f.text_field :zipcode %></div>
 
-	<% @user.user_images.each do |user_image| %>
-	    <%= f.fields_for :user_images,@user.user_images do |ui|%>
-	      <div><%= ui.label :User_Image %><br />
-			<%= ui.file_field :photo %>
-	    <% end %>
-	  <% end %>
+	<div><%= f.label :birthdate %><br />
+	<%= f.datetime_select :birthdate %></div>
+
+	<div><%= f.label :user_image %><br />	
+			<%= file_field_tag :photo %></div>
 	
   <div><%= f.submit "Sign up" %></div>
 <% end %>
