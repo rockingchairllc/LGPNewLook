@@ -35,13 +35,14 @@ class UsersController < Devise::RegistrationsController
        if @user.save
          if params[:photo]
            ui = UserImage.new(:photo => params[:photo])
+           ui.is_profile_pic=true
            ui.user_id = @user.id
            ui.save
            logger.debug ui.inspect
            logger.debug ui.errors.inspect if ui.errors
            logger.debug params[:photo].inspect
          end
-         format.html { redirect_to '/registration/step2' }
+         format.html { redirect_to registration_step2_path }
        else
          format.html { render action: "new" }
        end

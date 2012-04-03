@@ -4,7 +4,11 @@
 
 <% @users.each do |user| %>
 	<br>
-	<%= image_tag user.user_images.first, :class=>'buddy_search_profile_pic' %>
+  <% if user.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true') %>
+	  <%= image_tag user.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:medium), :class=>'buddy_search_profile_pic' %>
+  <% else %>
+    -- No Image Replace with handler. --
+  <% end %>
 	<b><%= user.firstname %></b>
 	<br>
 	<%= user.gender %>

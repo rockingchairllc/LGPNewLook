@@ -14,8 +14,7 @@ development:
     encoding: unicode
     database: lgp
     pool: 5
-    username: rc
-    password: jerkeesh
+    username: postgres
 
 
 # Warning: The database defined as "test" will be erased and
