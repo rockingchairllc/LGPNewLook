@@ -15,6 +15,7 @@ gem 'aws-sdk'
 gem 'libxml-ruby', '>= 0.8.3'
 gem 'xml-simple'
 gem 'pg'
+# gem 'jquery-rails' --- used this for old rails
 
 # Gems used only for assets and not required
 # in production environments by default.

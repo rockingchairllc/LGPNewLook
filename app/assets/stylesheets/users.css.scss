@@ -5,3 +5,27 @@
 	width: 75px;
 	margin: 0px 5px 0px 10px;
 }
+
+.user_mutual_table {
+border-radius: 5px;
+-moz-border-radius: 5px;
+padding: 5px;
+}
+
+.user_mutual_table_title_cell {
+color: white; background-color: purple;
+padding: 2px 5px 2px 5px;
+border-radius: 5px 5px 0px 0px;
+-moz-border-radius: 5px 5px 0px 0px;
+}
+
+.user_mutual_table_content_cell {
+padding: 2px 5px 2px 5px;
+background-color: pink;
+border-radius: 0px 0px 5px 5px;
+-moz-border-radius: 0px 0px 5px 5px;
+}
+
+.user_hr {
+margin: 0px
+}
