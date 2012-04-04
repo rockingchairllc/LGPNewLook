@@ -16,6 +16,7 @@ class UsersController < Devise::RegistrationsController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    @questions = Question.all
 
     respond_to do |format|
       format.html # show.html.erb

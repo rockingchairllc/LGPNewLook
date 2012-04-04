@@ -86,10 +86,16 @@
 	<div class="span3">
 	</div>
 	</div>
+	
+	<br>
+	<% @questions.each do |q| %>
+		<h1><%= q.content %></h1>
+		<br>
+	<% end %>
 </section>
 </div>
 <br>playground for fucking around with code<br><br>
-<script>$(".collapse").collapse()</script>
+<script type="text/javascript">$(document).ready(){$(".collapse").collapse()}</script>
 <div class="accordian" id="veeshacc">
 	<div class="accordian-group">
 		<div class="accordian-heading">
