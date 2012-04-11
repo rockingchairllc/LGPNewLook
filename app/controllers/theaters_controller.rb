@@ -3,7 +3,8 @@ class TheatersController < ApplicationController
   # GET /theaters.json
   def index
     @theaters = Theater.all
-
+    # just for test purposes
+    @theaters2 = Theater.near(78715, 2).count
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @theaters }

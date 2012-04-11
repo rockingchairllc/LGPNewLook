@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :answers
+  has_many :answers, :autosave => true
+  has_many :questions, :through => :answers
   has_many :user_images
   has_one :profile_pic, :class_name => "UserImage", :conditions => {:is_profile_pic => true}
   has_many :watch_lists

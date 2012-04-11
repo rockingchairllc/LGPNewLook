@@ -1,4 +1,7 @@
 class Question < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :question
+  has_many :answers
+  has_many :users, :through => :answers
+
+  scope :active, where(:active => true)
+
 end

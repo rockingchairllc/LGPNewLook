@@ -1,7 +1,7 @@
 <%= form_tag('/movies', :method => :get) do %> 
         <h1>Movies within</h1>
 		<%= select_tag('movlistradius', options_for_select([1,5,10,15,20,25], @radius)) %>  
-          miles of <%= text_field_tag 'movlistzip', @z1.zip, :onFocus => "this.value='';", :onBlur => "if (this.value == '') this.value = '#{@z1.zip}';" %>
+          miles of <%= text_field_tag 'movlistzip', @zip, :onFocus => "this.value='';", :onBlur => "if (this.value == '') this.value = '#{@zip}';" %>
 		<%= submit_tag 'Filter' %>
 <% end %>
 
@@ -19,13 +19,21 @@
 	<br>
 	Genre: <%= movie.genre %>
 	<br>
-	Playing at <i><%= movie.theaters.first.name %></i>
+	<% @theaters = movie.theaters %>
+	Playing at <i><%= @theaters.first.name %></i>
 
- 	<% theatercount = 
+	<%# theatercount = movie.theatercount(@zip, @radius) %>
+	<%# movie.theaters.near(78715, 5).each do |bubble| %>
+	<%# bubble.name %> <%# movie.theaters.near(78715, 5).count %>
+	<%# end %>
+	<%#= @mommies.size %> <%#= @mommies.length %>
+	
+	<% theatercount = @theaters.length %>
+ 	<%# theatercount = 
 		movie.theaters.find(:all,
                          	:conditions => ["miles_between_lat_long(?, ?,
                           					theaters.latitude, theaters.longitude) < ?",
-                                        	@z1.lat, @z1.lng, @radius]).count
+                                        	@zip, @radius]).count
 	 										# here, if there are more theaters, we display "at xx more theater(s)"
 	%>
 	<% if theatercount > 1 %>
