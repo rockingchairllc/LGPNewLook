@@ -1,70 +1,20 @@
 class MoviesController < ApplicationController
 
   def index
-    # old index page -- commented out to try new view
-    # @movies = Movie.all
-
-    # new code for movies list that will limit to zip radius
-    # TODO: remove didn't want to mess with having to be logged in ( login process is not working )
-    #@user = User.find(current_user.id)
-    @user=User.first
-
+    @user=User.find(current_user.id)
     @watch_list=@user.watch_lists
 
-    @param_miles=params[:miles]
-    @param_miles=20 unless @param_miles
-
+    @param_miles=params[:miles] || 20
     @param_zip=params[:zip] || @user.zipcode
 
     # TODO: handle error for non-integer param
     @zip=ZipLoc.find_by_zip(@param_zip.to_i)
 
     unless @zip
-      # TODO: handle case with no zip code found...
       @zip=ZipLoc.first
     end
 
-    logger.debug('Zipcode: ' + @zip.inspect)
-
-    # TODO: sanitize SQL - susceptible to sql injection
-    s_function='miles_between_lat_long(' + @zip.lat.to_s + ',' + @zip.lng.to_s + ',theaters.latitude,theaters.longitude)'
-    logger.debug('s_function: ' + s_function)
-
-    # this is just to check distance functions returning from db.
-    debug=false
-    if (debug)
-      @closest_theaters = Theater.all(:select=>'id, ' + s_function + ' as dist', :conditions => s_function+ '<' + @param_miles)
-
-      logger.debug('Theater count:' + @closest_theaters.count.to_s)
-
-      logger.debug(@closest_theaters.inspect)
-      logger.debug('distance:' + @closest_theaters.first.dist)
-
-      @closest_theaters.sort_by! { |theater| theater.dist }
-      logger.debug('sorted: ' + @closest_theaters.inspect)
-      logger.debug('distance:' + @closest_theaters.first.dist)
-
-      theater_array=nil
-      @closest_theaters.each do |t|
-        if theater_array
-          theater_array=theater_array+','+t.id.to_s
-        else
-          theater_array=t.id.to_s
-        end
-      end
-      logger.debug('closest theater_array:' + theater_array)
-    end
-
-
-    # trying final combined query
-    @movies=Movie.all(:include=>[:theaters], :joins=>[:theaters], :conditions=> s_function + '<' + @param_miles, :order=>s_function)
-
-    # debug checking...
-    if (debug)
-      @movies.each do |m|
-        logger.debug('playing in ' + m.theaters.length.to_s + ' theaters. order by closest: ' + theater_ids)
-      end
-    end
+    @movies=@zip.movies_and_theaters_near_zip(@param_miles)
 
     respond_to do |format|
       format.html # index.html.erb
