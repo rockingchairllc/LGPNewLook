@@ -10,12 +10,12 @@ task :update_movies => :environment do
     URL = 'on.tmstv.com'
     username='onsample'
     password='125db782'
-    filename = "on_usa_samp_mov_programs_20120330.xml.gz"
-    localfile = "#{Rails.root}/tmp/#{filename}"
-    ftp=Net::FTP.new
-    ftp.connect(URL,21)
-    ftp.login(username,password)
-    ftp.getbinaryfile(filename,localfile)
+    filename = "on_usa_samp_mov_programs_20120323.xml.gz"
+    localfile = "#{Rails.root}/data/#{filename}"
+    #ftp=Net::FTP.new
+    #ftp.connect(URL,21)
+    #ftp.login(username,password)
+    #ftp.getbinaryfile(filename,localfile)
     gz=Zlib::GzipReader.open(localfile)
     xml=gz.read
     #puts xml
@@ -53,19 +53,19 @@ task :update_movies => :environment do
           if(movie_hash['movieInfo'][0]['trailers'])
             new_movie.trailer_url=movie_hash['movieInfo'][0]['trailers'][0]['trailer'][0]['URL'][0]
           end
-          if movie_hash['images'] && movie_hash['images'][0] && movie_hash['images'][0]['image']
-            movie_hash['images'][0]['image'].each do |image|
-              if image['category']=="Poster Art" && image['primary']=="true" && !image['URI'][0].include?("_t.jpg")
-                imagefilename = "/photos/movies/"+image['URI'][0]
-                localimagefile = "#{Rails.root}/tmp/#{imagefilename.split('/').last}"
-                ftp.getbinaryfile(imagefilename,localimagefile)
-                #using file handler to open the tmp file
-                f = File.open(localimagefile)
-                new_movie.poster = f
-                f.close
-              end
-            end
-          end
+          #if movie_hash['images'] && movie_hash['images'][0] && movie_hash['images'][0]['image']
+          #  movie_hash['images'][0]['image'].each do |image|
+          #    if image['category']=="Poster Art" && image['primary']=="true" && !image['URI'][0].include?("_t.jpg")
+          #      imagefilename = "/photos/movies/"+image['URI'][0]
+          #      localimagefile = "#{Rails.root}/tmp/#{imagefilename.split('/').last}"
+          #      ftp.getbinaryfile(imagefilename,localimagefile)
+          #      #using file handler to open the tmp file
+          #      f = File.open(localimagefile)
+          #      new_movie.poster = f
+          #      f.close
+          #    end
+          #  end
+          #end
                 
           puts new_movie.to_yaml
           new_movie.save
@@ -75,7 +75,7 @@ task :update_movies => :environment do
       #programs = p.to_s
       #programs << p.attributes.inject({}) { |h, a| h[a.name] = a.value; h }
     end
-    ftp.close
+    #ftp.close
     puts programs.to_s
     #puts hash
     puts "done."
@@ -86,13 +86,13 @@ task :update_theaters => :environment do
     URL = 'on.tmstv.com'
     username='onsample'
     password='125db782'
-    filename = "on_usa_samp_mov_sources_20120330.xml.gz"
-    localfile = "#{Rails.root}/tmp/#{filename}"
-    ftp=Net::FTP.new
-    ftp.connect(URL,21)
-    ftp.login(username,password)
-    ftp.getbinaryfile(filename,localfile)
-    ftp.close
+    filename = "on_usa_samp_mov_sources_20120323.xml.gz"
+    localfile = "#{Rails.root}/data/#{filename}"
+    #ftp=Net::FTP.new
+    #ftp.connect(URL,21)
+    #ftp.login(username,password)
+    #ftp.getbinaryfile(filename,localfile)
+    #ftp.close
     gz=Zlib::GzipReader.open(localfile)
     xml=gz.read
     #puts xml
@@ -132,13 +132,13 @@ task :update_schedules => :environment do
     URL = 'on.tmstv.com'
     username='onsample'
     password='125db782'
-    filename = "on_usa_samp_mov_schedules_20120330.xml.gz"
-    localfile = "#{Rails.root}/tmp/#{filename}"
-    ftp=Net::FTP.new
-    ftp.connect(URL,21)
-    ftp.login(username,password)
-    ftp.getbinaryfile(filename,localfile)
-    ftp.close
+    filename = "on_usa_samp_mov_schedules_20120323.xml.gz"
+    localfile = "#{Rails.root}/data/#{filename}"
+    #ftp=Net::FTP.new
+    #ftp.connect(URL,21)
+    #ftp.login(username,password)
+    #ftp.getbinaryfile(filename,localfile)
+    #ftp.close
     gz=Zlib::GzipReader.open(localfile)
     xml=gz.read
     #puts xml

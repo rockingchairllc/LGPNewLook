@@ -21,14 +21,20 @@ miles of <%= text_field_tag 'field_zip', @param_zip, :onFocus => "this.value='';
 
     <% if movie.theaters.length > 1 %>
       and
-      <%= link_to (pluralize(movie.theaters.length-1, "more theater", "more theaters")), 'javascript:void(0);', :onclick=>'javascript:toggle_other_theaters(' + movie.id.to_s + ')' %>
-      <ul id="more_theaters_<%= movie.id.to_s %>" style="display:none;background-color:yellow;">
-        <% movie.theaters.each do |t| %>
-          <% unless t==movie.theaters.first %>
-            <li><%= t.name %></li>
+      <%= link_to (pluralize(movie.theaters.length-1, "more theater", "more theaters")), '#more_theaters_'+ movie.id.to_s, 'data-toggle'=>'modal' %>
+      <div class="modal" id="more_theaters_<%= movie.id.to_s %>" style="display:none;background-color:yellow;">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">×</a>
+          <h3>Also playing at</h3>
+        </div>
+        <ul class="modal-body" >
+          <% movie.theaters.each do |t| %>
+            <% unless t==movie.theaters.first %>
+              <li><%= t.name %></li>
+            <% end %>
           <% end %>
-        <% end %>
-      </ul>
+        </ul>
+      </div>
     <%end%>
     <span id="watchlist_watching_<%= movie.id.to_s %>" style="display:none;">Added to watchlist.</span>
     <%= link_to 'Add to Watchlist', 'javascript:void(0);', :onclick=>'javascript:watch_list_add(1,' + movie.id.to_s + ')', :id=>'watchlist_add_link_' + movie.id.to_s %>
@@ -48,15 +54,6 @@ miles of <%= text_field_tag 'field_zip', @param_zip, :onFocus => "this.value='';
     miles=$('#select_miles').val();
     zip=$('#field_zip').val();
     window.location='/movies?miles=' + miles + '&zip=' + zip
-  }
-
-  function toggle_other_theaters(movie_id){
-    t=$('#more_theaters_' + movie_id);
-    if (t.css('display')=='none'){
-      t.css('display','block');
-    } else {
-      t.css('display','none');
-    }
   }
 
   var my_watchlist=<%= raw(@watch_list.to_json) %>;
