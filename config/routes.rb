@@ -81,8 +81,12 @@ Lgp::Application.routes.draw do
   match "/dashboard" => "dashboard#dashboard", :as=>"dashboard"
   match "/profile" => "profile#profile", :as=>"profile"
   match "/message" => "message#message", :as=>"message"
-  match "/watchlist" => "watchlist#watchlist", :as=>"watchlist"
-  
+
+  # TODO:  why did you use specific function here and not index ??
+  #  mcp - I changed to using REST paths.  ( you can remove these comments )
+  #match "/watchlist" => "watchlist#watchlist", :as=>"watchlist"
+  resources :watchlist, :only=>[ :index, :create, :destroy ]
+
   match "/welcome/verify_code" => "welcome#verify_code"
   match "/signup" => "welcome#signup"
 

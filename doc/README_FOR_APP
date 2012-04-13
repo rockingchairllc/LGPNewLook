@@ -1,2 +1,13 @@
 Use this README file to introduce your application and point to useful places in the API for learning more.
 Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+
+
+
+postgres shortcuts:
+\l Show databases
+\c connect to database
+\dt Show Tables
+\dT list datatypes
+\df list functions
+\di list indexes
+\dv list views

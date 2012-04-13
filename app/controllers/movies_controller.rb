@@ -1,39 +1,71 @@
 class MoviesController < ApplicationController
 
-  # GET /movies
-  # GET /movies.json
-    
   def index
-    
-    #just a little test here
-    
     # old index page -- commented out to try new view
     # @movies = Movie.all
 
     # new code for movies list that will limit to zip radius
-    @user = User.find(current_user.id)
-    @radius = params[:movlistradius]
-    @zip = params[:movlistzip] || @user.zipcode
-    if @radius==nil
-      @radius = 20
+    # TODO: remove didn't want to mess with having to be logged in ( login process is not working )
+    #@user = User.find(current_user.id)
+    @user=User.first
+
+    @watch_list=@user.watch_lists
+
+    @param_miles=params[:miles]
+    @param_miles=20 unless @param_miles
+
+    @param_zip=params[:zip] || @user.zipcode
+
+    # TODO: handle error for non-integer param
+    @zip=ZipLoc.find_by_zip(@param_zip.to_i)
+
+    unless @zip
+      # TODO: handle case with no zip code found...
+      @zip=ZipLoc.first
     end
 
-    # uses approach of first finding theaters, then listing movies, but isn't finished
-    # @theaters = Theater.find(:all,
-    #                          :conditions => ["miles_between_lat_long(?, ?,
-    #                            latitude, longitude) < ?",
-    #                            @z1.lat, @z1.lng, @radius])
+    logger.debug('Zipcode: ' + @zip.inspect)
 
-    # uses left outer join approach to return list of movies
-    # @movies = Movie.includes([:theaters]).find(:all,
-    #                                             :conditions => ["miles_between_lat_long(?, ?,
-    #                                             theaters.latitude, theaters.longitude) < ?",
-    #                                            @z1.lat, @z1.lng, @radius])
+    # TODO: sanitize SQL - susceptible to sql injection
+    s_function='miles_between_lat_long(' + @zip.lat.to_s + ',' + @zip.lng.to_s + ',theaters.latitude,theaters.longitude)'
+    logger.debug('s_function: ' + s_function)
 
-    #uses the new logic buried as a class method in models
-    #@movies = Theaters.near(@zip, @radius).movies
-    @movies = Theater.first.movies
-    
+    # this is just to check distance functions returning from db.
+    debug=false
+    if (debug)
+      @closest_theaters = Theater.all(:select=>'id, ' + s_function + ' as dist', :conditions => s_function+ '<' + @param_miles)
+
+      logger.debug('Theater count:' + @closest_theaters.count.to_s)
+
+      logger.debug(@closest_theaters.inspect)
+      logger.debug('distance:' + @closest_theaters.first.dist)
+
+      @closest_theaters.sort_by! { |theater| theater.dist }
+      logger.debug('sorted: ' + @closest_theaters.inspect)
+      logger.debug('distance:' + @closest_theaters.first.dist)
+
+      theater_array=nil
+      @closest_theaters.each do |t|
+        if theater_array
+          theater_array=theater_array+','+t.id.to_s
+        else
+          theater_array=t.id.to_s
+        end
+      end
+      logger.debug('closest theater_array:' + theater_array)
+    end
+
+
+    # trying final combined query
+    @movies=Movie.all(:include=>[:theaters], :joins=>[:theaters], :conditions=> s_function + '<' + @param_miles, :order=>s_function)
+
+    # debug checking...
+    if (debug)
+      @movies.each do |m|
+        logger.debug('playing in ' + m.theaters.length.to_s + ' theaters. order by closest: ' + theater_ids)
+      end
+    end
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @movies }

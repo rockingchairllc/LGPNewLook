@@ -1,85 +1,114 @@
-<%= form_tag('/movies', :method => :get) do %> 
-        <h1>Movies within</h1>
-		<%= select_tag('movlistradius', options_for_select([1,5,10,15,20,25], @radius)) %>  
-          miles of <%= text_field_tag 'movlistzip', @zip, :onFocus => "this.value='';", :onBlur => "if (this.value == '') this.value = '#{@zip}';" %>
-		<%= submit_tag 'Filter' %>
+<h1>Movies within</h1>
+<%= select_tag('select_miles', options_for_select(['1','5','10','15','20','25'], @param_miles )) %>
+miles of <%= text_field_tag 'field_zip', @param_zip, :onFocus => "this.value='';", :onBlur => "if (this.value == '') this.value = '#{@param_zip}';" %>
+<%= link_to 'Filter', 'javascript:void(0);', :onclick=>'javascript:filter();' %>
+
+<% if @movies.length == 0 %>
+  <h2>No movies found -- handle this case.</h2>
 <% end %>
-
-<br>
-
-<%-# new printout for each movie -%>
 
 <div class="mov_container">
-<% @movies.each do |movie| %>
-	<br>
-	<%= image_tag movie.poster, :class=>'mov_search_pic' %>
-	<b><%= movie.title %></b>&nbsp; (Rated <%= movie.rating %>)
-	<br>
-	Released: <%= movie.release_dt.strftime("%b %e") if movie.release_dt %>
-	<br>
-	Genre: <%= movie.genre %>
-	<br>
-	<% @theaters = movie.theaters %>
-	Playing at <i><%= @theaters.first.name %></i>
+  <% @movies.each do |movie| %>
+    <br>
+    <%= image_tag movie.poster, :class=>'mov_search_pic' %>
+    <b><%= movie.title %></b>&nbsp; (Rated <%= movie.rating %>)
+    <br>
+    Released: <%= movie.release_dt.strftime("%b %e") if movie.release_dt %>
+    <br>
+    Genre: <%= movie.genre %>
+    <br>
+    Playing at <i><%= movie.theaters.first.name %></i>
 
-	<%# theatercount = movie.theatercount(@zip, @radius) %>
-	<%# movie.theaters.near(78715, 5).each do |bubble| %>
-	<%# bubble.name %> <%# movie.theaters.near(78715, 5).count %>
-	<%# end %>
-	<%#= @mommies.size %> <%#= @mommies.length %>
-	
-	<% theatercount = @theaters.length %>
- 	<%# theatercount = 
-		movie.theaters.find(:all,
-                         	:conditions => ["miles_between_lat_long(?, ?,
-                          					theaters.latitude, theaters.longitude) < ?",
-                                        	@zip, @radius]).count
-	 										# here, if there are more theaters, we display "at xx more theater(s)"
-	%>
-	<% if theatercount > 1 %>
-		and
-	 	<%= pluralize(theatercount-1, "more theater", "more theaters") %>
-	<%end%>
-	<br>
+    <% if movie.theaters.length > 1 %>
+      and
+      <%= link_to (pluralize(movie.theaters.length-1, "more theater", "more theaters")), 'javascript:void(0);', :onclick=>'javascript:toggle_other_theaters(' + movie.id.to_s + ')' %>
+      <ul id="more_theaters_<%= movie.id.to_s %>" style="display:none;background-color:yellow;">
+        <% movie.theaters.each do |t| %>
+          <% unless t==movie.theaters.first %>
+            <li><%= t.name %></li>
+          <% end %>
+        <% end %>
+      </ul>
+    <%end%>
+    <span id="watchlist_watching_<%= movie.id.to_s %>" style="display:none;">Added to watchlist.</span>
+    <%= link_to 'Add to Watchlist', 'javascript:void(0);', :onclick=>'javascript:watch_list_add(1,' + movie.id.to_s + ')', :id=>'watchlist_add_link_' + movie.id.to_s %>
+    <%= link_to 'Remove', 'javascript:void(0);', :onclick=>'javascript:watch_list_remove(1,' + movie.id.to_s + ')', :id=>'watchlist_remove_link_' + movie.id.to_s, :style=>'display:none' %>
+    <br>
+    <script language="javascript">
+      $(document).ready(function () {
+        set_watchlist_status(<%= movie.id.to_s %>);
+      });
+    </script>
+  <%end%>
 </div>
 
-<%end%>
+<script language="javascript">
 
-<%-# the original code is commented out with an "if false" line -%>
-<% if false %>
+  function filter(){
+    miles=$('#select_miles').val();
+    zip=$('#field_zip').val();
+    window.location='/movies?miles=' + miles + '&zip=' + zip
+  }
 
-<table>
-  <tr>
-    <th>Tmsid</th>
-	<th>Title/th>
-    <th>Description</th>
-    <th>Genre</th>
-    <th>Rating</th>
-    <th>Release dt</th>
-    <th>Trailer url</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+  function toggle_other_theaters(movie_id){
+    t=$('#more_theaters_' + movie_id);
+    if (t.css('display')=='none'){
+      t.css('display','block');
+    } else {
+      t.css('display','none');
+    }
+  }
 
-<% @movies.each do |movie| %>
-  <tr>
-    <td><%= movie.TMSId %></td>
-	<td><%= movie.title %></td>
-    <td><%= movie.desc_long %></td>
-    <td><%= movie.genre %></td>
-    <td><%= movie.rating %></td>
-    <td><%= movie.release_dt %></td>
-    <td><%= movie.trailer_url %></td>
-	<td><%= link_to 'Show', movie %></td>
-    <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
-    <td><%= link_to 'Destroy', movie, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
+  var my_watchlist=<%= raw(@watch_list.to_json) %>;
 
-<br />
+  function set_watchlist_status(movie_id){
+    for(var i=0; i<my_watchlist.length; i++){
+      //console.log(my_watchlist[i]);
+      wl=my_watchlist[i];
+      if (movie_id==wl.movie_id){
+        //console.log('watching movie: ' + movie_id);
+        set_watching_movie(movie_id);
+        return;
+      }
+    };
+  };
 
-<%= link_to 'New Movie', new_movie_path %>
+  function set_watching_movie(movie_id){
+    $('#watchlist_watching_' + movie_id).css('display','inline');
+    $('#watchlist_remove_link_' + movie_id).css('display','inline');
+    $('#watchlist_add_link_' + movie_id).css('display','none');
+  };
 
-<% end %>
+  function set_not_watching_movie(movie_id){
+    $('#watchlist_watching_' + movie_id).css('display','none');
+    $('#watchlist_remove_link_' + movie_id).css('display','none');
+    $('#watchlist_add_link_' + movie_id).css('display','inline');
+  };
+
+  function watch_list_add(user_id, movie_id){
+    $.post('/watchlist', {'user_id' : user_id, 'movie_id' : movie_id },
+      function(data){
+        console.log(data);
+        if (data.success){
+          // do something to show it was added.
+          set_watching_movie(movie_id);
+        } else{
+          // handle the error however you want.... display error returned from app or generic message.
+        };
+    }, 'json' );
+  };
+
+  function watch_list_remove(user_id, movie_id){
+    $.post('/watchlist/0', {'_method' : 'delete', 'user_id' : user_id, 'movie_id' : movie_id },
+      function(data){
+        console.log(data);
+        if (data.success){
+          // do something to show it was added.
+          set_not_watching_movie(movie_id);
+        } else{
+          // handle the error however you want.... display error returned from app or generic message.
+        };
+      }, 'json' );
+  };
+
+</script>
