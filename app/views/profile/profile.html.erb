@@ -36,17 +36,15 @@
 <section>
 	<h3>Watchlist:</h3>
 	<ul>
-		<% 2.times do |num| %>
-			<li>
-				<%= link_to "Let's Get Popcorn", :class=>"lgp_cta" %>
+		<% @watch_list.each do |w| %>
+			<li style="margin-bottom:10px;">
+				<% # what is this link for ?? link_to "Let's Get Popcorn", :class=>"lgp_cta" %>
 			
-				<%= link_to "Horrible Bosses PG-13" %><br />
-				Genre: Comedy <br />
-				Have you ever wanted to kill your boss?<br />
-				Preferred show times:
-				<%= link_to "9:15pm Today @ AMC Theater 34th St" %>
-				and 
-				<%= link_to "8 more" %>
+				<%= link_to w.movie.title %><br />
+				Genre: <%= w.movie.genre %> <br />
+				<%= w.movie.desc_long %><br />
+				Preferred theater:  ??? no theaters selected -- how do you pick theaters?
+				<% link_to "9:15pm Today @ AMC Theater 34th St" %>
 			</li>
 		<% end %>
 	</ul>
