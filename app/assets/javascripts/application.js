@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require js/bootstrap-collapse.js
+//= require bootstrap
 //= require_tree .
 
 
