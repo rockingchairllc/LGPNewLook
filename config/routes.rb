@@ -6,7 +6,7 @@ Lgp::Application.routes.draw do
 
   resources :theaters
 
-  resources :movies
+  resources :movies, :only => [:index, :show]
 
   resources :questions
 
@@ -23,6 +23,11 @@ Lgp::Application.routes.draw do
       resources :users_pic_test, :only =>[ :new, :create ]
     end
 
+  end
+
+  resources :admin, :only=>[:index]
+  namespace :admin do
+    resources :movies
   end
 
   # resources :users

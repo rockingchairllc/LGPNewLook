@@ -1,0 +1,30 @@
+
+<h1>Listing Movies</h1>
+<%=  link_to 'New Movie', new_admin_movie_path %>
+<table>
+  <tr>
+    <th>TMS ID</th>
+    <th>Title</th>
+    <th>Genre</th>
+    <th>Rating</th>
+    <th>Release Date</th>
+    <th>Trailer</th>
+    <th>Poster</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @movies.each do |m| %>
+  <tr>
+    <td><%= m.TMSId %></td>
+    <td><%= link_to m.title, admin_movie_path(m) %></td>
+    <td><%= m.genre %></td>
+    <td><%= m.rating %></td>
+    <td><%= m.release_dt %></td>
+    <td><%= link_to 'trailer', m.trailer_url if !m.trailer_url.blank?%></td>
+    <td><%= m.poster %></td>
+    <td><%= link_to 'Edit', edit_admin_movie_path(m) %></td>
+    <td><%= link_to 'Delete', admin_movie_path(m), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
