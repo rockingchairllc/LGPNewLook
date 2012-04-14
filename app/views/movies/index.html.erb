@@ -1,10 +1,12 @@
 <h1>Movies within</h1>
 <%= select_tag('select_miles', options_for_select(['1','5','10','15','20','25'], @param_miles )) %>
 miles of <%= text_field_tag 'field_zip', @param_zip, :onFocus => "this.value='';", :onBlur => "if (this.value == '') this.value = '#{@param_zip}';" %>
-<%= link_to 'Filter', 'javascript:void(0);', :onclick=>'javascript:filter();' %>
+<%= link_to 'Go', 'javascript:void(0);', :onclick=>'javascript:filter();' %>
+
+
 
 <% if @movies.length == 0 %>
-  <h2>No movies found -- handle this case.</h2>
+  <h2>No movies found, try a broader search</h2>
 <% end %>
 
 <div class="mov_container">

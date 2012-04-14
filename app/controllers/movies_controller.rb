@@ -8,13 +8,10 @@ class MoviesController < ApplicationController
     @param_zip=params[:zip] || @user.zipcode
 
     # TODO: handle error for non-integer param
-    @zip=ZipLoc.find_by_zip(@param_zip.to_i)
 
-    unless @zip
-      @zip=ZipLoc.first
-    end
-
-    @movies=@zip.movies_and_theaters_near_zip(@param_miles)
+    # @movies=@zip.movies_and_theaters_near_zip(@param_miles)
+    # commented out the version using ZipLoc (above) and opted for Movie Class method instead
+    @movies = Movie.near(@param_zip, @param_miles)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -30,3 +27,5 @@ class MoviesController < ApplicationController
       format.json { render json: @movie }
     end
   end
+
+end

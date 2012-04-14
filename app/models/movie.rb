@@ -5,8 +5,11 @@ class Movie < ActiveRecord::Base
   has_attached_file :poster, :storage => :s3, :s3_credentials => "#{Rails.root}/config/s3.yml", :path => "movieposters/:id/:filename"
 
 
-  def nearbytheaters(zip, radius)
-    Theaters.near(zip, radius)
+  def self.near(zip, radius)
+    ziploc = ZipLoc.find_by_zip(zip)
+    includes([:theaters]).where(["miles_between_lat_long(?, ?,
+                                                      theaters.latitude, theaters.longitude) < ?",
+                                                     ziploc.lat.to_s, ziploc.lng.to_s, radius.to_s])
   end
   
 end
