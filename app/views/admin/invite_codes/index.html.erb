@@ -1,0 +1,22 @@
+
+<h1>Listing Invite Codes</h1>
+<%=  link_to 'New Invite Code', new_admin_invite_code_path %>
+<table border=1>
+  <tr>
+    <th>Code</th>
+    <th>Audience</th>
+    <th>Comment</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @invite_codes.each do |c| %>
+  <tr>
+    <td><%= link_to c.code, admin_invite_code_path(c) %></td>
+    <td><%= c.audience %></td>
+    <td><%= c.comment %></td>
+    <td><%= link_to 'Edit', edit_admin_invite_code_path(c) %></td>
+    <td><%= link_to 'Delete', admin_invite_code_path(c), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>

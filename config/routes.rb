@@ -28,6 +28,7 @@ Lgp::Application.routes.draw do
   resources :admin, :only=>[:index]
   namespace :admin do
     resources :movies
+    resources :invite_codes
   end
 
   # resources :users
