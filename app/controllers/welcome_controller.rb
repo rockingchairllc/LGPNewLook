@@ -1,13 +1,14 @@
 class WelcomeController < ApplicationController
-  layout false, {:only=>[:index,:signup]}
+  layout false, {:only=>[:index, :verify_code]}
+
   def index
     @signed_in=user_signed_in?
   end
   
   def verify_code
     @code=params[:code_value]
-    if(@code=='popcorn')
-      redirect_to new_user_session_path
+    if(InviteCode.find_by_code(@code))
+      redirect_to new_user_registration_path
     elsif
       @results="You're not in"
     end

@@ -7,10 +7,11 @@
 </head>
 <body>
 	
-	<%if user_signed_in?%>
-			<a href="/users/sign_out" class="login_link">Logout</a>
+	<%if user_signed_in? %>
+    <% # mcp - shouldn't this state be impossible?  user should never be on invite screen if already logged in, redirect to profile or something %>
+    <a href="/users/sign_out" class="login_link">Logout</a>
 	<%else%>
-		<a href="/users/sign_in" class="login_link">Login</a>
+    <a href="/users/sign_in" class="login_link">Login</a>
 	<%end%>
 
 	<section>
