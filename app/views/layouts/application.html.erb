@@ -22,6 +22,9 @@
 		<div class="current_user">
 			<%= image_tag 'user.jpeg', :class=>'user_thumb' %>
 			<%= link_to "Username", profile_path, :class => "user_name" %>
+      <% if current_user.is_admin %>
+        <%= link_to "Admin", admin_index_path %>
+      <% end %>
 		</div><!-- .current_user -->
 		
 		<!-- clear the float -->
