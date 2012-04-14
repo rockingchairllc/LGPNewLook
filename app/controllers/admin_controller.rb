@@ -3,10 +3,8 @@ class AdminController < ActionController::Base
   before_filter :authorize_admin
 
   def authorize_admin
-    if current_user && current_user.is_admin
-      true
-    else
-      false
+    unless current_user && current_user.is_admin
+      redirect_to root_url
     end
   end
 end
