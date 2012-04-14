@@ -7,6 +7,11 @@ class Movie < ActiveRecord::Base
 
   def self.near(zip, radius)
     ziploc = ZipLoc.find_by_zip(zip)
+
+    # TODO: you need error handling if there is no zip code found...
+    #  this is temporary...
+    ziploc=ZipLoc.first unless ziploc
+
     includes([:theaters]).where(["miles_between_lat_long(?, ?,
                                                       theaters.latitude, theaters.longitude) < ?",
                                                      ziploc.lat.to_s, ziploc.lng.to_s, radius.to_s])
