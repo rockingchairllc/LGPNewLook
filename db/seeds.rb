@@ -1,10 +1,11 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
-#   Mayor.create(:name => 'Emanuel', :city => cities.first)
+
+u1=User.find_by_email('matt@pestritto.com')
+(u1.is_admin=true; u1.save ) if u1
+
+u2=User.find_by_email('another_admin_email.com')
+(u2.is_admin=true; u2.save ) if u2
 
 #default zips for austin for zipcode to latlong conversion
 ZipLoc.create(:zip => 73301, :lat => 30.22284, :lng => -97.74736)
