@@ -1,4 +1,5 @@
 class AdminController < ActionController::Base
+  layout 'application'
   before_filter :authorize_admin
 
   def authorize_admin
