@@ -45,6 +45,25 @@ Lgp::Application.configure do
       :authentication       => 'login',
       :enable_starttls_auto => true
     }
+
+#  #----- qen: for my local run
+#  # action mailer config
+#  config.action_mailer.default_url_options    = { :host => 'ror.vmcentos.net' }
+#  config.action_mailer.delivery_method        = :sendmail
+#  config.action_mailer.perform_deliveries     = true
+#  config.action_mailer.raise_delivery_errors  = true
+#
+#  ActionMailer::Base.default :from => 'root@vmcentos.net',
+#    :mime_version => "1.0",
+#    :charset      => "UTF-8",
+#    :content_type => "multipart/alternative",
+#    :parts_order  => [ "text/html", "text/plain", "text/enriched" ]
+#
+#  # default routes host
+#  # http://stackoverflow.com/questions/341143/can-rails-routing-helpers-i-e-mymodel-pathmodel-be-used-in-models
+#  routes.default_url_options[:host]           = 'ror.vmcentos.net'
+#  #---- qen: end here
+  
     
   # Do not compress assets
   config.assets.compress = false
@@ -52,3 +71,38 @@ Lgp::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 end
+
+#----- qen: for my local run
+#
+# monky patch fix for BSON::InvalidStringEncoding String not valid UTF-8
+# the problem is the passenger is listening to unix socket
+# so the request.ip doesn't return the actual ip address but a unix socket path
+# causes some invalid utf 8 stuff
+
+# fix add proxy config in nginx
+#   proxy_set_header X-Real-IP $remote_addr;
+# and use request.env['HTTP_X_REAL_IP']
+module Devise
+  module Models
+     module Trackable
+      def update_tracked_fields!(request)
+        old_current, new_current = self.current_sign_in_at, Time.now.utc
+        self.last_sign_in_at     = old_current || new_current
+        self.current_sign_in_at  = new_current
+
+        old_current, new_current = self.current_sign_in_ip, request.env['HTTP_X_REAL_IP']
+        self.last_sign_in_ip     = old_current || new_current
+        self.current_sign_in_ip  = new_current
+
+        self.sign_in_count ||= 0
+        self.sign_in_count += 1
+
+        save(:validate => false) or raise "Devise trackable could not save #{inspect}." \
+          "Please make sure a model using trackable can be saved at sign in."
+      end
+    end
+  end
+end
+
+
+#---- qen: end here

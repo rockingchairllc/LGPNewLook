@@ -5,7 +5,7 @@ gem 'rails', '3.2.2'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+#gem 'sqlite3'
 
 gem 'json'
 
@@ -48,3 +48,13 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'ruby-debug'
+
+# recommendations to use haml over erb
+gem 'haml-rails'
+
+#---- qen: for my local run
+gem 'passenger'
+
+# http://stackoverflow.com/questions/6282307/rails-3-1-execjs-and-could-not-find-a-javascript-runtime
+gem 'execjs'
+gem 'therubyracer'

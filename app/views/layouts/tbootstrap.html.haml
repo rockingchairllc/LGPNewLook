@@ -1,0 +1,12 @@
+!!! 5
+-# http://paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither
+%html(lang="en")
+  = render "head"
+
+  %body{ :class => "#{params[:controller].parameterize} action-#{params[:action].parameterize}" }
+    = render 'chromeframe'
+    = yield
+    = render "footer"
+
+    -# Javascript at the bottom for fast page loading
+    = render "javascripts"

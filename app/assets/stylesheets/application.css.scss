@@ -1,11 +1,88 @@
 /*
  *= require_self
- *= require reset
+ *= require h5bp
  *= require movies
  *= require users
 */
 
+//--------------------------------------
+// twitter bootstrap varialbes
+//--------------------------------------
+
+$gridColumnWidth: 75px;
+$navbarBackground: rgb(128, 0, 128);
+$navbarBackgroundHighlight: rgb(128, 0, 128);
+$navbarText: #fff;
+$navbarLinkColor: #fff;
+$navbarLinkColorHover: #aaa;
+
+//--------------------------------------
+// twitter bootstrap
+//--------------------------------------
 @import "bootstrap";
+
+
+//--------------------------------------
+// global styles
+//--------------------------------------
+
+#header {
+  .logotype {
+    float: left;
+    width: 295px;
+    height: 50px;
+    background: url(image-path("logo.png")) left center no-repeat;
+    background-size: auto 100%;
+    padding: 0px;
+    margin: 10px 0;
+  }
+  a {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  .user_thumb {
+    height: 45px;
+    width: 45px;
+  }
+  .navbar-inner {
+    @include border-radius(0);
+    @include box-shadow(0 3px 2px rgba(0, 0, 0, 0.3));
+  }
+  
+  
+}
+
+.alert-info {
+  border-color: #aaa;
+  color: #333333;
+  @include gradientBar(#ccc, #aaa);
+}
+
+.btn-primary {
+  background-color: rgb(128, 0, 128);
+  @include gradientBar(rgba(128, 0, 128, .5), rgb(128, 0, 128));
+  &:hover {
+    background-color: rgb(128, 0, 128);
+  }
+  &:active {
+    background-color: rgb(128, 0, 128);
+  }
+}
+
+h3 {
+  color: rgb(128, 0, 128);
+}
+
+.text-center {
+  text-align:center;
+}
+
+select, input[type="file"] {
+  height: 30px;
+  width: auto;
+}
+
+/***
 
 *{
 	-webkit-box-sizing: border-box;
@@ -38,3 +115,5 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efe3f2', endColorstr='#ffffff',GradientType=0 );
 }
 .user_thumb {height: 45px; width: 45px;}
+
+***/
