@@ -80,44 +80,51 @@ $(document).ready(function(){
 							<hr class="user_hr">
 						</td>
 					</tr>
-					<% if @user.watch_list.first %>
-						<% @user.watch_list.each do |w| %>
-					<tr>
-						<td>
-							<%= image_tag w.movie.poster.url class="mov_search_pic" %>
-							<b><%= w.movie.title %></b>
-							<br>
-							<% if w.watchlist_preferred_theaters.first %>
-							Nearby Theaters: 
-							<% w.watchlist_preferred_theaters.each do |t| %>
-							<%= t.name %> (<u>map</u>), The Royal Loews Regal Union Square (<u>map</u>)
-							<br>
-							"I can't wait to rock my pants off to this!"
-						</td>
-					</tr>
-				</table>
-			</div>
+                  <% if @watch_list.first %>
+                      <% @watch_list.each do |w| %>
+                          <tr>
+                            <td>
+                              <%= image_tag w.movie.poster.url :class=>"mov_search_pic" %>
+                              <b><%= w.movie.title %></b>
+                              <br>
+                              <% if w.watchlist_preferred_theaters.first %>
+                                  Nearby Theaters:
+                                  <% w.watchlist_preferred_theaters.each do |t| %>
+                                      <%= t.name %> (<u>map</u>)
+                                      <br>
+                                  <% end %>
+                              <% end %>
+                            </td>
+                          </tr>
+                      <% end %>
+                  <% end %>
+                  <br>
+
+                  <br>
+                  <% @questions.each do |q| %>
+                      <% if @user.id == current_user.id || q.answers.where("user_id = ?", @user.id).first %>
+                          <h1><%= q.content %></h1>
+                          <br>
+                          <% if q.answers.where("user_id = ?", @user.id).first %>
+                              <%= q.answers.where("user_id = ?", @user.id).first %>
+                              <%# provide editable interface for question as well %>
+                          <% else %>
+                              provide an answer here
+                              <%# just provide editable interface to add question %>
+                          <% end %>
+                      <% else %> <%# (if the user is not the profile subject)%>
+
+
+                      <% end %>
+                  <% end %>
+
+
+                              </div>
 			<div class="span3">
 			</div>
 		</div>
 
-		<br>
-		<% @questions.each do |q| %>
-		<% if @user.id == current_user.id || q.answers.where("user_id = ?", @user.id).first %>
-		<h1><%= q.content %></h1>
-		<br>
-		<% if q.answers.where("user_id = ?", @user.id).first %>
-		<%= q.answers.where("user_id = ?", @user.id).first %>
-		<%# provide editable interface for question as well %>
-		<% else %>
-		provide an answer here
-		<%# just provide editable interface to add question %>
-		<% end %>
-		<% else %> <%# (if the user is not the profile subject)%>
 
-
-		<% end %>
-		<% end %>
 	</section>
 </div>
 
