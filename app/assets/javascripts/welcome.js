@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  $('#form_invite_code').bind('ajax:success', function(evt, data, status, xhr) { generic_form_handler(data, invite_success, request_invite_success ); });
+  $('#form_invite_code').bind('ajax:success', function(evt, data, status, xhr) { generic_form_handler(data, invite_success, null ); });
 
   $('#form_invite_request').bind('ajax:success', function(evt, data, status, xhr) { generic_form_handler(data, request_invite_success, 'form_invite_request_errors' ); });
 
