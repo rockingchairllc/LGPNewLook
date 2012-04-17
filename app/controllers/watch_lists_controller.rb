@@ -1,4 +1,4 @@
-class WatchlistController < ApplicationController
+class WatchListsController < ApplicationController
   # TODO:  temp remove --- not logged in
   # before_filter :authenticate_user!
   def index

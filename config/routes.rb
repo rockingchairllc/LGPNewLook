@@ -82,23 +82,13 @@ Lgp::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'welcome#index'
-  resources :invite_codes
+  resources :invite_codes, :only=>[:create]
   match "/dashboard" => "dashboard#dashboard", :as=>"dashboard"
   match "/profile" => "profile#profile", :as=>"profile"
   match "/message" => "message#message", :as=>"message"
 
-  # TODO:  why did you use specific function here and not index ??
-  #  mcp - I changed to using REST paths.  ( you can remove these comments )
-  #match "/watchlist" => "watchlist#watchlist", :as=>"watchlist"
-  resources :watchlist, :only=>[ :index, :create, :destroy ]
+  resources :watch_lists, :only=>[ :index, :create, :destroy ]
 
-  match "/welcome/verify_code" => "welcome#verify_code"
-  match "/signup" => "welcome#signup"
+  root :to => 'welcome#index'
 
-  # See how all your routes lay out with "rake routes"
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
 end
