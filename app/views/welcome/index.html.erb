@@ -43,8 +43,10 @@
   <br/>
   <br/>
   <br/>
-  Temp Stuff -- form toggles
+  Temp Stuff -- form toggles --- move this stuff to app helpers or partials later..
+
   <br/>
+  <%= link_to 'toggle signin form',  '#modal_sign_in', 'data-toggle'=>'modal' %><br/>
   <%= link_to 'toggle signup form',  '#modal_sign_up', 'data-toggle'=>'modal' %><br/>
   <%= link_to 'toggle invite request form',  '#modal_request_invite', 'data-toggle'=>'modal' %><br/>
 
@@ -52,18 +54,38 @@
   <div id="modal_sign_up" class="modal" style="display:none;">
     <div class="modal-header">
       <a class="close" data-dismiss="modal">×</a>
-      SIGN UP
+      Sign In
     </div>
     <div class="modal-body">
-      FORM CONTENTS HERE
+      FB iFrame FORM CONTENTS HERE....
     </div>
     <div class="modal-footer">
       SAVE
     </div>
   </div>
 
-  <div id="modal_sign_in">
-    
+  <div id="modal_sign_in" class="modal" style="display:none">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">×</a>
+      Sign In
+    </div>
+    <div class="modal-body">
+
+      <%= form_for(current_user, :as => 'user', :url => session_path('user', :format=>:json), :remote=>true, :html=>{:id=>'form_sign_in'}) do |f| %>
+
+        <%= f.label :email , "Email Address:" %>
+        <%= f.email_field :email %>
+
+        <%= f.label :password , "Password:" %>
+        <%= f.password_field :password %>
+
+        <ul id="form_sign_in_errors"></ul>
+        
+        <%= link_to 'Sign In', 'javascript:void(0);', :onclick=>'javascript:$("#form_sign_in").submit();' %>
+
+      <% end %>
+
+    </div>
   </div>
 
   <div id="modal_request_invite" class="modal" style="display:none">

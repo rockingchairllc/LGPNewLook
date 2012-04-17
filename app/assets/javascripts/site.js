@@ -17,6 +17,6 @@ function generic_form_handler(data, callback_function, error_element){
     if (data.redirect) { window.location.href = data.redirect; return; };
     if (callback_function){ callback_function() };
   } else {
-    handle_errors(data.errors, error_element);
+      handle_errors(data.errors, error_element);
   };
 };
