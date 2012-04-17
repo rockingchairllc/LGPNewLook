@@ -1,44 +1,75 @@
 = render 'header'
-
+%br
 .container
   .row
     .span10.offset1
-      All movies playing within
-      = select_tag '', options_for_select((1..10))
-      miles of
-      = text_field_tag '', '', :class => 'input-small'
-      %br
-      %br
-      .alert.alert-info.text-center
-        %a.close{'data-dismiss' => 'alert' } &times;
-        %b Hint:
-        Add a movie to your watchlist so that Popcorn Buddies in your area can offer to join!
-      %br
-      %br
-      - (1..5).each do 
-        .row.thumbnails
-          .span2
-            .thumbnail
-              %img{:src => 'http://placehold.it/180x180'}
-          .span8
-            %a.btn.btn-primary.btn-large.pull-right Add to Watchlist
-            %h3 Horrible Bosses
-            %p
-              %b Release Date:
-              12/13/2011
-              %br
-              %b Genre:
-              Comedy
+      .row
+        .span1
+          %ul.thumbnails{:style => 'padding: 0px; margin-top:0px;'}
+            %li.span1
+              .thumbnail.nopadding
+                != image_tag @user.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:thumb) rescue '<img src="http://placehold.it/75x100" >'
+        .span3
+          %h3= @user.firstname
+          %p
+            = "#{@user.gender} / #{age(@user.birthdate)} / #{@user.orientation} / #{@user.zipcode}"
+          %p
+            %i.icon-facetime-video
+            Personal Trailer
+          %p
+            %i.icon-camera
+            = pluralize(@user.user_images.count, "picture")
+        .span3.mutual-friends
+          .header{:style => 'padding: '}
+            6 Mutual Friends
+          %ul.thumbnails{:style => 'padding: 0px;'}
+            - (1..5).each do
+              %li{:style => 'width: 45px; height: 55px;'}
+                .thumbnail.nopadding
+                  %img{:src => 'http://placehold.it/45x55'}
+          .footer
+            12 Common Interests
+        .span2.offset1
+          %span.btn-wrapper.pull-right
+            %a.btn.btn-primary.btn-large{:style => 'width: 150px'} Message
+          %br
+          %span.btn-wrapper.pull-right
+            %a.btn.btn-primary.btn-large{:style => 'width: 150px'} Save
 
-            %ul.thumbnails{:style => 'padding: 0px;'}
-              - (1..5).each do
-                %li.span1
-                  .thumbnail
-                    %img{:src => 'http://placehold.it/75x85'}
-
-            %p
-              %b Summary:
-              rem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis a
+      %br
+      %br
+      .row
+        .span7
+          - if @user.watch_lists.count != 0
+            .watchlists
+              .header
+                = @user.firstname
+                is looking for buddies to see
               %br
-              %a More Details
-            %br
+              - @user.watch_lists.each do |w|
+                .row-fluid
+                  .span2
+                    %ul.thumbnails{:style => 'padding: 0px; margin-top:0px;'}
+                      %li{:style => 'width: 75px; height: 100px;'}
+                        .thumbnail.nopadding
+                          = image_tag w.movie.poster.url, :class=>"mov_search_pic"
+                  .span6.description
+                    %h3= w.movie.title
+                    - if w.watch_list_preferred_theaters.count != 0
+                      %p
+                        %b Theaters:
+                        - w.watch_list_preferred_theaters.each do |t|
+                          = "#{t.theater.name} "
+                  .span4
+                    %span.btn-wrapper
+                      %a.btn.btn-primary.btn-large Let's Get Popcorn
+          %br
+          %br
+          %h2 About Me:
+          %p
+            lorem ipsum
+          %br
+          %h2 Favorite Movie:
+          %p
+            lorem ipsum
+          %br

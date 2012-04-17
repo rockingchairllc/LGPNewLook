@@ -1,3 +1,47 @@
+//--------------------------------------
+// application variables import
+//--------------------------------------
+@import "variables";
+
+.mutual-friends {
+  .header, .footer {
+    background-color: $lgp-primay-color;
+    color: #fff;
+    padding: 4px 10px;
+    text-align:center;
+  }
+
+  .thumbnails {
+    margin-left: -10px;
+    & > li {
+      margin-left: 10px;
+    }
+  }
+
+}
+
+.watchlists {
+  border: 1px solid #333;
+  padding: 10px;
+  .header {
+    background-color: $lgp-primay-color;
+    color: #fff;
+    padding: 4px 10px;
+    margin: -10px;
+  }
+  .row-fluid {
+    .thumbnails > li {
+      width: 75px;
+      height: 100px;
+      .thumbnail {
+        width: inherit;
+        height: inherit;
+      }
+    }
+  }
+  
+}
+
 .buddy_search_profile_pic {
 	clear: both;
 	float: left;
