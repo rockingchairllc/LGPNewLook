@@ -16,6 +16,7 @@ class UsersController < Devise::RegistrationsController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    @user_photo=@user.profile_pic
     @watch_list = @user.watch_lists
     @questions = Question.active
 

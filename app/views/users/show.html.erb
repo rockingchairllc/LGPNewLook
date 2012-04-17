@@ -8,7 +8,7 @@ $(document).ready(function(){
 	<section id="top">
 		<div class="row-fluid" align="center">
 			<div class ="span3">
-				<%= image_tag @user.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:thumb) %>
+				<%= image_tag @user_photo.photo.url(:thumb) if @user_photo %>
 			</div>
 			<div class ="span3">
 				<table>
@@ -87,10 +87,10 @@ $(document).ready(function(){
                               <%= image_tag w.movie.poster.url :class=>"mov_search_pic" %>
                               <b><%= w.movie.title %></b>
                               <br>
-                              <% if w.watchlist_preferred_theaters.first %>
+                              <% if w.watch_list_preferred_theaters.first %>
                                   Nearby Theaters:
-                                  <% w.watchlist_preferred_theaters.each do |t| %>
-                                      <%= t.name %> (<u>map</u>)
+                                  <% w.watch_list_preferred_theaters.each do |t| %>
+                                      <%= t.theater.name %> (<u>map</u>)
                                       <br>
                                   <% end %>
                               <% end %>
