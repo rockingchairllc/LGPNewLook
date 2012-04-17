@@ -45,7 +45,8 @@
   <br/>
   Temp Stuff -- form toggles
   <br/>
-  <%= link_to 'toggle signup form',  '#modal_sign_up', 'data-toggle'=>'modal' %>
+  <%= link_to 'toggle signup form',  '#modal_sign_up', 'data-toggle'=>'modal' %><br/>
+  <%= link_to 'toggle invite request form',  '#modal_request_invite', 'data-toggle'=>'modal' %><br/>
 
   <% # move these to app helpers later...  %>
   <div id="modal_sign_up" class="modal" style="display:none;">
@@ -65,8 +66,36 @@
     
   </div>
 
-  <div id="modal_request_invite">
+  <div id="modal_request_invite" class="modal" style="display:none">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">×</a>
+      Request Beta Invite
+    </div>
+    <div class="modal-body">
+      Lets Get Popcorn is available by invitation only
+      Request an invite:
+      <%= form_for(@invite_request, :url=>invite_requests_path(:format=>:json), :remote=>true, :html=>{:id=>'form_invite_request'}) do |f| %>
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+        <%= f.label :zip_code %>
+        <%= f.text_field :zip_code %>
+        <%= f.label :comments %>
+        <%= f.text_area :comments, :rows=>5 %>
+        <br/>
+        <ul id="form_invite_request_errors"></ul>
+        <%= f.submit 'Send Request' %>
+      <% end %>
+    </div>
+  </div>
 
+  <div id="modal_request_invite_success" class="modal" style="display:none">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">×</a>
+      Request Beta Invite
+    </div>
+    <div class="modal-body">
+      Thanks for requesting access...
+    </div>
   </div>
 
 </body>

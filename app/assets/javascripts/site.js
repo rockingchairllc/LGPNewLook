@@ -12,11 +12,11 @@ function handle_errors(errors, element){
  // redirects if needed
  // displays errors
  // call back function
-function generic_form_handler(data, callback_function){
+function generic_form_handler(data, callback_function, error_element){
   if(data.success == true) {
     if (data.redirect) { window.location.href = data.redirect; return; };
     if (callback_function){ callback_function() };
   } else {
-    handle_errors(data.errors);
+    handle_errors(data.errors, error_element);
   };
 };
