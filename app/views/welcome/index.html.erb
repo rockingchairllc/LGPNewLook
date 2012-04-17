@@ -38,5 +38,36 @@
 		</nav>
 	</footer>
 
+
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  Temp Stuff -- form toggles
+  <br/>
+  <%= link_to 'toggle signup form',  '#modal_sign_up', 'data-toggle'=>'modal' %>
+
+  <% # move these to app helpers later...  %>
+  <div id="modal_sign_up" class="modal" style="display:none;">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">×</a>
+      SIGN UP
+    </div>
+    <div class="modal-body">
+      FORM CONTENTS HERE
+    </div>
+    <div class="modal-footer">
+      SAVE
+    </div>
+  </div>
+
+  <div id="modal_sign_in">
+    
+  </div>
+
+  <div id="modal_request_invite">
+
+  </div>
+
 </body>
 </html>
