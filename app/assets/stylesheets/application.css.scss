@@ -17,21 +17,10 @@
 //--------------------------------------
 @import "bootstrap";
 
-
 //--------------------------------------
-// global styles
+// header 
 //--------------------------------------
-
-body {
-  @include bg-purple-mesh(#333);
-}
-
-a {
-  cursor: pointer;
-}
-
 #header {
-  margin: 24px 0px;
 
   .logotype {
     float: left;
@@ -58,15 +47,20 @@ a {
       width: 45px;
     }
   }
-  .navbar-inner {
-    @include bg-white-whitey;
-    @include border-radius(0);
-    box-shadow: none;
-    .divider-vertical {
-      background-color: #ccc;
-      border-right: 1px solid white;
+
+  .navbar {
+    margin: 0px;
+    .navbar-inner {
+      @include bg-white-whitey;
+      @include border-radius(0);
+      box-shadow: none;
+      .divider-vertical {
+        background-color: #ccc;
+        border-right: 1px solid white;
+      }
     }
   }
+
   hr {
     background-color: #F1F1F1;
     height: 2px;
@@ -80,9 +74,24 @@ a {
 
 }
 
+//--------------------------------------
+// main container 
+//--------------------------------------
 #the-container {
   @include bg-white-whitey;
   @include box-shadow(0 0px 24px rgba(0, 0, 0, 0.8));
+}
+
+//--------------------------------------
+// global styles
+//--------------------------------------
+
+body {
+  @include bg-purple-mesh(#333);
+}
+
+a {
+  cursor: pointer;
 }
 
 .alert-info {
