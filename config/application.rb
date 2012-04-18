@@ -56,5 +56,15 @@ module Lgp
     
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # public javascripts, add this into the assets paths
+    # all javascript files stored here are public javascripts
+    # all controller specific javascripts and manifest files should be stored in assets/javascripts
+    config.assets.paths << Rails.root.join('public', 'javascripts').to_s
+
+    # public stylesheets, add this into the assets paths
+    # all controller specific css and manifest files should be stored in assets/stylesheets
+    config.assets.paths << Rails.root.join('public', 'stylesheets').to_s
+
   end
 end

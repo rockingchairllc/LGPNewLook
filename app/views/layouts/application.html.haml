@@ -4,9 +4,11 @@
   = render "head"
 
   %body{ :class => "#{params[:controller].parameterize} action-#{params[:action].parameterize}" }
-    = render 'chromeframe'
-    = yield
-    = render "footer"
+    .container#the-container
+      = render 'header'
+      = render 'chromeframe'
+      .yield-here{:style => 'padding: 24px;'}= yield
+      = render "footer"
 
     -# Javascript at the bottom for fast page loading
     = render "javascripts"

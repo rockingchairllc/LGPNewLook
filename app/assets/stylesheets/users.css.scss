@@ -5,31 +5,27 @@
 
 .mutual-friends {
   .header, .footer {
-    background-color: $lgp-primay-color;
-    color: #fff;
+    @include bg-purple-mesh;
     padding: 4px 10px;
     text-align:center;
+    font-size: 12px;
+    border: 1px solid #898a8a;
   }
-
-  .thumbnails {
-    margin-left: -10px;
-    & > li {
-      margin-left: 10px;
-    }
-  }
-
 }
 
 .watchlists {
   border: 1px solid #333;
-  padding: 10px;
+  padding: 10px 24px;
   .header {
-    background-color: $lgp-primay-color;
-    color: #fff;
+    @include bg-purple-mesh;
     padding: 4px 10px;
-    margin: -10px;
+    margin: -10px -24px 10px;
+    border: 1px solid #3e2d49;
   }
   .row-fluid {
+    .description {
+      margin-left: -40px;
+    }
     .thumbnails > li {
       width: 75px;
       height: 100px;
@@ -41,6 +37,14 @@
   }
   
 }
+
+.questions-and-answer-portion {
+  margin-top: 24px;
+  .answer {
+    padding: 0px 18px 18px 18px
+  }
+}
+
 
 .buddy_search_profile_pic {
 	clear: both;
@@ -72,4 +76,8 @@ border-radius: 0px 0px 5px 5px;
 
 .user_hr {
 margin: 0px
+}
+
+h3 {
+  color: #75628f;
 }

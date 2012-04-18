@@ -2,7 +2,7 @@
  *= require_self
  * require welcome
  *= require h5bp
- *= require movies
+ * require movies
  * require users
 */
 
@@ -23,10 +23,16 @@
 //--------------------------------------
 
 body {
-  background-image: url(/images/bg1.jpg);
+  @include bg-purple-mesh(#333);
+
+}
+
+a {
+  cursor: pointer;
 }
 
 #header {
+  margin: 24px 0px;
   .logotype {
     float: left;
     width: 295px;
@@ -36,20 +42,46 @@ body {
     padding: 0px;
     margin: 10px 0;
   }
-  a {
+
+  .nav > li > a {
     font-weight: bold;
-    text-decoration: underline;
+    text-shadow:none;
+    color: inherit;
+    &:hover { text-decoration: underline; }
   }
+
   .user_thumb {
-    height: 45px;
-    width: 45px;
+    height: 24px;
+    width: 24px;
+    &.larger {
+      height: 45px;
+      width: 45px;
+    }
   }
   .navbar-inner {
     @include border-radius(0);
-    @include box-shadow(0 3px 2px rgba(0, 0, 0, 0.3));
+    box-shadow: none;
+    .divider-vertical {
+      background-color: #ccc;
+      border-right: 1px solid white;
+    }
   }
-  
-  
+  hr {
+    background-color: #F1F1F1;
+    height: 2px;
+    margin: 0 24px;
+  }
+
+  b.caret {
+    border-bottom-color: #000;
+    border-top-color: #000;
+  }
+
+}
+
+#the-container {
+  background-color: #fff;
+  @include box-shadow(0 0px 4px rgba(0, 0, 0, 0.4));
 }
 
 .alert-info {
@@ -66,22 +98,25 @@ body {
   @include box-shadow(0 0px 3px rgba(0, 0, 0, 0.6));
   @include border-radius(7px);
   display: inline-block;
+  margin: 0 0 10px 0;
+
   .btn-primary {
     @include border-radius(7px);
     margin: 0px;
   }
-  margin: 0 0 10px 0;
+
 }
 
 .btn-primary {
-  background-color: rgb(128, 0, 128);
-  @include gradientBar(rgba(105, 73, 114, .5), $lgp-primay-color);
+  background-color: $lgp-primay-color;
+  border-color: rgba(105, 73, 114, .5) rgba(105, 73, 114, .5) $lgp-primay-color;
+  @include bg-gradient-primary;
 
   &:hover {
-    background-color: $lgp-primay-color;
+    @include bg-gradient-primary-reverse;
   }
   &:active {
-    background-color: $lgp-primay-color;
+    @include bg-gradient-primary-reverse;
     @include box-shadow('0 2px 4px rgba(0, 0, 0, 0.25) inset, 0 1px 2px rgba(0, 0, 0, 0.05)');
   }
 }
@@ -98,6 +133,8 @@ select, input[type="file"] {
   height: 30px;
   width: auto;
 }
+
+
 
 /***
 

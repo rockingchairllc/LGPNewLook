@@ -1,21 +1,39 @@
-- if user_signed_in?
-  .container
-    .navbar#header
-      .navbar-inner
-        .container
-          %a.brand.logotype
-          .nav-collapse
-            %ul.nav{:style => 'margin: 18px 0px 0px;'}
-              %li
-                %a{:href => '#'} Buddies
-              %li
-                %a{:href => '#'} Movies
-
-            %ul.nav.pull-right
-              %li
-                %a{:href => profile_path}
+.container#header
+  .navbar
+    .navbar-inner
+      .container
+        %a.brand.logotype
+        .nav-collapse
+          %ul.nav.pull-right{:style => 'margin: 18px 0px 0px;'}
+            %li
+              %a{:href => '#'} Buddies
+            %li.divider-vertical
+            %li
+              %a{:href => '#'} Movies
+            %li.divider-vertical
+            - if user_signed_in?
+              %li.dropdown
+                %a.user.dropdown-toggle{:'data-toggle' => 'dropdown', :href => '#' }
                   = image_tag 'user.jpeg', :class=>'user_thumb', :hspace => '10px'
-                  Username
-                  = link_to "Logout", destroy_user_session_path
+                  = current_user.firstname
+                  %b.caret
+                %ul.dropdown-menu{:style => 'width: 240px'}
+                  %li
+                    .me{:style => 'padding: 18px;'}
+                      = image_tag 'user.jpeg', :class=>'user_thumb larger', :hspace => '10px'
+                      = current_user.firstname
                   - if current_user.is_admin
+                    %li.divider
                     = link_to "Admin", admin_index_path
+
+                  %li.divider
+                  %li
+                    = link_to "Profile", profile_path, :class => "user_name"
+                  %li
+                    = link_to "Logout", destroy_user_session_path
+                  
+
+            - else
+              %li
+                %a{:href => '/users/sign_in'} Login
+  %hr

@@ -4,14 +4,40 @@
 
 $lgp-primay-color: rgb(105, 73, 114);
 
+@mixin bg-gradient-primary {
+  background: rgb(146,122,180); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(146,122,180,1) 0%, rgba(99,77,123,1) 50%, rgba(99,77,123,1) 53%, rgba(98,81,126,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(146,122,180,1)), color-stop(50%,rgba(99,77,123,1)), color-stop(53%,rgba(99,77,123,1)), color-stop(100%,rgba(98,81,126,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(146,122,180,1) 0%,rgba(99,77,123,1) 50%,rgba(99,77,123,1) 53%,rgba(98,81,126,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(146,122,180,1) 0%,rgba(99,77,123,1) 50%,rgba(99,77,123,1) 53%,rgba(98,81,126,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(146,122,180,1) 0%,rgba(99,77,123,1) 50%,rgba(99,77,123,1) 53%,rgba(98,81,126,1) 100%); /* IE10+ */
+  background: linear-gradient(top,  rgba(146,122,180,1) 0%,rgba(99,77,123,1) 50%,rgba(99,77,123,1) 53%,rgba(98,81,126,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#927ab4', endColorstr='#62517e',GradientType=0 ); /* IE6-9 */
+}
+
+@mixin bg-gradient-primary-reverse{
+  background: rgb(146,122,180); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(146,122,180,1) 0%, rgba(99,77,123,1) 92%, rgba(99,77,123,1) 94%, rgba(98,81,126,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(146,122,180,1)), color-stop(92%,rgba(99,77,123,1)), color-stop(94%,rgba(99,77,123,1)), color-stop(100%,rgba(98,81,126,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(146,122,180,1) 0%,rgba(99,77,123,1) 92%,rgba(99,77,123,1) 94%,rgba(98,81,126,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(146,122,180,1) 0%,rgba(99,77,123,1) 92%,rgba(99,77,123,1) 94%,rgba(98,81,126,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(146,122,180,1) 0%,rgba(99,77,123,1) 92%,rgba(99,77,123,1) 94%,rgba(98,81,126,1) 100%); /* IE10+ */
+  background: linear-gradient(top,  rgba(146,122,180,1) 0%,rgba(99,77,123,1) 92%,rgba(99,77,123,1) 94%,rgba(98,81,126,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#927ab4', endColorstr='#62517e',GradientType=0 ); /* IE6-9 */
+}
+
+@mixin bg-purple-mesh($color: #fff) {
+  background-image: url(/images/bg1-purple-mesh.jpg);
+  color: $color;
+}
 
 //--------------------------------------
 // twitter bootstrap variables
 //--------------------------------------
 
 $gridColumnWidth: 75px;
-$navbarBackground: $lgp-primay-color;
-$navbarBackgroundHighlight: $lgp-primay-color;
-$navbarText: #fff;
-$navbarLinkColor: #fff;
-$navbarLinkColorHover: #aaa;
+$navbarBackground: #fff;
+$navbarBackgroundHighlight: #fff;
+$navbarText: rgb(79, 51, 97);
+$navbarLinkColor: rgb(79, 51, 97);
+$navbarLinkColorHover: rgba(79, 51, 97, .5);
