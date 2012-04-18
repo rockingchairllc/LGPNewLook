@@ -1,13 +1,5 @@
 class UsersController < Devise::RegistrationsController
 
-  layout :use_this_layout
-
-  protected
-  def use_this_layout
-    ['show'].include?(action_name) ? 'tbootstrap' : 'application'
-  end
-
-  public
   # GET /users
   # GET /users.json
   def index
