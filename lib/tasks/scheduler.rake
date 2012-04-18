@@ -200,3 +200,120 @@ task :send_reminders => :environment do
     User.send_reminders
 end
 
+
+task :pre_pop_dev => :environment do
+  #using md5 hash for word "password"
+  q1 = Question.find_or_create_by_content(
+      :content => "About Me:",
+      :active => true)
+  q2 = Question.find_or_create_by_content(
+      :content => "Favorite Movie of All Time And Why:",
+      :active => true)
+  u = User.find_or_create_by_email(
+      :firstname => "Admin",
+      :email => "admin@rockingchairllc.com",
+      :gender => "M",
+      :orientation => "Straight",
+      :zipcode => "78715",
+      :birthdate => Time.at(17.years.ago)
+      )
+  u.password = 'password'
+  u.is_admin = true
+  u.save
+  u.watch_lists.create(
+      :movie_id => Movie.first.id
+  )
+  u.watch_lists.create(
+      :movie_id => Movie.last.id
+  )
+  u.answers.find_or_create_by_question_id(
+      :question_id => q1.id,
+      :response => "I am a nice guy"
+  )
+  u.answers.find_or_create_by_question_id(
+      :question_id => q2.id,
+      :response => "Hunger Games because i loved it"
+  )
+
+  u = User.find_or_create_by_email(
+      :firstname => "Bob",
+      :email => "bob@rockingchairllc.com",
+  :gender => "F",
+  :orientation => "Gay",
+  :zipcode => "78715",
+  :birthdate => Time.at(27.years.ago)
+  )
+  u.password = 'password'
+  u.is_admin = true
+  u.save
+  u.watch_lists.create(
+      :movie_id => Movie.first.id
+  )
+  u.watch_lists.create(
+      :movie_id => Movie.last.id
+  )
+  u.answers.find_or_create_by_question_id(
+      :question_id => q1.id,
+      :response => "I am a nice guy"
+  )
+  u.answers.find_or_create_by_question_id(
+      :question_id => q2.id,
+      :response => "Hunger Games because i loved it"
+  )
+
+  u = User.find_or_create_by_email(
+      :firstname => "Charlie",
+      :email => "charlie@rockingchairllc.com",
+  :gender => "M",
+  :orientation => "Straight",
+  :zipcode => "78715",
+  :birthdate => Time.at(37.years.ago)
+  )
+  u.password = 'password'
+  u.is_admin = false
+  u.save
+  u.watch_lists.create(
+      :movie_id => Movie.first.id
+  )
+  u.watch_lists.create(
+      :movie_id => Movie.last.id
+  )
+  u.answers.find_or_create_by_question_id(
+      :question_id => q1.id,
+      :response => "I am a nice guy"
+  )
+  u.answers.find_or_create_by_question_id(
+      :question_id => q2.id,
+      :response => "Hunger Games because i loved it"
+  )
+
+
+  u = User.find_or_create_by_email(
+      :firstname => "Dana",
+      :email => "admin@rockingchairllc.com",
+  :gender => "F",
+  :orientation => "Straight",
+  :zipcode => "78715",
+  :birthdate => Time.at(28.years.ago)
+  )
+  u.password = 'password'
+  u.is_admin = true
+  u.save
+  u.watch_lists.create(
+      :movie_id => Movie.first.id
+  )
+  u.watch_lists.create(
+      :movie_id => Movie.last.id
+  )
+  u.answers.find_or_create_by_question_id(
+      :question_id => q1.id,
+      :response => "I am a nice guy"
+  )
+  u.answers.find_or_create_by_question_id(
+      :question_id => q2.id,
+      :response => "Hunger Games because i loved it"
+  )
+
+
+
+end

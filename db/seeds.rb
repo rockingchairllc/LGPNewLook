@@ -4,7 +4,7 @@
 u1=User.find_by_email('matt@pestritto.com')
 (u1.is_admin=true; u1.save ) if u1
 
-u2=User.find_by_email('another_admin_email.com')
+u2=User.find_by_email('admin@rockingchairllc.com')
 (u2.is_admin=true; u2.save ) if u2
 
 #default zips for austin for zipcode to latlong conversion
