@@ -27,8 +27,12 @@ $lgp-primay-color: rgb(105, 73, 114);
 }
 
 @mixin bg-purple-mesh($color: #fff) {
-  background-image: url(/images/bg1-purple-mesh.jpg);
+  background-image: url(/images/bg-purple-mesh.jpg);
   color: $color;
+}
+
+@mixin bg-white-whitey {
+  background-image: url(/images/bg-white-whitey.jpg);
 }
 
 //--------------------------------------

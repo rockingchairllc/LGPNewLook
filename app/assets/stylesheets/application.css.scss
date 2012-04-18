@@ -24,7 +24,6 @@
 
 body {
   @include bg-purple-mesh(#333);
-
 }
 
 a {
@@ -33,6 +32,7 @@ a {
 
 #header {
   margin: 24px 0px;
+
   .logotype {
     float: left;
     width: 295px;
@@ -59,6 +59,7 @@ a {
     }
   }
   .navbar-inner {
+    @include bg-white-whitey;
     @include border-radius(0);
     box-shadow: none;
     .divider-vertical {
@@ -80,8 +81,8 @@ a {
 }
 
 #the-container {
-  background-color: #fff;
-  @include box-shadow(0 0px 4px rgba(0, 0, 0, 0.4));
+  @include bg-white-whitey;
+  @include box-shadow(0 0px 24px rgba(0, 0, 0, 0.8));
 }
 
 .alert-info {
