@@ -1,0 +1,19 @@
+All movies playing within
+= select_tag('select_miles', options_for_select(['1','5','10','15','20','25'], @param_miles ))
+miles of
+.input-append{:style => 'display:inline;'}<
+  = text_field_tag :field_zip, @param_zip, :placeholder => @param_zip, :style => 'width: 90px;'
+  = submit_tag "Go", :class => 'btn btn-primary', :id => 'zip_code_filter'
+
+%br
+%br
+.alert.alert-info.text-center
+  %a.close{'data-dismiss' => 'alert' } &times;
+  %b Hint:
+  Add a movie to your watchlist so that Popcorn Buddies in your area can offer to join!
+%br
+%br
+- if @movies.length == 0
+  %h2 No movies found, try a broader search
+- else
+  = render :partial => 'movie', :collection => @movies

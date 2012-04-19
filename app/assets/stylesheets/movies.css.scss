@@ -2,6 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.watchlist-action {
+  p { text-align: center }
+  p, a.remove {
+    display: none;
+  }
+  &.is_watched {
+    p, a.remove { display: block; }
+    a.add { display: none; }
+  }
+}
+
 .mov_container {
    width: 800px; /* in case we want to have image rows later */
 }
