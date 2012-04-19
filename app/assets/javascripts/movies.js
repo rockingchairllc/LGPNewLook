@@ -15,7 +15,7 @@
       self.removeClass('is_watched');
       console.log('remove here');
       
-      $.post('/watchlist/0', {'_method' : 'delete', 'user_id' : user_id, 'movie_id' : movie_id },
+      $.post('/watch_lists/0', {'_method' : 'delete', 'user_id' : user_id, 'movie_id' : movie_id },
       function(data){
         console.log(data);
         if (data.success){
@@ -31,7 +31,7 @@
     self.find('a.add').click(function(){
       self.addClass('is_watched');
 
-      $.post('/watchlist', {'user_id' : user_id, 'movie_id' : movie_id },
+      $.post('/watch_lists', {'user_id' : user_id, 'movie_id' : movie_id },
         function(data){
           console.log(data);
           if (data.success){
