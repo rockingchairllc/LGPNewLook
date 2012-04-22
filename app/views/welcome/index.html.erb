@@ -5,7 +5,8 @@
   <%= stylesheet_link_tag    'application', :media => "all" %>
 </head>
 <body>
-	
+  <%= facebook_common 'FB_Callback();' %>
+  
 	<% unless user_signed_in? %>
     <a href="/users/sign_in" class="login_link">Login</a>
 	<% end %>
@@ -51,18 +52,74 @@
   <%= link_to 'toggle invite request form',  '#modal_request_invite', 'data-toggle'=>'modal' %><br/>
 
   <% # move these to app helpers later...  %>
-  <div id="modal_sign_up" class="modal" style="display:none;">
+  <div id="modal_sign_up" class="modal" style="display:none;width:630px;">
     <div class="modal-header">
       <a class="close" data-dismiss="modal">×</a>
-      Sign In
+      Sign Up
     </div>
     <div class="modal-body">
-      FB iFrame FORM CONTENTS HERE....
-    </div>
-    <div class="modal-footer">
-      SAVE
+      <% # move into partial -- pull out client id and hostname  ( hardcoded to dev for now ) %>
+      <fb:registration redirect-uri="http://localhost:3000/auth/facebook/callback"
+        fields="[{'name':'name'},{'name':'email'},{'name':'gender'},{'name':'birthday'},{'name':'zip_code', 'description':'Zip Code', 'type':'text'},{'name':'orientation','description':'Orientation','type':'select','options':{'straight':'Straight','gay':'Gay','bi-sexual':'Bi-Sexual'}},{'name':'password'}]"
+      ></fb:registration>
+      <script>
+        function validate_facebook_registration(form) {
+          errors = {};
+          if (form.zip_code == "") {
+            errors.zip_code = "Zip Code is required";
+          }
+          return errors;
+        };
+      </script>
     </div>
   </div>
+
+  <script>
+    // testing stuff for FB redirects
+
+    function FB_Callback(){
+
+      FB.Event.subscribe('auth.login',
+        function(response) {
+          console.log('user just logged in');
+          FB_handle_login(response.authResponse.signedRequest, response.authResponse.accessToken)
+        }
+      );
+
+      FB.getLoginStatus(function(response) {
+        console.log(response);
+        if (response.status === 'connected') {
+          console.log('user_logged into facebook -- app authorized');
+          alert('You visited the homepage and have already authorized the app in FB and are logged into FB -- what should we do? Redirecting for now.');
+          FB_handle_login(response.authResponse.signedRequest, response.authResponse.accessToken)
+
+        } else if (response.status === 'not_authorized') {
+          console.log('user_logged into facebook -- app not authorized');
+          // the user is logged in to Facebook,
+          // but has not authenticated your app
+        } else {
+          console.log('user not logged into facebook');
+          // the user isn't logged in to Facebook.
+        }
+      });
+
+    };
+
+    function FB_handle_login(signedRequest, accessToken){
+      // post signed request to auth handler
+      $.post('/auth/facebook/callback', { 'signed_request':signedRequest, 'access_token':accessToken, 'provider':'facebook'},
+        function(data){
+          console.log(data);
+          if (data.success){
+            if (data.redirect){ window.location=data.redirect; }
+          } else{
+
+          }
+        }, 'json' );
+    };
+
+  </script>
+
 
   <div id="modal_sign_in" class="modal" style="display:none">
     <div class="modal-header">
@@ -84,6 +141,9 @@
         <%= link_to 'Sign In', 'javascript:void(0);', :onclick=>'javascript:$("#form_sign_in").submit();' %>
 
       <% end %>
+
+      or
+      <div class="fb-login-button" data-show-faces="false" data-width="200" data-max-rows="1"></div>
 
     </div>
   </div>

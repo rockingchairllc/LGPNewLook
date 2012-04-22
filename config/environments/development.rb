@@ -70,4 +70,11 @@ Lgp::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # FB config for DEVELOPMENT APP.
+  config.after_initialize do
+    LGPConfiguration.facebook_app_id = '374526839255198'
+    LGPConfiguration.facebook_secret = '7449426519ece5238bd4730bc7ff2a36'
+  end
+
 end
