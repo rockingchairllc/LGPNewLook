@@ -118,12 +118,12 @@ class AuthenticationsController < ApplicationController
           end
 
           unless current_user
-            sign_in(:user, u.user)
+            sign_in(:user, u)
           end
 
           respond_to do |format|
-            format.html { redirect_to after_sign_in_path_for(u.user) }
-            format.json { render :json => { :success=>true, :redirect=> after_sign_in_path_for(u.user) } }
+            format.html { redirect_to after_sign_in_path_for(u) }
+            format.json { render :json => { :success=>true, :redirect=> after_sign_in_path_for(u) } }
           end
           return
 
