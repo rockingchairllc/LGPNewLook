@@ -1,14 +1,14 @@
 !!! 5
 -# http://paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither
 %html(lang="en")
-  = render "head"
+  = render "application/head"
 
   %body{ :class => "#{params[:controller].parameterize} action-#{params[:action].parameterize}" }
     .container#the-container
-      = render 'header'
-      = render 'chromeframe'
+      = render 'application/header'
+      = render 'application/chromeframe'
       .yield-here{:style => 'padding: 24px;'}= yield
-      = render "footer"
+      = render "application/footer"
 
     -# Javascript at the bottom for fast page loading
-    = render "javascripts"
+    = render "application/javascripts"

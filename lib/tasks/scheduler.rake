@@ -235,14 +235,14 @@ task :pre_pop_dev => :environment do
       :response => "Hunger Games because i loved it"
   )
 
-  u = User.find_or_create_by_email(
-      :firstname => "Bob",
-      :email => "bob@rockingchairllc.com",
-  :gender => "F",
-  :orientation => "Gay",
-  :zipcode => "78715",
-  :birthdate => Time.at(27.years.ago)
-  )
+  u = User.find_or_create_by_email('bob@rockingchairllc.com')
+  u.assign_attributes({
+                          :firstname => "Bob",
+                          :gender => "F",
+                          :orientation => "Gay",
+                          :zipcode => "78715",
+                          :birthdate => Time.at(27.years.ago)
+                      })
   u.password = 'password'
   u.is_admin = true
   u.save
