@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120421232515) do
+ActiveRecord::Schema.define(:version => 20120423002555) do
 
   create_table "answers", :force => true do |t|
     t.text     "response"
@@ -28,9 +28,9 @@ ActiveRecord::Schema.define(:version => 20120421232515) do
     t.integer  "user_id"
     t.string   "provider"
     t.string   "provider_user_id"
-    t.string   "provider_auth_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.text     "provider_auth_id"
   end
 
   create_table "invite_codes", :force => true do |t|
@@ -117,8 +117,6 @@ ActiveRecord::Schema.define(:version => 20120421232515) do
     t.string   "email",                  :default => "",    :null => false
     t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "gender",                                    :null => false
-    t.string   "orientation",                               :null => false
-    t.integer  "zipcode",                                   :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -131,6 +129,8 @@ ActiveRecord::Schema.define(:version => 20120421232515) do
     t.datetime "updated_at",                                :null => false
     t.datetime "birthdate"
     t.boolean  "is_admin",               :default => false
+    t.string   "zipcode"
+    t.string   "orientation"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

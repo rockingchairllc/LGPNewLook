@@ -20,7 +20,8 @@ function hide_modal(id){
 };
 
 function invite_success(){
-  show_modal('modal_sign_up');
+  window.location='/auth/facebook';
+  //show_modal('modal_sign_up');
 };
 
 function request_invite_success(){
