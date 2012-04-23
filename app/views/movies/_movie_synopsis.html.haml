@@ -1,0 +1,49 @@
+!=# local_assigns.inspect
+.row-fluid
+  .span2.thumbnails
+    .thumbnail.dropshadow
+      = image_tag movie.poster
+  .span8
+    %h3= "#{movie.title} (Rated #{movie.rating})"
+    %p
+      %b Release Date:
+      = movie.release_dt.strftime("%b %e") if movie.release_dt
+      %br
+      %b Genre:
+      = movie.genre
+      %br
+      Playing at:
+      %i= movie.theaters.first.name
+      - if movie.theaters.length > 1
+        and
+        = link_to (pluralize(movie.theaters.length-1, "more theater", "more theaters")), '#more_theaters_'+ movie.id.to_s, 'data-toggle'=>'modal'
+        .modal{:id => "more_theaters_#{ movie.id.to_s}",:style => 'display:none;background-color:yellow;'}
+          .modal-header
+            %a.close{'data-dismiss' =>"modal"} &times;
+            %h3 Also playing at
+          .modal-body
+            %ul
+              - movie.theaters.each do |t|
+                - unless t == movie.theaters.first
+                  %li= t.name
+
+    - if movie.watch_lists.count != 0
+      - watchlisters = movie.watchlisters.all
+      %ul.thumbnails{:style => 'padding: 0px;'}
+        - watchlisters.each do |w|
+          %li.span1
+            .thumbnail
+              %a{:href => user_path(w.id)}
+                %img{:src => w.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:medium)}
+
+
+    %p
+      %b Summary:
+      = movie.desc_long
+      %br
+      %a More Details
+    %br
+  .span2.watchlist-action{'class' => (@watch_list.select{|x| x.movie_id == movie.id}.count != 0 ? 'is_watched' : ''), 'data-movie-id' => movie.id }
+    %p Added to watchlist.
+    %a.add.btn.btn-primary.btn-large Add to Watchlist
+    %a.remove.btn.btn-primary.btn-large Remove

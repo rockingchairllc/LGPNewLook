@@ -62,8 +62,9 @@
   }
 
   hr {
-    background-color: #F1F1F1;
-    height: 2px;
+    border-top: 1px solid rgb(204, 204, 204);
+    background-color: #fff;
+    height: 1px;
     margin: 0 24px;
   }
 
@@ -95,9 +96,9 @@ a {
 }
 
 .alert-info {
-  border-color: #aaa;
+  border-color: #ccc;
   color: #333333;
-  @include gradientBar(#ccc, #aaa);
+  @include gradientBar(#eee, #ccc);
 }
 
 .nopadding {
@@ -148,6 +149,15 @@ select, input[type="file"] {
   margin-bottom: 3px; height: 28px;
 }
 
+.thumbnails {
+  .thumbnail.dropshadow {
+    @include box-shadow(0 0 4px rgba(0, 0, 0, 0.25));
+  }
+}
+
+.modal-backdrop, .modal-backdrop.fade.in {
+  opacity: 0.1;
+}
 
 /***
 
