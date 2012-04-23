@@ -4,14 +4,27 @@
 
 .watchlist-action {
   p { text-align: center }
-  p, a.remove {
+  p, a.watch-lists-rem {
     display: none;
   }
+  a.watch-lists-add { display: block; }
   &.is_watched {
-    p, a.remove { display: block; }
-    a.add { display: none; }
+    p, a.watch-lists-rem { display: block; }
+    a.watch-lists-add { display: none; }
   }
 }
+
+.movie_synopsis {
+  p.summary {
+    position:relative;
+    a.more-details {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+  }
+}
+
 
 .mov_container {
    width: 800px; /* in case we want to have image rows later */

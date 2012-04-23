@@ -1,3 +1,7 @@
+/*
+ * require jq/jquery.autoellipsis-1.0.3
+ */
+
 (function($){
   
   $('#zip_code_filter').click(function(){
@@ -6,28 +10,12 @@
     window.location='/movies?miles=' + miles + '&zip=' + zip;
   });
 
-  $('.watchlist-action').each(function(){
-    var self = $(this);
-    var user_id = 1;
-    var movie_id = self.attr('data-movie-id');
+  $('.movie_synopsis_lists').each(function(){
 
-    self.find('a.remove').click(function(){
-      console.log('remove here');
-      
-      $.post('/watch_lists/0', {'_method' : 'delete', 'user_id' : user_id, 'movie_id' : movie_id },
-      function(data){
-        console.log(data);
-        if (data.success){
-          // do something to show it was added.
-          self.removeClass('is_watched');
-        } else{
-          // handle the error however you want.... display error returned from app or generic message.
-        }
-      }, 'json' );
-
-    });
-    
-    self.find('a.add').click(function(){
+    $(this).on('click', 'a.watch-lists-add', function(){
+      var self      = $(this).parent('.watchlist-action');
+      var user_id   = 1;
+      var movie_id  = self.attr('data-movie-id');
 
       $.post('/watch_lists', {'user_id' : user_id, 'movie_id' : movie_id },
         function(data){
@@ -37,10 +25,32 @@
             self.addClass('is_watched');
           } else{
             // handle the error however you want.... display error returned from app or generic message.
+            self.addClass('is_watched');
           }
-      }, 'json' );
+        },
+      'json' );
       
     });
-  })
+
+    $(this).on('click', 'a.watch-lists-rem', function(){
+      var self      = $(this).parent('.watchlist-action');
+      var user_id   = 1;
+      var movie_id  = self.attr('data-movie-id');
+
+      $.post('/watch_lists/0', {'_method' : 'delete', 'user_id' : user_id, 'movie_id' : movie_id },
+        function(data){
+          console.log(data);
+          if (data.success){
+            // do something to show it was added.
+            self.removeClass('is_watched');
+          } else{
+            // handle the error however you want.... display error returned from app or generic message.
+            self.removeClass('is_watched');
+          }
+        },
+      'json' );
+    });
+
+  });
 
 })(jQuery);

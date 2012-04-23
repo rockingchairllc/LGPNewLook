@@ -1,5 +1,5 @@
 !=# local_assigns.inspect
-.row-fluid
+.row-fluid.movie_synopsis_lists
   .span2.thumbnails
     .thumbnail.dropshadow
       = image_tag movie.poster
@@ -17,7 +17,7 @@
       - if movie.theaters.length > 1
         and
         = link_to (pluralize(movie.theaters.length-1, "more theater", "more theaters")), '#more_theaters_'+ movie.id.to_s, 'data-toggle'=>'modal'
-        .modal{:id => "more_theaters_#{ movie.id.to_s}",:style => 'display:none;background-color:yellow;'}
+        .modal{:id => "more_theaters_#{ movie.id.to_s}",:style => 'display:none;'}
           .modal-header
             %a.close{'data-dismiss' =>"modal"} &times;
             %h3 Also playing at
@@ -44,14 +44,15 @@
           %a see all
           )
 
-    %p
+    %p.summary
       %b Summary:
-      = movie.desc_long
-      %br
-      %a More Details
+      = shorten movie.desc_long, 200
+      - if movie.desc_long.length >= 200
+        &hellip;
+        %a.more-details More Details
     %br
   .span2.watchlist-action{'class' => (@watch_list.select{|x| x.movie_id == movie.id}.count != 0 ? 'is_watched' : ''), 'data-movie-id' => movie.id }
     %p Added to watchlist.
-    %a.add.btn.btn-primary.btn-large Add to Watchlist
-    %a.remove.btn.btn-primary.btn-large Remove
+    %a.watch-lists-add.btn.btn-primary.btn-large Add to Watchlist
+    %a.watch-lists-rem.btn.btn-primary.btn-large Remove
 %br

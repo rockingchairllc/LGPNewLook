@@ -1,9 +1,6 @@
 /*
  *= require_self
- * require welcome
  *= require h5bp
- * require movies
- * require users
 */
 
 //--------------------------------------
@@ -166,6 +163,21 @@ select, input[type="file"] {
 .modal-backdrop, .modal-backdrop.fade.in {
   opacity: 0.1;
 }
+
+.modal {
+  .modal-header {
+    @include bg-purple-mesh();
+    text-align:center;
+    h3 {
+      color: #fff;
+    }
+  }
+
+  .modal-body {
+    @include bg-white-mesh();
+  }
+}
+
 
 /***
 

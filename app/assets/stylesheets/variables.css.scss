@@ -36,6 +36,11 @@ $lgp-primay-color: rgb(105, 73, 114);
   background-image: url(/images/bg-white-whitey.jpg);
 }
 
+@mixin bg-white-mesh($color: #000) {
+  background-image: url(/images/bg-white-mesh.jpg);
+  color: $color;
+}
+
 //--------------------------------------
 // twitter bootstrap variables
 //--------------------------------------
