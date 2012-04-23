@@ -17,6 +17,10 @@
    width: 800px; /* in case we want to have image rows later */
 }
 
+.movie_synopsis {
+  p {margin-bottom: 0px;}
+}
+
 .thumbnails {
  .thumbnail {
    padding: 0px
