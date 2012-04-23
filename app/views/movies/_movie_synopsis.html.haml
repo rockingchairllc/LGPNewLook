@@ -36,7 +36,7 @@
               %a{:href => user_path(w.id)}
                 %img{:src => (w.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:medium) rescue '') }
       %p
-        %b= watchlisters.first.firstname
+        %a.purple{:href => user_path(watchlisters.first.id)}= watchlisters.first.firstname
         - if watchlisters.count > 1
           and
           = watchlisters.count - 1

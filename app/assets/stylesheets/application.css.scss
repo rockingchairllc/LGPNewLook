@@ -95,6 +95,14 @@ a {
   cursor: pointer;
 }
 
+a.purple{
+  color: $lgp-purple-color;
+  font-weight: bold;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 .alert-info {
   border-color: #ccc;
   color: #333333;
@@ -133,7 +141,7 @@ a {
 }
 
 h3 {
-  color: rgb(128, 0, 128);
+  color: $lgp-purple-color;
 }
 
 .text-center {
