@@ -27,15 +27,22 @@
                 - unless t == movie.theaters.first
                   %li= t.name
 
-    - if movie.watch_lists.count != 0
+    - if movie.watchlisters.count != 0
       - watchlisters = movie.watchlisters.all
       %ul.thumbnails{:style => 'padding: 0px;'}
         - watchlisters.each do |w|
           %li.span1
             .thumbnail
               %a{:href => user_path(w.id)}
-                %img{:src => w.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:medium)}
-
+                %img{:src => (w.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:medium) rescue '') }
+      %p
+        %b= watchlisters.first.firstname
+        - if watchlisters.count > 1
+          and
+          = watchlisters.count - 1
+          other people near you want to see this (
+          %a see all
+          )
 
     %p
       %b Summary:
