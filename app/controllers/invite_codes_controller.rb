@@ -8,6 +8,7 @@ class InviteCodesController < ApplicationController
     end
 
     if(InviteCode.find_by_code(params[:invite_code][:code]))
+      cookies[:invite_code]=params[:invite_code][:code]
       render :json => { :success=>true, :message=>'valid invite code', :errors=>[] }
     else
       render :json => { :success=>false, :errors=>['invalid invite code'] }

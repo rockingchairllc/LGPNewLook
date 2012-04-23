@@ -18,7 +18,7 @@ gem 'pg'
 # gem 'jquery-rails' --- used this for old rails
 
 # gem for facebook open graph api libraries
-gem 'fbgraph'
+gem 'fb_graph'
 
 # Gems used only for assets and not required
 # in production environments by default.

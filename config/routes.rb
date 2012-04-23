@@ -2,6 +2,7 @@ Lgp::Application.routes.draw do
 
   resources :authentications, :only=>[:create]
   match '/auth/:provider/callback' => 'authentications#create'
+  match '/auth/:provider' => 'authentications#show'
 
   resources :zip_locs
 
