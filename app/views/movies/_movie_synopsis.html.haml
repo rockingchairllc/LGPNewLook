@@ -5,14 +5,14 @@
       = image_tag movie.poster
   .span8
     %h3= "#{movie.title} (Rated #{movie.rating})"
-    %p
+    %p{:style => 'margin-bottom: 0px'}
       %b Release Date:
       = movie.release_dt.strftime("%b %e") if movie.release_dt
       %br
       %b Genre:
       = movie.genre
       %br
-      Playing at:
+      %b Playing at:
       %i= movie.theaters.first.name
       - if movie.theaters.length > 1
         and
