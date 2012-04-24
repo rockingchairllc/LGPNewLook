@@ -48,8 +48,7 @@
       %b Summary:
       = shorten movie.desc_long, 200
       - if movie.desc_long.length >= 200
-        &hellip;
-        %a.more-details More Details
+        %a.more-details read more
     %br
   .span2.watchlist-action{'class' => (@watch_list.select{|x| x.movie_id == movie.id}.count != 0 ? 'is_watched' : ''), 'data-movie-id' => movie.id }
     %p Added to watchlist.
