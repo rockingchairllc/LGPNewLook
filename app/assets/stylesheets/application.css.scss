@@ -15,7 +15,7 @@
 @import "bootstrap";
 
 //--------------------------------------
-// header 
+// header
 //--------------------------------------
 #header {
 
@@ -73,7 +73,7 @@
 }
 
 //--------------------------------------
-// main container 
+// main container
 //--------------------------------------
 #the-container {
   @include bg-white-whitey;
@@ -171,6 +171,12 @@ select, input[type="file"] {
     h3 {
       color: #fff;
     }
+    a.close {
+      color: #f5f5f5;
+      opacity: 0.7;
+      text-shadow: 0 1px 0 white;
+    }
+
   }
 
   .modal-body {
