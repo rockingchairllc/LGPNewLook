@@ -4,6 +4,7 @@
 <table border=1>
   <tr>
     <th>Code</th>
+    <th>Active?</th>
     <th>Audience</th>
     <th>Comment</th>
     <th></th>
@@ -13,6 +14,7 @@
 <% @invite_codes.each do |c| %>
   <tr>
     <td><%= link_to c.code, admin_invite_code_path(c) %></td>
+    <td><%= c.active %></td>
     <td><%= c.audience %></td>
     <td><%= c.comment %></td>
     <td><%= link_to 'Edit', edit_admin_invite_code_path(c) %></td>

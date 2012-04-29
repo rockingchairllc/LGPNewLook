@@ -42,12 +42,21 @@ class AuthenticationsController < ApplicationController
           # recheck for valid invite code
            #  this is the only spot a new user gets created....
           unless (cookies[:invite_code])
-            return render :json => { :success=>false, :errors=>['invalid invite code'] }
+            redirect_to root_path(:error=>'invalid-invite')
+            return
+            #return render :json => { :success=>false, :errors=>['invalid invite code'] }
+          end
+          invite_code=InviteCode.find_by_code(cookies[:invite_code])
+          unless invite_code
+            redirect_to root_path(:error=>'invalid-invite')
+            return
+            #return render :json => { :success=>false, :errors=>['invalid invite code'] }
           end
 
           # impossible password
           t=Time.now
           user=User.create(:email=>fb_user.email, :firstname=>fb_user.first_name, :gender=>fb_user.gender, :birthdate=>fb_user.birthday, :password=>t.hash, :password_confirmation=>t.hash)
+          user.invite_code=invite_code
           user.save
           logger.debug user.errors
         end

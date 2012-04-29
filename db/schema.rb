@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120423002555) do
+ActiveRecord::Schema.define(:version => 20120429000146) do
 
   create_table "answers", :force => true do |t|
     t.text     "response"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20120423002555) do
     t.text     "comment"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.boolean  "active"
   end
 
   create_table "invite_requests", :force => true do |t|
@@ -131,6 +132,7 @@ ActiveRecord::Schema.define(:version => 20120423002555) do
     t.boolean  "is_admin",               :default => false
     t.string   "zipcode"
     t.string   "orientation"
+    t.integer  "invite_code_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

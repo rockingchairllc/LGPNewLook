@@ -4,7 +4,9 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
 
     # default path for all users after sign in
-    user_path(resource.id)
+    #user_path(resource.id)
+
+    dashboard_path
 
   end
 end

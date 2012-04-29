@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   has_one :profile_pic, :class_name => "UserImage", :conditions => {:is_profile_pic => true}
   has_many :watch_lists
 
+  belongs_to :invite_code
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,:registerable,

@@ -42,6 +42,7 @@
 
     function FB_Callback(){
 
+      // for client side login form...
       FB.Event.subscribe('auth.login',
         function(response) {
           console.log('user just logged in');
@@ -52,9 +53,15 @@
 
       FB.getLoginStatus(function(response) {
         console.log(response);
-        if (response.status === 'connected') {
+
+        // handles errors from server side auth controller.
+        if (getUrlParam('error')){
+          if (getUrlParam('error')=='invalid-invite'){
+            show_modal('modal_request_invite');
+          }
+        } else if (response.status === 'connected') {
           console.log('user_logged into facebook -- app authorized');
-          alert('You visited the homepage and have already authorized the app in FB and are logged into FB -- what should we do? Redirecting for now.');
+          //alert('You visited the homepage and have already authorized the app in FB and are logged into FB -- what should we do? Redirecting for now.');
           window.location='/auth/facebook';
           //FB_handle_login(response.authResponse.signedRequest, response.authResponse.accessToken)
 
