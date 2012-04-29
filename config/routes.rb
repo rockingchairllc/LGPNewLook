@@ -14,6 +14,8 @@ Lgp::Application.routes.draw do
 
   resources :questions
 
+  resources :users_json, :only => [ :update ]
+
   devise_for :users, :controllers => { :registrations => 'users', :sessions => 'sessions' }
 
   devise_scope :user do
