@@ -5,7 +5,7 @@ class AuthenticationsController < ApplicationController
     fb_auth = FbGraph::Auth.new(LGPConfiguration.facebook_app_id, LGPConfiguration.facebook_secret)
     client = fb_auth.client
     client.redirect_uri = "http://localhost:3000/auth/facebook/callback/"
-    redirect_to client.authorization_uri(:scope => [:email])
+    redirect_to client.authorization_uri(:scope => [:email,:user_photos,:user_birthday,:user_interests,:user_relationship_details,:publish_actions])
   end
 
   # handle callbacks from APIs
