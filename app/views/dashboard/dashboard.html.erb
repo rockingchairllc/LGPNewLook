@@ -12,9 +12,9 @@
         <%= f.label :firstname %>
         <%= f.text_field :firstname %>
         <%= f.label :gender %>
-        <%= f.select :gender, options_for_select([["",""],["Female", "female"],["Male", "male"]])%>
+        <%= f.select :gender, options_for_select([["Female", 'F'],["Male", 'M']],  :selected=>@user.gender), { :include_blank=>true }%>
         <%= f.label :orientation %>
-        <%= f.select :orientation, options_for_select([["",""],["Straight", "straight"]])%>
+        <%= f.select :orientation, options_for_select([ ["Straight", "Straight"], ["Gay/Lesbian", "Gay"], ["Bisexual","Bi"]]),  { :include_blank=>true } %>
         <%= f.label :zipcode %>
         <%= f.text_field :zipcode %>
         <%= f.label :brithdate %>
