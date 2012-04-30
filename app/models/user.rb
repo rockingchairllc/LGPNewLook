@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :authentications
+  has_many :authentications, :dependent => :destroy
   has_many :answers, :autosave => true
   has_many :questions, :through => :answers
   has_many :user_images
