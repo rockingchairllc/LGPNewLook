@@ -17,7 +17,7 @@
       - if movie.theaters.length > 1
         and
         = link_to (pluralize(movie.theaters.length-1, "more theater", "more theaters")), '#more_theaters_'+ movie.id.to_s, 'data-toggle'=>'modal'
-        .modal{:id => "more_theaters_#{ movie.id.to_s}",:style => 'display:none;'}
+        .modal{:id => "more_theaters_#{movie.id.to_s}",:style => 'display:none;'}
           .modal-header
             %a.close{'data-dismiss' =>"modal"} &times;
             %h3 Also playing at
@@ -48,7 +48,14 @@
       %b Summary:
       = shorten movie.desc_long, 200
       - if movie.desc_long.length >= 200
-        %a.more-details read more
+        = link_to "read more", '#summary_'+ movie.id.to_s, 'data-toggle'=>'modal'
+        .modal{:id => "summary_#{movie.id.to_s}",:style => 'display:none;'}
+          .modal-header
+            %a.close{'data-dismiss' =>"modal"} &times;
+            %h3 Summary
+          .modal-body
+            = movie.desc_long
+
     %br
   .span2.watchlist-action{'class' => (@watch_list.select{|x| x.movie_id == movie.id}.count != 0 ? 'is_watched' : ''), 'data-movie-id' => movie.id }
     %p Added to watchlist.
