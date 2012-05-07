@@ -14,7 +14,7 @@
         <%= f.label :gender %>
         <%= f.select :gender, options_for_select([["Female", 'female'],["Male", 'male']],  :selected=>@user.gender), { :include_blank=>true }%>
         <%= f.label :orientation %>
-        <%= f.select :orientation, options_for_select([ ["Straight", "Straight"], ["Gay/Lesbian", "Gay"], ["Bisexual","Bi"]]),  { :include_blank=>true } %>
+        <%= f.select :orientation, options_for_select([ ["Straight", "straight"], ["Gay/Lesbian", "gay"], ["Bisexual","bi"]], :selected=>@user.orientation),  { :include_blank=>true } %>
         <%= f.label :zipcode %>
         <%= f.text_field :zipcode %>
         <%= f.label :brithdate %>

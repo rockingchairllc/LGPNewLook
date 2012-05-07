@@ -11,3 +11,24 @@ postgres shortcuts:
 \df list functions
 \di list indexes
 \dv list views
+
+
+
+
+FB Test Users:
+
+get an access token here:
+https://developers.facebook.com/tools/access_token/
+
+to create a new user:
+url format:
+https://graph.facebook.com/<APP_ID>/accounts/test-users?installed=true&name=<FIRST_NAME LAST_NAME>&locale=en_US&permissions=read_stream&method=post&access_token=<ACCESS_TOKEN>
+https://graph.facebook.com/374526839255198/accounts/test-users?installed=true&name=Jim%20Smith&locale=en_US&permissions=read_stream&method=post&access_token=374526839255198|s-I48WbcNRZS3ku3JmqhBW8Q_nM
+
+{
+   "id": "100003790586544",
+   "access_token": "AAAFUoVM2cJ4BAGUn8DKqxwVZBB32FVQRPdZAt13qo7o8CQ9haujMAKSNQ3wUYZADZCjIHSLpBrQrC0YZAXOAPUBoVZBzXvqojhf65zGOsvlvCRcR2X8yTP",
+   "login_url": "https://www.facebook.com/platform/test_account_login.php?user_id=100003790586544&n=TTq2vfcA8zYT8ct",
+   "email": "jim_irwykmr_smith\u0040tfbnw.net",
+   "password": "442967707"
+}

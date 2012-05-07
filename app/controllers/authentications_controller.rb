@@ -4,7 +4,7 @@ class AuthenticationsController < ApplicationController
     provider=params[:provider]
     fb_auth = FbGraph::Auth.new(LGPConfiguration.facebook_app_id, LGPConfiguration.facebook_secret)
     client = fb_auth.client
-    client.redirect_uri = "http://localhost:3000/auth/facebook/callback/"
+    client.redirect_uri = "http://" + request.host_with_port + "/auth/facebook/callback/"
     redirect_to client.authorization_uri(:scope => [:email,:user_photos,:user_birthday,:user_interests,:user_relationship_details,:publish_actions])
   end
 
@@ -12,7 +12,7 @@ class AuthenticationsController < ApplicationController
   # this could be for a new user or an existing user
   def create
 
-    # TODO:  if you add other providers on this same callback url, you will need to add to this for proper parsing of the callback data
+    # if you add other providers on this same callback url, you will need to add to this for proper parsing of the callback data
     provider=params[:provider]
 
     if provider=='facebook'
@@ -28,10 +28,9 @@ class AuthenticationsController < ApplicationController
       fb_user=FbGraph::User.me(access_token).fetch
       logger.debug fb_user.inspect
 
-
       # get user_id from signed_request
       provider_user_id=fb_user.identifier
-      provider_auth_id=access_token
+      provider_auth_id=fb_user.access_token
       auth=Authentication.find_by_provider_and_provider_user_id(provider,provider_user_id)
       unless auth
 
@@ -52,10 +51,28 @@ class AuthenticationsController < ApplicationController
             return
             #return render :json => { :success=>false, :errors=>['invalid invite code'] }
           end
+          # clear invite code cookie ---
+          cookies[:invite_code]=nil
+
+          # logic for orientation
+          orientation=nil
+          if fb_user.interested_in.length==1
+            if fb_user.interested_in.first=='female' && fb_user.gender == 'male'
+              orientation='straight'
+            elsif fb_user.interested_in.first=='female' && fb_user.gender=='female'
+              orientation='gay'
+            elsif fb_user.interested_in.first=='male' && fb_user.gender=='female'
+              orientation='straight'
+            elsif fb_user.interested_in.first=='male' && fb_user.gender=='male'
+              orientation='gay'
+            end
+          elsif fb_user.interested_in.length > 1
+            orientation='bi'
+          end
 
           # impossible password
           t=Time.now
-          user=User.create(:email=>fb_user.email, :firstname=>fb_user.first_name, :gender=>fb_user.gender, :birthdate=>fb_user.birthday, :password=>t.hash, :password_confirmation=>t.hash)
+          user=User.create(:email=>fb_user.email, :firstname=>fb_user.first_name, :gender=>fb_user.gender, :orientation=>orientation, :birthdate=>fb_user.birthday, :password=>t.hash, :password_confirmation=>t.hash)
           user.invite_code=invite_code
           user.save
           logger.debug user.errors

@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :questions, :through => :answers
   has_many :user_images
   has_one :profile_pic, :class_name => "UserImage", :conditions => {:is_profile_pic => true}
-  has_many :watch_lists
+  has_many :watch_lists, :dependent => :destroy
 
   belongs_to :invite_code
 
