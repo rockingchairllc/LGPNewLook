@@ -19,8 +19,4 @@ class UserImage < ActiveRecord::Base
 
   validates_presence_of :photo_file_name
 
-  # attr_accessor :photo
-  #:styles => { :thumb => "80x75" },
-  #, :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
-
 end
