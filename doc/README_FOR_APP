@@ -11,3 +11,15 @@ postgres shortcuts:
 \df list functions
 \di list indexes
 \dv list views
+
+
+
+Installing ruby: 1.9.3-p125 on MacOS using rvm
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.rvm/bin # keep MacPorts out of PATH during compile
+rvm remove 1.9.3 # do for all versions -- rvm list to see versions installed
+rvm pkg install iconv
+rvm pkg install openssl
+rvm install ruby-1.9.3-p125 --with-openssl-dir=~/.rvm/usr --with-iconv-dir=~/.rvm/usr
+
+# when building postgresql gem -- may need to specify path to pg_config
+gem install pg -v 0.13.2 -- --with-pg-config=<PATH_TO_POSTGRESQL>/bin/pg_config
