@@ -1,6 +1,18 @@
 class PhotosController < ApplicationController
   before_filter :authenticate_user!
 
+  def load_fb_images
+    auth=@user.authentications.find_by_provider('facebook')
+    #fb_user=FbGraph::User.me(auth.provider_auth_id).fetch
+
+    album=FbGraph::User.me(auth.provider_auth_id).albums.detect do |album|
+      album.type == 'profile'
+    end
+    @facebook_profile_pictures = album.photos
+
+    logger.debug @facebook_profile_pictures.inspect
+  end
+
   def index
 
     @user=User.find(current_user.id)
@@ -9,11 +21,13 @@ class PhotosController < ApplicationController
     @profile_pic=@user.profile_pic
 
     # other photos
-    @photos=@user.user_images.find_all_by_is_profile_pic(false)
+    @photos=@user.user_images.all(:conditions=>'is_profile_pic is null or is_profile_pic=false')
 
     logger.debug @photos.inspect
 
     @new_photo=UserImage.new(:user_id=>@user.id)
+
+    load_fb_images
 
   end
 
@@ -22,22 +36,44 @@ class PhotosController < ApplicationController
 
     @user = User.find(current_user.id)
 
-    @new_photo=@user.user_images.new(params[:user_image])
+    load_fb_images
 
-    logger.debug ":::::: pic :::: " + @new_photo.inspect
+    # facebook upload
+    if params[:user_image] && params[:user_image][:action]
+      if params[:user_image][:action]=='import_facebook_profile_pictures'
+        logger.debug 'Processing FB Image Load'
 
-    if @new_photo.is_profile_pic
-      @user.user_images.each do |ui|
-        (ui.is_profile_pic=false; ui.save) if ui.id && ui.is_profile_pic
+        @facebook_profile_pictures.each do |fb_pic|
+          if params[:user_image][:picture_ids].include?(fb_pic.identifier)
+            logger.debug 'Loading picture --- ' + fb_pic.inspect
+            photo=@user.user_images.new()
+            photo.picture_from_url(fb_pic.source)
+          end
+        end
+
+        @user.save
+
       end
-    end
+        @new_photo=UserImage.new(:user_id=>@user.id)
+    else
 
-    if @user.save
-      @new_photo=UserImage.new(:user_id=>@user.id)
+      # regular upload -- form submission
+      @new_photo=@user.user_images.new(params[:user_image])
+
+      if @new_photo.is_profile_pic
+        @user.user_images.each do |ui|
+          (ui.is_profile_pic=false; ui.save) if ui.id && ui.is_profile_pic
+        end
+      end
+
+      if @user.save
+        @new_photo=UserImage.new(:user_id=>@user.id)
+      end
+
     end
 
     @profile_pic=@user.profile_pic
-    @photos=@user.user_images.find_all_by_is_profile_pic(false)
+    @photos=@user.user_images.all(:conditions=>'is_profile_pic is null or is_profile_pic=false')
 
     render :index
 
@@ -62,8 +98,10 @@ class PhotosController < ApplicationController
     end
 
     @profile_pic=@user.profile_pic
-    @photos=@user.user_images.find_all_by_is_profile_pic(false)
+    @photos=@user.user_images.all(:conditions=>'is_profile_pic is null or is_profile_pic=false')
     @new_photo=UserImage.new(:user_id=>@user.id)
+
+    load_fb_images
 
     render :index
 
@@ -78,8 +116,10 @@ class PhotosController < ApplicationController
     @photo.destroy
 
     @profile_pic=@user.profile_pic
-    @photos=@user.user_images.find_all_by_is_profile_pic(false)
+    @photos=@user.user_images.all(:conditions=>'is_profile_pic is null or is_profile_pic=false')
     @new_photo=UserImage.new(:user_id=>@user.id)
+
+    load_fb_images
 
     render :index
 

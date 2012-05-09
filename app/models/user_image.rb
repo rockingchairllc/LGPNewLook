@@ -1,3 +1,5 @@
+require 'rest-open-uri'
+
 class CustomProfilePicValidator < ActiveModel::Validator
   def validate(record)
     if record.is_profile_pic && UserImage.all(:conditions=>['user_id=? and is_profile_pic=true', record.user_id]).count > 0
@@ -18,5 +20,10 @@ class UserImage < ActiveRecord::Base
   :path => "user_photo/:id/:style/:basename.:extension"
 
   validates_presence_of :photo_file_name
+
+
+  def picture_from_url(url)
+      self.photo = open(url)
+  end
 
 end

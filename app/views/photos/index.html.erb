@@ -31,7 +31,16 @@
 <div id="facebook_photos">
   <h3>Add pictures from Facebook to your profile</h3>
   <ul>
-    <li>FB PHOTO</li>
+    <%= form_for(@new_photo, :resource=>'user_image', :url=>user_photos_path(@user.id)) do |f| %>
+      <%= hidden_field_tag 'user_image[action]', 'import_facebook_profile_pictures' %>
+      <% @facebook_profile_pictures.each do |p| %>
+        <li>
+          <%= image_tag p.source %>
+          <%= check_box_tag 'user_image[picture_ids][]', p.identifier.to_s, false, {} %>
+        </li>
+      <% end %>
+      <%= f.submit 'Add Selected Photos' %>
+    <% end %>
   </ul>
 </div>
 
