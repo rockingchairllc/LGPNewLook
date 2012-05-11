@@ -1,3 +1,5 @@
+require 'rest-open-uri'
+
 class CustomProfilePicValidator < ActiveModel::Validator
   def validate(record)
     if record.is_profile_pic && UserImage.all(:conditions=>['user_id=? and is_profile_pic=true', record.user_id]).count > 0
@@ -19,8 +21,9 @@ class UserImage < ActiveRecord::Base
 
   validates_presence_of :photo_file_name
 
-  # attr_accessor :photo
-  #:styles => { :thumb => "80x75" },
-  #, :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
+
+  def picture_from_url(url)
+      self.photo = open(url)
+  end
 
 end

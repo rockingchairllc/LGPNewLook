@@ -19,6 +19,7 @@ gem 'pg'
 
 # gem for facebook open graph api libraries
 gem 'fb_graph'
+gem 'rest-open-uri'
 
 # Gems used only for assets and not required
 # in production environments by default.

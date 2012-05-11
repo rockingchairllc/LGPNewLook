@@ -1,0 +1,64 @@
+<% #functionality -- can remove later... %>
+<ul>
+  <li>Current Photos</li>
+  <li>Set as current photo</li>
+  <li>Delete photo</li>
+  <li>List all FB profile photos</li>
+  <li>Add selected FB photo to LGP - make a copy into S3</li>
+  <li>Upload a new photo ( save in S3) </li>
+</ul>
+
+<div id="current_photos">
+  <h3>Your Current Photos</h3>
+  <ul>
+    <% #profile pic at top %>
+    <% if @profile_pic %>
+      <li><%= image_tag @profile_pic.photo(:medium) %></li>
+    <% end %>
+    <% @photos.each do |p| %>
+      <li>
+        <%= image_tag p.photo(:medium) %>
+        <%= form_for(p, :resource=>'user_image', :url=>user_photo_path(@user.id, p.id)) do |f| %>
+          <%= hidden_field_tag 'user_image[action]', 'make_profile_picture' %>
+          <%= f.submit 'Make Profile Picture' %>
+        <% end %>
+        <%= link_to 'Delete', user_photo_path(@user.id, p.id), :confirm => 'Are you sure?', :method => :delete %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<div id="facebook_photos">
+  <h3>Add pictures from Facebook to your profile</h3>
+  <ul>
+    <%= form_for(@new_photo, :resource=>'user_image', :url=>user_photos_path(@user.id)) do |f| %>
+      <%= hidden_field_tag 'user_image[action]', 'import_facebook_profile_pictures' %>
+      <% @facebook_profile_pictures.each do |p| %>
+        <li>
+          <%= image_tag p.source %>
+          <%= check_box_tag 'user_image[picture_ids][]', p.identifier.to_s, false, {} %>
+        </li>
+      <% end %>
+      <%= f.submit 'Add Selected Photos' %>
+    <% end %>
+  </ul>
+</div>
+
+<div id="upload_photo">
+  <%= form_for(@new_photo, :resource=>'user_image', :url => user_photos_path(@user.id), :html => { :multipart=> true }) do |f| %>
+    <% if @new_photo.errors.count > 0 %>
+      <ul style="color:red">
+        <% @new_photo.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    Browse to file:
+    <%= f.file_field :photo %>
+    <br/>
+    Replace existing profile pic?
+    <%= f.check_box :is_profile_pic %>
+    <br/>
+    <%= submit_tag %>
+  <% end %>
+</div>

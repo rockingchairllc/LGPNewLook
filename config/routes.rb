@@ -28,6 +28,7 @@ Lgp::Application.routes.draw do
 
     resources :users, :only => [ :index, :show, :edit ] do
       resources :users_pic_test, :only =>[ :new, :create ]
+      resources :photos, :only => [:index, :create , :update, :destroy ]
     end
 
   end

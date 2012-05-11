@@ -25,12 +25,13 @@ class AuthenticationsController < ApplicationController
       client.redirect_uri = "http://localhost:3000/auth/facebook/callback/"
       client.authorization_code = params[:code]
       access_token = client.access_token!(:client_auth_body)
+      #logger.debug 'ACCESS_TOKEN::::' + access_token.inspect
       fb_user=FbGraph::User.me(access_token).fetch
       logger.debug fb_user.inspect
 
       # get user_id from signed_request
       provider_user_id=fb_user.identifier
-      provider_auth_id=fb_user.access_token
+      provider_auth_id=fb_user.access_token.to_s
       auth=Authentication.find_by_provider_and_provider_user_id(provider,provider_user_id)
       unless auth
 
