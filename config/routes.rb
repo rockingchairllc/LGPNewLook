@@ -93,9 +93,8 @@ Lgp::Application.routes.draw do
   resources :invite_codes, :only=>[:create]
   resources :invite_requests, :only=>[:create]
 
+  resources :dashboard, :only=>[:index]
 
-  match "/dashboard" => "dashboard#dashboard", :as=>"dashboard"
-  match "/profile" => "profile#profile", :as=>"profile"
   match "/message" => "message#message", :as=>"message"
 
   resources :watch_lists, :only=>[ :index, :create, :destroy ]

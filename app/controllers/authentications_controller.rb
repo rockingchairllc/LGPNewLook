@@ -22,7 +22,7 @@ class AuthenticationsController < ApplicationController
 
       fb_auth = FbGraph::Auth.new(LGPConfiguration.facebook_app_id, LGPConfiguration.facebook_secret)
       client = fb_auth.client
-      client.redirect_uri = "http://localhost:3000/auth/facebook/callback/"
+      client.redirect_uri = "http://" + request.host_with_port + "/auth/facebook/callback/"
       client.authorization_code = params[:code]
       access_token = client.access_token!(:client_auth_body)
       #logger.debug 'ACCESS_TOKEN::::' + access_token.inspect

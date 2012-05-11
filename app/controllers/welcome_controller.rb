@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
-  layout false, {:only=>[:index, :verify_code]}
+  layout false
 
   def index
     @user=current_user
@@ -8,7 +8,7 @@ class WelcomeController < ApplicationController
     @signed_in=user_signed_in?
 
     if @signed_in
-      redirect_to user_path(@current_user.id)
+      redirect_to dashboard_index_path
     end
 
   end
