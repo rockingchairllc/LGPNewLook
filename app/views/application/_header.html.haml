@@ -6,10 +6,10 @@
         .nav-collapse
           %ul.nav.pull-right{:style => 'margin: 18px 0px 0px;'}
             %li
-              %a{:href => '#'} Buddies
+              %a{:href => '/users'} Buddies
             %li.divider-vertical
             %li
-              %a{:href => '#'} Movies
+              %a{:href => '/movies'} Movies
             %li.divider-vertical
             - if user_signed_in?
               %li.dropdown
@@ -28,7 +28,7 @@
 
                   %li.divider
                   %li
-                    = link_to "Profile", profile_path, :class => "user_name"
+                    = link_to "Profile", user_path(current_user.id), :class => "user_name"
                   %li
                     = link_to "Logout", destroy_user_session_path
                   
