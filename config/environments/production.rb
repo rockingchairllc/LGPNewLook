@@ -75,4 +75,11 @@ Lgp::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+  
+  # FB config for DEVELOPMENT APP.
+  config.after_initialize do
+    LGPConfiguration.facebook_app_id = '374526839255198'
+    LGPConfiguration.facebook_secret = '7449426519ece5238bd4730bc7ff2a36'
+  end
+  
 end
