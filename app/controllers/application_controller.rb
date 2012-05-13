@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     # default path for all users after sign in
     #user_path(resource.id)
 
-    dashboard_path
+    dashboard_index_path
 
   end
 end
