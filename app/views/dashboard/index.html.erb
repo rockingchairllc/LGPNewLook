@@ -8,7 +8,7 @@
       Almost There!
     </div>
     <div class="modal-body">
-      <%= form_for(@user, :url=>users_json_path(@user.id, :format=>:json), :remote=>true, :html=>{:id=>'form_user_profile'}) do |f| %>
+      <%= form_for(@user, :url=>dashboard_path(@user.id), :html=>{:id=>'form_user_profile', :multipart=>true}) do |f| %>
         <%= f.label :firstname %>
         <%= f.text_field :firstname %>
         <%= f.label :gender %>
@@ -20,7 +20,17 @@
         <%= f.label :brithdate %>
         <%= f.date_select :birthdate %>
         <br/>
-        <ul id="form_user_profile_errors"></ul>
+        <%= image_tag @user.profile_pic.photo(:thumb) if @user.profile_pic %>
+        Upload a different picture
+        <%= f.file_field :profile_pic %>
+        <br/>
+        <ul id="form_user_profile_errors">
+        <% if @user.errors.any? %>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        <% end %>
+        </ul>
         <%= link_to raw('Finish Signup'), 'javascript:void(0);', :onclick=>"javascript:submit_profile_form();", :remote=>true, :id=>'btn_submit_form_user_profile' %>
       <% end %>
     </div>

@@ -93,7 +93,7 @@ Lgp::Application.routes.draw do
   resources :invite_codes, :only=>[:create]
   resources :invite_requests, :only=>[:create]
 
-  resources :dashboard, :only=>[:index]
+  resources :dashboard, :only=>[:index, :update]
 
   match "/message" => "message#message", :as=>"message"
 

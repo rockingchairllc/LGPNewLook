@@ -75,8 +75,13 @@ class AuthenticationsController < ApplicationController
           t=Time.now
           user=User.create(:email=>fb_user.email, :firstname=>fb_user.first_name, :gender=>fb_user.gender, :orientation=>orientation, :birthdate=>fb_user.birthday, :password=>t.hash, :password_confirmation=>t.hash)
           user.invite_code=invite_code
+
+          # use default picture from fb url
+          photo=user.user_images.new()
+          photo.picture_from_url(fb_user.picture('large'))
+          photo.is_profile_pic=true
+
           user.save
-          logger.debug user.errors
         end
 
         auth=user.authentications.create(:provider=>provider, :provider_user_id=>provider_user_id, :provider_auth_id=>provider_auth_id)

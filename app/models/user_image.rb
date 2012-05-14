@@ -1,4 +1,6 @@
-require 'rest-open-uri'
+require 'uri'
+require 'net/http'
+require 'net/https'
 
 class CustomProfilePicValidator < ActiveModel::Validator
   def validate(record)
@@ -6,7 +8,7 @@ class CustomProfilePicValidator < ActiveModel::Validator
       record.errors[:is_profile_pic] << 'Only one image can be a profile pic.'
     end
   end
-  end
+end
 
 class UserImage < ActiveRecord::Base
   include ActiveModel::Validations
@@ -21,9 +23,42 @@ class UserImage < ActiveRecord::Base
 
   validates_presence_of :photo_file_name
 
-
   def picture_from_url(url)
-      self.photo = open(url)
+
+    uri=URI.parse(url)
+
+    logger.debug "downloading file: " + uri.inspect
+
+    resp=fetch(uri)
+    logger.debug 'response: ' + resp.inspect
+
+    out_file = Tempfile.new(['temp_image', '.jpg'])
+    out_file.binmode
+    out_file.write(resp.body)
+    out_file.flush
+
+    out_file.rewind
+
+    self.photo=out_file
   end
 
+  private
+  # this handles up to 10 redirects ( which FB does for images )
+  def fetch(uri, limit = 10)
+    raise ArgumentError, 'HTTP redirect too deep' if limit == 0
+
+    logger.debug 'downloading uri: ' + uri.inspect
+
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl=true if uri.port==443
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    response=http.get(uri.request_uri)
+
+    case response
+      when Net::HTTPSuccess     then response
+      when Net::HTTPRedirection then fetch(URI.parse(response['location']), limit - 1)
+      else
+        response.error!
+    end
+  end
 end

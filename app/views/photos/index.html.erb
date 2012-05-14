@@ -1,13 +1,3 @@
-<% #functionality -- can remove later... %>
-<ul>
-  <li>Current Photos</li>
-  <li>Set as current photo</li>
-  <li>Delete photo</li>
-  <li>List all FB profile photos</li>
-  <li>Add selected FB photo to LGP - make a copy into S3</li>
-  <li>Upload a new photo ( save in S3) </li>
-</ul>
-
 <div id="current_photos">
   <h3>Your Current Photos</h3>
   <ul>
@@ -39,7 +29,7 @@
           <%= check_box_tag 'user_image[picture_ids][]', p.identifier.to_s, false, {} %>
         </li>
       <% end %>
-      <%= f.submit 'Add Selected Photos' %>
+      <%= f.submit 'Add Selected Photos', :onclick=>'javascript:show_modal("upload_photo_waiting");'  %>
     <% end %>
   </ul>
 </div>
@@ -56,9 +46,17 @@
     Browse to file:
     <%= f.file_field :photo %>
     <br/>
-    Replace existing profile pic?
-    <%= f.check_box :is_profile_pic %>
-    <br/>
-    <%= submit_tag %>
+    <%= submit_tag 'Upload Photo', :onclick=>'javascript:show_modal("upload_photo_waiting");' %>
   <% end %>
 </div>
+
+<div id="upload_photo_waiting" class="modal" style="display:none">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    Photos
+  </div>
+  <div class="modal-body">
+    In a minute your photos will uploaded...
+  </div>
+</div>
+

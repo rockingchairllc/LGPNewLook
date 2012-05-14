@@ -14,7 +14,8 @@
             - if user_signed_in?
               %li.dropdown
                 %a.user.dropdown-toggle{:'data-toggle' => 'dropdown', :href => '#' }
-                  = image_tag 'user.jpeg', :class=>'user_thumb', :hspace => '10px'
+                  - if current_user.profile_pic
+                    = image_tag current_user.profile_pic.photo(:tiny), :class=>'user_thumb', :hspace => '10px'
                   = current_user.firstname
                   %b.caret
                 %ul.dropdown-menu{:style => 'width: 240px'}
