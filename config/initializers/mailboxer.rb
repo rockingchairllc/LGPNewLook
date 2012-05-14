@@ -8,7 +8,7 @@ Mailboxer.setup do |config|
   
   #Configures the methods needed by mailboxer
   config.email_method = :mailboxer_email    #add this field to user if we start doing email notifications
-  config.name_method = :firstname
+  config.name_method = :name
 
   #Configures if you use or not a search engine and wich one are you using
   #Supported enignes: [:solr,:sphinx] 
