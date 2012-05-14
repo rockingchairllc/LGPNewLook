@@ -17,5 +17,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :firstname, :password, :password_confirmation, :remember_me, :gender, :orientation, :zipcode, :birthdate, :user_images_attributes
   accepts_nested_attributes_for :user_images
   
+  # enable users to send messages using mailboxer
+  acts_as_messageable
+  
 end
 
