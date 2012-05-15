@@ -1,0 +1,5 @@
+#conversation-history
+  Message History:
+  - receipts.each do |receipt|
+    - message = receipt.message
+    = render :partial => "messages/message", :locals => {:message => message}

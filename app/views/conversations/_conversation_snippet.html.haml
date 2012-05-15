@@ -1,0 +1,12 @@
+= link_to conversation_path(conversation)  do
+  .conversation-snippet{:id => "conversation_#{conversation.id}"}
+    .conversation-profile-pic.float-left
+      = image_tag("user.jpeg", :size => "60x70") #@TODO change this to a working picture link
+    .conversation-date-and-time.float-right
+      = date_simple_format(conversation.updated_at)
+      %br/
+      = time_twelve_hour_format(conversation.updated_at)
+    .conversation-snippet-details.float-left
+      From: #{"Sebastian"}
+      %br/
+      = conversation.subject

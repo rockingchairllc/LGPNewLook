@@ -9,6 +9,13 @@ Lgp::Application.routes.draw do
   resources :schedules
 
   resources :theaters
+  
+  resources :messages
+  
+  match "inbox" => "conversations#index"
+  match "sentbox" => "conversations#sent"
+  
+  resources :conversations
 
   resources :movies, :only => [:index, :show]
 
@@ -100,5 +107,7 @@ Lgp::Application.routes.draw do
   resources :watch_lists, :only=>[ :index, :create, :destroy ]
 
   root :to => 'welcome#index'
+ 
+  match ':controller(/:action(/:id))'
 
 end

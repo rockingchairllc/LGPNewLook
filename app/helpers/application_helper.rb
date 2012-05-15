@@ -11,4 +11,12 @@ def shorten (string, count = 210)
 	end
 end
 
+def date_simple_format(date)
+  date.strftime("%m/%d/%y")
+end
+
+def time_twelve_hour_format(date)
+  date.strftime("%I:%M %P")
+end
+
 end

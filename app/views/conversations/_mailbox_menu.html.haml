@@ -1,0 +1,8 @@
+#mailbox-menu.float-left
+  %ul
+    %li{:class => params[:action] == "new" ? 'active':'non-active'}
+      = link_to "New Message", new_conversation_path
+    %li{:class => params[:action] == "index" ? 'active':'non-active'}
+      = link_to "Inbox" , :action => "index"
+    %li{:class => params[:action] == "sent" ? 'active':'non-active'}
+      = link_to "Sent Mail", { :controller=> "conversations", :action => "sent"}
