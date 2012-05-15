@@ -1,0 +1,41 @@
+<h1>Listing theaters</h1>
+
+<table>
+  <tr>
+    <th>Theatreid</th>
+    <th>Name</th>
+    <th>Address street</th>
+    <th>Address city</th>
+    <th>Address state</th>
+    <th>Address zip</th>
+    <th>Address country</th>
+    <th>Telephone</th>
+    <th>Longitude</th>
+    <th>Latitude</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @theaters.each do |theater| %>
+  <tr>
+    <td><%= theater.theatreId %></td>
+    <td><%= theater.name %></td>
+    <td><%= theater.address_street %></td>
+    <td><%= theater.address_city %></td>
+    <td><%= theater.address_state %></td>
+    <td><%= theater.address_zip %></td>
+    <td><%= theater.address_country %></td>
+    <td><%= theater.telephone %></td>
+    <td><%= theater.longitude %></td>
+    <td><%= theater.latitude %></td>
+    <td><%= link_to 'Show', theater %></td>
+    <td><%= link_to 'Edit', edit_theater_path(theater) %></td>
+    <td><%= link_to 'Destroy', theater, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Theater', new_theater_path %>

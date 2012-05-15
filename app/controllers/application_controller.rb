@@ -2,11 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def after_sign_in_path_for(resource)
-
-    # default path for all users after sign in
-    #user_path(resource.id)
-
-    dashboard_index_path
-
+    users_dashboards_path
   end
+
 end

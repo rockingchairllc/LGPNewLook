@@ -6,10 +6,10 @@
         .nav-collapse
           %ul.nav.pull-right{:style => 'margin: 18px 0px 0px;'}
             %li
-              %a{:href => '/users'} Buddies
+              = link_to "Buddies", users_profiles_path
             %li.divider-vertical
             %li
-              %a{:href => '/movies'} Movies
+              = link_to "Movies", users_movies_path
             %li.divider-vertical
             - if user_signed_in?
               %li.dropdown
@@ -21,7 +21,7 @@
                 %ul.dropdown-menu{:style => 'width: 240px'}
                   %li
                     .me{:style => 'padding: 18px;'}
-                      = image_tag 'user.jpeg', :class=>'user_thumb larger', :hspace => '10px'
+                      = image_tag current_user.profile_pic.photo(:tiny), :class=>'user_thumb larger', :hspace => '10px'
                       = current_user.firstname
                   - if current_user.is_admin
                     %li.divider
@@ -29,11 +29,11 @@
 
                   %li.divider
                   %li
-                    = link_to "Profile", user_path(current_user.id), :class => "user_name"
+                    = link_to "Profile", users_profile_path(current_user.id), :class => "user_name"
+                  %li
+                    = link_to "Edit Photos", users_photos_path, :class => "user_name"
                   %li
                     = link_to "Logout", destroy_user_session_path
-                  
-
             - else
               %li
                 %a{:href => '/users/sign_in'} Login

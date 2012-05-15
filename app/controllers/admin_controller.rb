@@ -1,4 +1,4 @@
-class AdminController < ActionController::Base
+class AdminController < ApplicationController
   layout 'application'
   before_filter :authorize_admin
 

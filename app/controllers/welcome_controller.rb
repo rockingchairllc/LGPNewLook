@@ -8,7 +8,7 @@ class WelcomeController < ApplicationController
     @signed_in=user_signed_in?
 
     if @signed_in
-      redirect_to dashboard_index_path
+      redirect_to users_dashboards_path
     end
 
   end
