@@ -78,8 +78,10 @@ Lgp::Application.configure do
   
   # FB config for DEVELOPMENT APP.
   config.after_initialize do
+
     LGPConfiguration.facebook_app_id = '279272602168179'
     LGPConfiguration.facebook_secret = 'f4f9be49274b1ee6b0b5ca0ddb58e73c'
+
   end
   
 end

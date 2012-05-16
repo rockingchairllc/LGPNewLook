@@ -57,3 +57,6 @@ gem 'haml-rails'
 # http://stackoverflow.com/questions/6282307/rails-3-1-execjs-and-could-not-find-a-javascript-runtime
 gem 'execjs'
 gem 'therubyracer'
+
+# for deploymenyt
+gem 'heroku'
