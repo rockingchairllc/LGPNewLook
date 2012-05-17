@@ -10,6 +10,8 @@ Lgp::Application.routes.draw do
   resources :welcome, :only=>[:index]
   resources :invite_codes, :only=>[:create]
   resources :invite_requests, :only=>[:create]
+  
+  resources :conversations, :messages
  
 
   # user scoped
