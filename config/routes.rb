@@ -12,6 +12,8 @@ Lgp::Application.routes.draw do
   resources :invite_requests, :only=>[:create]
   
   resources :conversations, :messages
+  match "inbox" => "conversations#index"
+  match "sentbox" => "conversations#sent"
  
 
   # user scoped
