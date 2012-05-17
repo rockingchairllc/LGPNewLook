@@ -1,0 +1,10 @@
+#conversation-subject
+  = @conversation.subject
+#reply-to-conversation
+  #conversation-reply-form
+    = form_for( @message, :url => {:controller => "messages", :action => "reply_to_conversation", :conversation_id => @conversation.id}) do |f|
+      = f.label :body, "Reply:"
+      = f.text_area :body, :size => "6x6"
+      %br/
+      = f.submit "Send"
+= render :partial => "conversation", :locals =>{:conversation => @conversation, :receipts => @receipts}

@@ -1,0 +1,10 @@
+#new-message-form
+  = form_tag :controller => "conversations", :action => "create" do
+    = label_tag :recipient, 'To'
+    = text_field :recipient,  params[:recipient], :size => 49
+    = label_tag :subject, 'Movie'
+    = select_tag :movie_id, options_from_collection_for_select(@movies, "id", "title")
+    = label_tag :body, 'Message'
+    = text_area :body, params[:body], :rows => 10, :cols => 47
+    %br/
+    = submit_tag 'Send'

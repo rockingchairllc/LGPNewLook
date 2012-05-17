@@ -58,5 +58,10 @@ gem 'haml-rails'
 gem 'execjs'
 gem 'therubyracer'
 
+
 # for deploymenyt
 gem 'heroku'
+
+# for internal messaging
+gem 'mailboxer'
+

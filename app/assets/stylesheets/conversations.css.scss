@@ -1,0 +1,88 @@
+// Place all the styles related to the Conversations controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#new-message-form{
+  padding: 5px;
+}
+#mailbox-menu{
+  width: 240px;
+  min-height: 500px;
+  padding-left: 10px;
+  padding-right: 17px;
+  border-right: 1px solid;
+}
+#mailbox-menu ul{
+  padding-left: 0;
+}
+
+#mailbox-menu li{
+  list-style: none;
+  height: 40px;
+  width: 100%;
+}
+
+#preferred-theaters-sidebar{
+  padding-top: 2px;
+  padding-left: 7px;
+  width: 260px;
+  min-height: 500px;
+  border-left: 1px solid;
+}
+
+#mailbox-content{
+  width: 536px;
+  min-height: 500px;
+}
+
+.conversation{
+  height: 60px;
+}
+.conversation-snippet{
+  margin: 2px 5px 2px 5px;
+  width: 526px;
+  height: 76px;
+  background-color: #EEEEEE;
+}
+.conversation-profile-pic{
+  height: 73px;
+  width: 65px;
+}
+.conversation-snippet-details{
+  height: 60px;
+  width: 340px;
+  padding: 5px;
+}
+.conversation-date-and-time{
+  height: 60px;
+  width: 80px;
+  padding: 5px;
+}
+.active{
+  background-color: #EEEEEE;
+}
+.message{
+  width: 526px;
+  margin: 5px;
+  min-height: 100px;
+  background-color: #EEEEEE;
+}
+.message-body{
+  margin-top: 5px;
+  width: 460px;
+  word-wrap: break-word; 
+}
+.message-photo{
+  height: 73px;
+  width: 65px;
+}
+.message-header{
+  margin-left: 1px;
+  width: 460px;
+}
+
+.clear { clear: both; }
+
+
+
+

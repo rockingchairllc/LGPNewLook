@@ -5,10 +5,12 @@ Lgp::Application.routes.draw do
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/:provider' => 'authentications#show'
 
+
   # public
   resources :welcome, :only=>[:index]
   resources :invite_codes, :only=>[:create]
   resources :invite_requests, :only=>[:create]
+ 
 
   # user scoped
   devise_for :users
@@ -35,4 +37,7 @@ Lgp::Application.routes.draw do
 
   # default route
   root :to => 'welcome#index'
+ 
+  match ':controller(/:action(/:id))'
+
 end
