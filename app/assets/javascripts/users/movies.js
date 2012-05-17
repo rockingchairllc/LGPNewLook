@@ -7,14 +7,14 @@
   $('#zip_code_filter').click(function(){
     var miles = $('#select_miles').val();
     var zip   = $('#field_zip').val();
-    window.location='/movies?miles=' + miles + '&zip=' + zip;
+    window.location='/users/movies?miles=' + miles + '&zip=' + zip;
   });
 
   $('.movie_synopsis_lists').each(function(){
 
     $(this).on('click', 'a.watch-lists-add', function(){
       var self      = $(this).parent('.watchlist-action');
-      var user_id   = 1;
+      var user_id   = self.attr('data-user-id');
       var movie_id  = self.attr('data-movie-id');
 
       $.post('/users/watch_lists', {'user_id' : user_id, 'movie_id' : movie_id },

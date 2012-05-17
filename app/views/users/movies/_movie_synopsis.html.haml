@@ -33,10 +33,10 @@
         - watchlisters.each do |w|
           %li.span1
             .thumbnail
-              %a{:href => user_path(w.id)}
+              %a{:href => users_profiles_path(w.id)}
                 %img{:src => (w.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:medium) rescue '') }
       %p
-        %a.purple{:href => user_path(watchlisters.first.id)}= watchlisters.first.firstname
+        %a.purple{:href => users_profiles_path(watchlisters.first.id)}= watchlisters.first.firstname
         - if watchlisters.count > 1
           and
           = watchlisters.count - 1
@@ -57,7 +57,7 @@
             = movie.desc_long
 
     %br
-  .span2.watchlist-action{'class' => (@watch_list.select{|x| x.movie_id == movie.id}.count != 0 ? 'is_watched' : ''), 'data-movie-id' => movie.id }
+  .span2.watchlist-action{'class' => (@watch_list.select{|x| x.movie_id == movie.id}.count != 0 ? 'is_watched' : ''), 'data-movie-id' => movie.id, 'data-user-id' => current_user.id }
     %p Added to watchlist.
     %a.watch-lists-add.btn.btn-primary.btn-large Add to Watchlist
     %a.watch-lists-rem.btn.btn-primary.btn-large Remove

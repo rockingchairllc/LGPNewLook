@@ -8,7 +8,7 @@
       Almost There!
     </div>
     <div class="modal-body">
-      <%= form_for(@user, :url=>dashboard_path(@user.id), :html=>{:id=>'form_user_profile', :multipart=>true}) do |f| %>
+      <%= form_for(@user, :url=>users_dashboard_path(@user.id), :html=>{:id=>'form_user_profile', :multipart=>true}) do |f| %>
         <%= f.label :firstname %>
         <%= f.text_field :firstname %>
         <%= f.label :gender %>
@@ -17,7 +17,7 @@
         <%= f.select :orientation, options_for_select([ ["Straight", "straight"], ["Gay/Lesbian", "gay"], ["Bisexual","bi"]], :selected=>@user.orientation),  { :include_blank=>true } %>
         <%= f.label :zipcode %>
         <%= f.text_field :zipcode %>
-        <%= f.label :brithdate %>
+        <%= f.label :birthdate %>
         <%= f.date_select :birthdate %>
         <br/>
         <%= image_tag @user.profile_pic.photo(:thumb) if @user.profile_pic %>
