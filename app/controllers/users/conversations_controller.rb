@@ -1,6 +1,5 @@
-class ConversationsController < ApplicationController
+class Users::ConversationsController < UsersController
 
-  before_filter :authenticate_user!
   before_filter :get_mailbox
   #before_filter :check_current_subject_in_conversation, :only => [:show, :update, :destroy]
   def index
