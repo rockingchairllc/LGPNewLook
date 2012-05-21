@@ -13,6 +13,7 @@ class Users::ConversationsController < UsersController
   end
 
   def new
+    @recipient = User.find_by_id(params[:recipient_id])
     @movies = Movie.all #@TODO change this to a more specific movies list.
   end
 
