@@ -1,6 +1,6 @@
 - content_for :content do
-  = render :partial => "mailbox_menu"
-  = render :partial => "preferred_theaters_sidebar"
+  = render :partial => "users/conversations/mailbox_menu"
+  = render :partial => "users/conversations/preferred_theaters_sidebar"
   #mailbox-content.float-left
     = content_for?(:conversations_content) ? yield(:conversations_content) : yield
 = render :template => 'layouts/application'
