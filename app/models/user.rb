@@ -19,6 +19,17 @@ class User < ActiveRecord::Base
   
   # enable users to send messages using mailboxer
   acts_as_messageable
+
+  def watchlist_movies
+    watchlist = self.watch_lists
+    watchlist = self.watch_lists
+    watchlist_movies = Array.new
+    watchlist.each do |watchlist_item|
+      movie = Movie.find_by_id(watchlist_item.movie_id)
+      watchlist_movies << movie
+    end
+    watchlist_movies
+  end
   
 end
 
