@@ -1,1 +1,1 @@
-= render :partial => "conversation_snippet", :collection => @conversations, :as => :conversation
+= render :partial => "conversation_snippet", :collection => @conversations, :as => :conversation  , :locals => {:current_user => @current_user}

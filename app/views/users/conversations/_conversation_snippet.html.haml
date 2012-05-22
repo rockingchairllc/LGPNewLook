@@ -1,12 +1,16 @@
-= link_to conversation_path(conversation)  do
+= link_to users_conversation_path(conversation)  do
+  - other_user = get_other_conversation_participant(conversation, current_user)
   .conversation-snippet{:id => "conversation_#{conversation.id}"}
     .conversation-profile-pic.float-left
-      = image_tag("user.jpeg", :size => "60x70") #@TODO change this to a working picture link
+      = image_tag(other_user.profile_pic.photo, :size => "60x70") #@TODO change this to a working picture link
     .conversation-date-and-time.float-right
       = date_simple_format(conversation.updated_at)
       %br/
       = time_twelve_hour_format(conversation.updated_at)
     .conversation-snippet-details.float-left
-      From: #{"Sebastian"}
+      - if @mailbox_type == "inbox"
+        From: #{other_user.firstname}
+        - elsif @mailbox_type == "sentbox"
+        To: #{other_user.firstname}
       %br/
       = conversation.subject

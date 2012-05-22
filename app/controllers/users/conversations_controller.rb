@@ -4,6 +4,7 @@ class Users::ConversationsController < UsersController
   #before_filter :check_current_subject_in_conversation, :only => [:show, :update, :destroy]
   def index
     @conversations = @mailbox.inbox
+    @mailbox_type = "inbox"
   end
 
   def show
@@ -37,6 +38,7 @@ class Users::ConversationsController < UsersController
 
   def sent
     @conversations = @mailbox.sentbox
+    @mailbox_type = "sentbox"
   end
 
   def destroy
