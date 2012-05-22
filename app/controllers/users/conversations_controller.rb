@@ -10,7 +10,7 @@ class Users::ConversationsController < UsersController
   def show
     @message = Message.new
     @conversation = Conversation.where("id = ?", params[:id]).first
-    @receipts = @conversation.receipts
+    @receipts = @conversation.receipts.where("mailbox_type = ?", "inbox")
   end
 
   def new

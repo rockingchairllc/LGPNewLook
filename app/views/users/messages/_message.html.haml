@@ -1,8 +1,9 @@
 .clear
+- message_sender = get_user message.sender_id
 .message.float-left{:id => "message_#{message.id}"}
-  .message-photo.float-left= image_tag("user.jpeg", :size => "60x70")
+  .message-photo.float-left= image_tag(message_sender.profile_pic.photo, :size => "60x70")
   .message-header.float-right
-    .message-sender.float-left= get_message_sender(message.sender_id).firstname
+    .message-sender.float-left= message_sender.firstname
     .message-time-and-date.float-right
       = date_simple_format(message.created_at)
       , #{time_twelve_hour_format(message.created_at)}
