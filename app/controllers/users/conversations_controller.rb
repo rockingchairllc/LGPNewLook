@@ -10,7 +10,7 @@ class Users::ConversationsController < UsersController
   def show
     @message = Message.new
     @conversation = Conversation.where("id = ?", params[:id]).first
-    @receipts = @conversation.receipts.where("mailbox_type = ?", "inbox")
+    @receipts = @conversation.receipts.where("mailbox_type = ?", "inbox").order("created_at DESC")
   end
 
   def new
@@ -49,10 +49,10 @@ class Users::ConversationsController < UsersController
   end
 
   def reply_to_conversation
-    conversation = Conversation.find_by_id(params[:conversation_id])
-    message_sent = current_user.reply_to_conversation(conversation, params[:message][:body])
+    conversation = Conversation.find_by_id(params[:conversation][:id])
+    message_sent = current_user.reply_to_conversation(conversation, params[:body][:body])
     if message_sent
-      redirect_to conversation_path(conversation)
+      redirect_to users_conversation_path(conversation)
     end
   end
 
