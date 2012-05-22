@@ -3,3 +3,5 @@
   - receipts.each do |receipt|
     - message = receipt.message
     = render :partial => "users/messages/message", :locals => {:message => message}
+  #delete-conversation-button
+    = link_to( "Delete",users_conversation_path(@current_user, conversation.id), :confirm => "Are you sure you want to delete this conversation?", :method => :delete)

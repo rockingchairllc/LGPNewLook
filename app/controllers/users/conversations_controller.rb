@@ -42,24 +42,17 @@ class Users::ConversationsController < UsersController
   end
 
   def destroy
+    @user = User.find_by_id(params[:id])
+    @conversation = @user.mailbox.conversations.where("conversation_id = ?", params[:format]).first
+    @conversation.move_to_trash(@user)
+    redirect_to users_inbox_path(@user)
+  end
 
-    @conversation.move_to_trash(@actor)
-
-    respond_to do |format|
-      format.html {
-        if params[:location].present? and params[:location] == 'conversation'
-          redirect_to conversations_path(:box => :trash)
-        else
-          redirect_to conversations_path(:box => @box,:page => params[:page])
-        end
-      }
-      format.js {
-        if params[:location].present? and params[:location] == 'conversation'
-          render :js => "window.location = '#{conversations_path(:box => @box,:page => params[:page])}';"
-        else
-          render 'conversations/destroy'
-        end
-      }
+  def reply_to_conversation
+    conversation = Conversation.find_by_id(params[:conversation_id])
+    message_sent = current_user.reply_to_conversation(conversation, params[:message][:body])
+    if message_sent
+      redirect_to conversation_path(conversation)
     end
   end
 
