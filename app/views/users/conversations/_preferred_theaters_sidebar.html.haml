@@ -1,4 +1,8 @@
 #preferred-theaters-sidebar.float-right
-  = current_user.firstname
-  's preferred theaters:
-  - # @TODO add perferred theatres here
+  - if @preferred_theaters
+    - if @preferred_theaters.size == 0
+      "Why not add some preferred theaters?"
+    - else
+      = current_user.firstname
+      's preferred theaters:
+      = "[  Partial needed for preffered theaters ]"# @TODO add perferred theatres here

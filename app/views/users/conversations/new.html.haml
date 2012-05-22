@@ -1,18 +1,21 @@
-.span1
-  %ul.thumbnails{:style => 'padding: 0px; margin-top:0px;'}
-    %li.span1
-      .thumbnail.nopadding
-        != image_tag @recipient.profile_pic.photo rescue '<img src="http://placehold.it/75x100" >'
-= form_tag :controller => "conversations", :action => "create" do
-  #recipient-info
-    #recipient-firstname
-      %h3= @recipient.firstname
-  = hidden_field(:recipient, :id)
-  = label_tag :subject, 'Movie:'
-  = select_tag :movie_id, (@movies.empty? ? "<option>N/A</option>".html_safe : options_from_collection_for_select(@movies, "id", "title"))
-  = label_tag :body, 'Message'
-  = text_area :body, params[:body], :rows => 10, :cols => 47
-  %br/
-  = submit_tag 'Send'
+- if @recipient.nil?
+  Messages need to be routed via a buddy first
+- else
+  .span1
+    %ul.thumbnails{:style => 'padding: 0px; margin-top:0px;'}
+      %li.span1
+        .thumbnail.nopadding
+          != image_tag @recipient.profile_pic.photo rescue '<img src="http://placehold.it/75x100" >'
+  = form_tag :controller => "conversations", :action => "create" do
+    #recipient-info
+      #recipient-firstname
+        %h3= @recipient.firstname
+    = hidden_field(:recipient, :id)
+    = label_tag :subject, 'Movie:'
+    = select_tag :movie_id, (@movies.empty? ? "<option>N/A</option>".html_safe : options_from_collection_for_select(@movies, "id", "title"))
+    = label_tag :body, 'Message'
+    = text_area :body, params[:body], :rows => 10, :cols => 47
+    %br/
+    = submit_tag 'Send'
 
 

@@ -30,6 +30,18 @@ class User < ActiveRecord::Base
     end
     watchlist_movies
   end
+
+  def watch_list_preferred_theaters
+    watch_lists = self.watch_lists
+    wl_preferred_theaters = []
+    watch_lists.each do |watch_list|
+      preferred_theaters = watch_list.watch_list_preferred_theaters
+      preferred_theaters.each do |preferred_theater|
+        wl_preferred_theaters << preferred_theater
+      end
+    end
+    wl_preferred_theaters
+  end
   
 end
 

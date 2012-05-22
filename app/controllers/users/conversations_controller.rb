@@ -11,11 +11,15 @@ class Users::ConversationsController < UsersController
     @message = Message.new
     @conversation = Conversation.where("id = ?", params[:id]).first
     @receipts = @conversation.receipts.where("mailbox_type = ?", "inbox").order("created_at DESC")
+    @preferred_theaters = "placeholder for preferred theaters"
   end
 
   def new
-    @recipient = User.find_by_id(params[:recipient_id])
-    @movies = @recipient.watchlist_movies
+    if params[:recipient_id]
+      @recipient = User.find_by_id(params[:recipient_id])
+      @movies = @recipient.watchlist_movies
+      @preferred_theaters = @recipient.watch_list_preferred_theaters
+    end
   end
 
   def edit
