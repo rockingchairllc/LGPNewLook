@@ -5,7 +5,7 @@
     = form_tag url_for(:controller => "conversations", :action => "reply_to_conversation", :id => @conversation.id ) do
       = hidden_field :conversation, :id
       = hidden_field :current_user, :id
-      = text_area :body, :body
+      = text_area :body, :body, :rows => 5
       %br/
       = submit_tag "Send"
 = render :partial => "conversation", :locals =>{:conversation => @conversation, :receipts => @receipts}
