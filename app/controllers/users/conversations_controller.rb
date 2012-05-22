@@ -24,15 +24,15 @@ class Users::ConversationsController < UsersController
 
   def create
     # verify everything
-    recipient = User.find_by_firstname params[:recipient]   #@TODO this will change to an id once set up
-    movie = Movie.find_by_id params[:movie_id]
+    recipient = User.find_by_id params[:recipient][:id]
+    movie = Movie.find_by_id(params[:movie_id])
     body = params[:body][0]
     #@TODO add check here to make sure everything above is valid before sending message
     # create conversations e.g. send first message
-    conversation = @current_user.send_message(recipient, body, movie.title )
+    conversation = @current_user.send_message(recipient, body, movie.nil? ? "N/A" : movie.title )
     # return user to conversations page
     if conversation
-      redirect_to conversations_path
+      redirect_to users_conversations_path
     end
   end
 

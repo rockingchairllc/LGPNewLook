@@ -7,11 +7,12 @@
   #recipient-info
     #recipient-firstname
       %h3= @recipient.firstname
-= label_tag :subject, 'Movie:'
-= select_tag :movie_id, options_from_collection_for_select(@movies, "id", "title")
-= label_tag :body, 'Message'
-= text_area :body, params[:body], :rows => 10, :cols => 47
-%br/
-= submit_tag 'Send'
+  = hidden_field(:recipient, :id)
+  = label_tag :subject, 'Movie:'
+  = select_tag :movie_id, (@movies.empty? ? "<option>N/A</option>".html_safe : options_from_collection_for_select(@movies, "id", "title"))
+  = label_tag :body, 'Message'
+  = text_area :body, params[:body], :rows => 10, :cols => 47
+  %br/
+  = submit_tag 'Send'
 
 
