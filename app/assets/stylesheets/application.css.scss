@@ -119,6 +119,7 @@ a.purple{
   .btn-primary {
     @include border-radius(7px);
     margin: 0px;
+    color:white;
   }
 
 }

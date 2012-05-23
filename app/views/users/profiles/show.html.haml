@@ -26,7 +26,7 @@
       12 Common Interests
   .span3
     %span.btn-wrapper.pull-right
-      %a.btn.btn-primary.btn-large{:style => 'width: 110px'} Message
+      = link_to("Message", {:controller => "users/conversations", :action => "new", :recipient_id => @user.id}, {:class => "btn btn-primary btn-large", :style => 'width: 110px'})
     %br.clearfix
     %span.btn-wrapper.pull-right
       %a.btn.btn-primary.btn-large{:style => 'width: 110px'} Save
