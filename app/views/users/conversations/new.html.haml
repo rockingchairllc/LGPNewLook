@@ -12,7 +12,7 @@
         %h3= @recipient.firstname
     = hidden_field(:recipient, :id)
     = label_tag :subject, 'Movie:'
-    = select_tag :movie_id, (@movies.empty? ? "<option>N/A</option>".html_safe : options_from_collection_for_select(@movies, "id", "title"))
+    = select_tag :movie_id, (@movies.empty? ? "<option>N/A</option>".html_safe : options_from_collection_for_select(@movies, "id", "title", @default_movie.id))
     = label_tag :body, 'Message'
     = text_area :body, params[:body], :rows => 10, :cols => 47
     %br/
