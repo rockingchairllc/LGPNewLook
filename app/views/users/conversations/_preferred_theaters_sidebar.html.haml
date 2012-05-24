@@ -1,5 +1,5 @@
 #preferred-theaters-sidebar.float-right
-  - if @preferred_theaters
+  - if @preferred_theaters && !@movies.empty?
     - if @preferred_theaters.size == 0
       "Why not add some preferred theaters?"
     - else
