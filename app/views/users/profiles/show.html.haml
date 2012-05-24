@@ -58,7 +58,7 @@
                       = "#{t.theater.name} "
             .span4
               %span.btn-wrapper.pull-right
-                %a.btn.btn-primary.btn-large.span2 Let's Get Popcorn
+                = link_to("Let's Get Popcorn", {:controller => "users/conversations", :action => "new", :recipient_id => @user.id, :watch_list_id => w.id}, {:class => "btn btn-primary btn-large span2"})
 
     - if @user.answers.count != 0
       - @user.answers.each do  |a|
