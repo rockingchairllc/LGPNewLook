@@ -1,0 +1,7 @@
+%li{:id => "theater_" + theater.id.to_s}
+  .theater-name
+    = theater.name
+  .theater-map-link
+    = link_to "Map", :controller => "users/theaters", :action => "map"  #@TODO link currently not working
+  .theater-showtimes-link
+    = link_to "Showtimes", :controller => "users/theaters", :action => "showtimes"  #@TODO link currently not working

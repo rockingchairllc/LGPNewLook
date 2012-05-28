@@ -21,7 +21,7 @@ class Users::ConversationsController < UsersController
       if params[:watch_list_id]
         watch_list_item = WatchList.find(params[:watch_list_id])
         @default_movie = Movie.find(watch_list_item.movie_id)
-        @preferred_theaters = watch_list_item.watch_list_preferred_theaters
+        @preferred_theaters = @recipient.watch_list_preferred_theaters(watch_list_item.id)
       end
     end
   end

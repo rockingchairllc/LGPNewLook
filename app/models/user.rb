@@ -31,16 +31,14 @@ class User < ActiveRecord::Base
     watchlist_movies
   end
 
-  def watch_list_preferred_theaters
-    watch_lists = self.watch_lists
-    wl_preferred_theaters = []
-    watch_lists.each do |watch_list|
-      preferred_theaters = watch_list.watch_list_preferred_theaters
-      preferred_theaters.each do |preferred_theater|
-        wl_preferred_theaters << preferred_theater
-      end
+  def watch_list_preferred_theaters(watch_list_id)
+    watch_list = self.watch_lists.where("id = ?", watch_list_id).first
+    theaters = []
+    preferred_theaters = watch_list.watch_list_preferred_theaters
+    preferred_theaters.each do |preferred_theater|
+      theaters << Theater.find_by_id(preferred_theater.theater_id)
     end
-    wl_preferred_theaters
+    theaters
   end
   
 end

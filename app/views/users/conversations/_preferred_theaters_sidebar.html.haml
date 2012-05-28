@@ -1,5 +1,6 @@
 #preferred-theaters-sidebar.float-right
-  - if !@preferred_theaters.nil?
+  - if !@preferred_theaters.nil? && !@preferred_theaters.empty?
     = current_user.firstname
     's preferred theaters:
-    = "[  Partial needed for preffered theaters ]"# @TODO add perferred theatres here
+    %ul{:id => "theater-list"}
+      = render :partial => 'users/theaters/theater', :collection => @preferred_theaters, :as => @theaters
