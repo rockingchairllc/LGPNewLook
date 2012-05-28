@@ -17,6 +17,7 @@ Lgp::Application.routes.draw do
     resources :dashboards, :only => [ :index, :update ]
     # change message to be resource based route --- not match when implemented.
     #match "/messages" => "messages#message", :as=>"message"
+    match 'conversations/update_preferred_theaters' => 'conversations#update_preferred_theaters', :via => [:get, :post]
     resources :conversations, :messages
     match "inbox" => "conversations#index"
     match "sentbox" => "conversations#sent"

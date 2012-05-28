@@ -64,6 +64,17 @@ class Users::ConversationsController < UsersController
     end
   end
 
+  def update_preferred_theaters
+    @recipient = User.find_by_id(params[:user_id])
+    watch_list = WatchList.where("user_id = ? AND movie_id = ?", @recipient.id, params[:movie_id]).first
+    @preferred_theaters = @recipient.watch_list_preferred_theaters(watch_list.id)
+    if @preferred_theaters
+      respond_to do |format|
+        format.js
+      end
+    end
+  end
+
   private
 
   def get_mailbox
