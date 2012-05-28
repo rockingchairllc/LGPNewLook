@@ -12,6 +12,7 @@ class Users::ConversationsController < UsersController
     @conversation = Conversation.where("id = ?", params[:id]).first
     @receipts = @conversation.receipts.where("mailbox_type = ?", "inbox").order("created_at DESC")
     @preferred_theaters = "placeholder for preferred theaters"
+    @recipient =  User.find_by_id(@receipts.last.receiver_id) #first receiver of a message in their inbox
   end
 
   def new
