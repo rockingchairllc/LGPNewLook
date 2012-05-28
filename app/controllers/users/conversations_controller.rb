@@ -11,8 +11,16 @@ class Users::ConversationsController < UsersController
     @message = Message.new
     @conversation = Conversation.where("id = ?", params[:id]).first
     @receipts = @conversation.receipts.where("mailbox_type = ?", "inbox").order("created_at DESC")
-    @preferred_theaters = "placeholder for preferred theaters"
     @recipient =  User.find_by_id(@receipts.last.receiver_id) #first receiver of a message in their inbox
+    # check if there is a subject and therefore a movie title
+    if @conversation.subject != "N/A"   #@TODO might want to change this later
+      # get the movie object
+      movie = Movie.find_by_title(@conversation.subject)
+      # get the watchlist
+      watch_list = WatchList.where("user_id = ? AND movie_id = ?", @recipient.id, movie.id).first
+      #check for preferred theaters
+      @preferred_theaters =  @recipient.watch_list_preferred_theaters(watch_list.id)
+    end
   end
 
   def new
