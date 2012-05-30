@@ -8,9 +8,11 @@
     display: none;
   }
   a.watch-lists-add-display { display: block; }
+  a.watch-lists-add-summary { display: block; }
   &.is_watched {
     p, a.watch-lists-rem { display: block; }
     a.watch-lists-add-display { display: none; }
+    a.watch-lists-add-summary { display: none; }
   }
 }
 

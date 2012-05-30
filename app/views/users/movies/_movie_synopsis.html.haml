@@ -49,12 +49,6 @@
       = shorten movie.desc_long, 200
       - if movie.desc_long.length >= 200
         = link_to "read more", '#summary_'+ movie.id.to_s, 'data-toggle'=>'modal'
-        .modal{:id => "summary_#{movie.id.to_s}",:style => 'display:none;'}
-          .modal-header
-            %a.close{'data-dismiss' =>"modal"} &times;
-            %h3 Summary
-          .modal-body
-            = movie.desc_long
 
     %br
   .span2.watchlist-action{'class' => (@watch_list.select{|x| x.movie_id == movie.id}.count != 0 ? 'is_watched' : ''), 'data-movie-id' => movie.id, 'data-user-id' => current_user.id }
@@ -84,5 +78,13 @@
                 = t.name
       .modal-footer
         %a.watch-lists-add.btn.btn-primary.btn-large{:data_movie_id=>movie.id.to_s, :data_user_id=>current_user.id} Add to Watchlist
+    .modal{:id => "summary_#{movie.id.to_s}",:style => 'display:none;'}
+      .modal-header
+        %a.close{'data-dismiss' =>"modal"} &times;
+        %h3 Summary
+      .modal-body
+        = movie.desc_long
+      .modal-footer
+        %a.watch-lists-add-summary.btn.btn-primary.btn-large{:data_movie_id=>movie.id.to_s, :data_user_id=>current_user.id} Add to Watchlist
 
 %br

@@ -46,7 +46,13 @@
 
     });
 
-    $(this).on('click', 'a.watch-lists-add', function(){
+      $(this).on('click', 'a.watch-lists-add-summary', function(){
+        var movie_id=$(this).attr('data_movie_id');
+        hide_modal('summary_' + movie_id);
+        show_modal('watchlist_' + movie_id);
+      });
+
+      $(this).on('click', 'a.watch-lists-add', function(){
       var self      = $(this).parents('.watchlist-action');
       var movie_id  = $(this).attr('data_movie_id');
       var user_id   = $(this).attr('data_user_id');
