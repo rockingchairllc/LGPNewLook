@@ -82,7 +82,7 @@
     });
 
     $(this).on('click', 'a.watch-lists-rem', function(){
-      var self      = $(this).parent('.watchlist-action');
+      var self      = $(this).parents('.watchlist-action');
       var movie_id  = $(this).attr('data_movie_id');
       var user_id   = $(this).attr('data_user_id');
 
