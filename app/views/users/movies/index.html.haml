@@ -1,8 +1,11 @@
 All movies playing within
-= select_tag('select_miles', options_for_select(['1','5','10','15','20','25'], @param_miles ))
+= select_tag('select_miles', options_for_select(['1','5','10','20','50','100'], @param_miles ))
 miles of
 = text_field_tag :field_zip, @param_zip, :placeholder => @param_zip, :style => 'width: 90px;'
-= submit_tag "Go", :class => 'btn btn-primary', :id => 'zip_code_filter', :style => 'margin-top: -2px;'
+= submit_tag "Go", :class => 'search_filter btn btn-primary', :style => 'margin-top: -2px;'
+
+= submit_tag "Search", :class => 'search_filter btn btn-primary', :style => 'margin-top:2px; margin-left: 5px; float:right'
+= text_field_tag :field_search, @param_search, :style => 'width: 150px;float:right;'
 
 %br
 %br
