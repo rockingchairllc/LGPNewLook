@@ -7,11 +7,15 @@
   p, a.watch-lists-rem {
     display: none;
   }
-  a.watch-lists-add { display: block; }
+  a.watch-lists-add-display { display: block; }
   &.is_watched {
     p, a.watch-lists-rem { display: block; }
-    a.watch-lists-add { display: none; }
+    a.watch-lists-add-display { display: none; }
   }
+}
+
+.preferred_theaters{
+  .search_error { display: none; }
 }
 
 .movie_synopsis {

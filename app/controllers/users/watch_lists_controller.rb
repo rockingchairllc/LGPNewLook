@@ -4,21 +4,30 @@ class Users::WatchListsController < UsersController
   def create
     uid=params[:user_id]
     movie_id=params[:movie_id]
+    optional_note=params[:optional_note]
+    watch_list_theaters=[]
+    watch_list_theaters=params[:watch_list_theaters] if params[:watch_list_theaters]
 
-    # TODO: do you want to enable security?  can a user add a movie to another user's watchlist?
-    # optional --- example...
-    #unless current_user.id == uid.to_i
-    #  render :json => { :success => false, :errors=>['not authorized'] }
-    #  return
-    #end
+    # security - user can't add a movie to another user's watchlist
+    unless current_user.id == uid.to_i
+      render :json => { :success => false, :errors=>['not authorized'] }
+      return
+    end
 
-    wl=WatchList.new(:user_id=>uid, :movie_id=>movie_id)
+    wl=WatchList.new(:user_id=>uid, :movie_id=>movie_id, :note=>optional_note)
 
     respond_to do |format|
       format.html { # no implementation -- create view if needed
       }
       format.json {
         if wl.save
+
+          if watch_list_theaters.any?
+            watch_list_theaters.each do |theater_id|
+              wl.watch_list_preferred_theaters.create(:theater_id=>theater_id)
+            end
+          end
+
           render :json => { :success => true }
           return
         else

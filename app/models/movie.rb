@@ -5,29 +5,24 @@ class Movie < ActiveRecord::Base
   has_many :watchlisters, :source => :user, :through => :watch_lists
   has_attached_file :poster, :storage => :s3, :s3_credentials => "#{Rails.root}/config/s3.yml", :path => "movieposters/:id/:filename"
 
-
-  def self.nearold(zip, radius)
+  def self.near(zip, radius, movie_id=nil)
     ziploc = ZipLoc.find_by_zip(zip)
 
-    # TODO: you need error handling if there is no zip code found...
-    #  this is temporary...
-    ziploc=ZipLoc.first unless ziploc
+    # zip code not in our database
+    return [] unless ziploc
 
-    includes([:theaters]).where(["miles_between_lat_long(?, ?,
-                                                      theaters.latitude, theaters.longitude) < ?",
-                                                     ziploc.lat.to_s, ziploc.lng.to_s, radius.to_s])
-  end
+    distance="sqrt(69.1*(theaters.latitude - " + ziploc.lat.to_s + ")*69.1*(theaters.latitude - " + ziploc.lat.to_s + ") + 69.1*(theaters.longitude - " + ziploc.lng.to_s + ")*69.1*(theaters.longitude - " + ziploc.lng.to_s + "))"
 
-  def self.near(zip, radius)
-    ziploc = ZipLoc.find_by_zip(zip)
+    if movie_id
+      all(:include=>[ :theaters ],
+          :order=>[ distance ],
+          :conditions=>[ distance + " < ? and movies.id=?", radius, movie_id])
+    else
+      all(:include=>[ :theaters ],
+          :order=>[ "movies.release_dt desc, movies.title, " + distance ],
+          :conditions=>[ distance + " < ?",radius] )
+    end
 
-    # TODO: you need error handling if there is no zip code found...
-    #  this is temporary...
-    ziploc=ZipLoc.first unless ziploc
-
-    includes([:theaters]).where(["sqrt(69.1*(theaters.latitude - :ziplat)*69.1*(theaters.latitude - :ziplat)
-            + 69.1*(theaters.longitude - :ziplng)*69.1*(theaters.longitude - :ziplng)) < :rad",
-                                 :ziplat=>ziploc.lat, :ziplng=>ziploc.lng, :rad=>radius])
   end
 
 
