@@ -78,7 +78,13 @@ class AuthenticationsController < ApplicationController
 
           # use default picture from fb url
           photo=user.user_images.new()
-          photo.picture_from_url(fb_user.picture('large'))
+          if (fb_user.picture)
+            photo.picture_from_url(fb_user.picture('large'))
+          else
+            f=File.open(Rails.root.join('app','assets','images','bw_popcorn_kernel.jpg'))
+            photo.photo=f
+          end
+
           photo.is_profile_pic=true
 
           user.save
