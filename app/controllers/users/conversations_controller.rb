@@ -11,7 +11,7 @@ class Users::ConversationsController < UsersController
     @message = Message.new
     @conversation = Conversation.where("id = ?", params[:id]).first
     @receipts = @conversation.receipts_for(current_user).order("created_at DESC")
-    @recipient =  User.find_by_id(@receipts.last.receiver_id) #first receiver of a message in their inbox
+    @recipient =  get_initial_recipient(@conversation)
     # check if there is a subject and therefore a movie title
     if @conversation.subject != "N/A"   #@TODO might want to change this later
       # get the movie object
@@ -109,6 +109,13 @@ class Users::ConversationsController < UsersController
       redirect_to conversations_path(:box => @box)
     return
     end
+  end
+
+  def get_initial_recipient(conversation)
+    # get last message receipt
+    receipt = conversation.receipts.where("mailbox_type = ?", "inbox").order("created_at DESC").last
+    # get receiving user
+    user = User.find_by_id(receipt.receiver_id)
   end
 
 end
