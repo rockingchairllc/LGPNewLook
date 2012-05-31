@@ -10,7 +10,7 @@ class Users::ConversationsController < UsersController
   def show
     @message = Message.new
     @conversation = Conversation.where("id = ?", params[:id]).first
-    @receipts = @conversation.receipts.where("mailbox_type = ?", "inbox").order("created_at DESC")
+    @receipts = @conversation.receipts_for(current_user).order("created_at DESC")
     @recipient =  User.find_by_id(@receipts.last.receiver_id) #first receiver of a message in their inbox
     # check if there is a subject and therefore a movie title
     if @conversation.subject != "N/A"   #@TODO might want to change this later
