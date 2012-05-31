@@ -11,6 +11,7 @@ class Users::ConversationsController < UsersController
     @message = Message.new
     @conversation = Conversation.where("id = ?", params[:id]).first
     @receipts = @conversation.receipts_for(current_user).order("created_at DESC")
+    @receipts = remove_duplicate_receipts @receipts
     @recipient =  get_initial_recipient(@conversation)
     # check if there is a subject and therefore a movie title
     if @conversation.subject != "N/A"   #@TODO might want to change this later
@@ -118,4 +119,16 @@ class Users::ConversationsController < UsersController
     user = User.find_by_id(receipt.receiver_id)
   end
 
+  # if the user sends a message to themselves the first message will be repeated in both their inbox and outbox.
+  # This removes that duplication.
+  def remove_duplicate_receipts receipts
+    size = receipts.size
+    last = receipts[size-1]
+    second_last = receipts[size-2]
+    # check if they are the same
+    if last.message == second_last.message
+      receipts.pop
+    end
+    receipts
+  end
 end
