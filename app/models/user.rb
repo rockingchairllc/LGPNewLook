@@ -40,6 +40,10 @@ class User < ActiveRecord::Base
     end
     theaters
   end
-  
+
+  # This is just place-holder, please implement the true things.
+  def near_buddies(limit = 8)
+    User.all.sample(limit)
+  end
 end
 

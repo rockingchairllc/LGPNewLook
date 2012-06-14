@@ -1,9 +1,25 @@
+@import "variables";
+
 /* layout */
 aside, section {padding: 10px; float: left;}
 aside {width: 20%;}
 section {width: 40%; border-right: 1px solid rgba(155, 85, 185, .7);}
 h3 {margin: 10px 0;}
-.cta {padding: 10px; border: 1px solid purple; outline: 1px solid white; text-align: center;}
+.cta {
+  padding: 10px; border: 1px solid purple; outline: 1px solid white; text-align: center;
+  // needs latest Compass, add '@import "compass"' to your scss
+  background-color: #fef0fe; // Old browsers
+  background: #fef8fe; /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMTAwJSIgeDI9IjEwMCUiIHkyPSIwJSI+CiAgICA8c3RvcCBvZmZzZXQ9IjMwJSIgc3RvcC1jb2xvcj0iI2ZlZjhmZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjkzJSIgc3RvcC1jb2xvcj0iI2ZlZDRmMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijk4JSIgc3RvcC1jb2xvcj0iI2ZlZGVmNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmNmZjEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(45deg,  #fef8fe 30%, #fed4f0 93%, #fedef4 98%, #ffcff1 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left bottom, right top, color-stop(30%,#fef8fe), color-stop(93%,#fed4f0), color-stop(98%,#fedef4), color-stop(100%,#ffcff1)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(45deg,  #fef8fe 30%,#fed4f0 93%,#fedef4 98%,#ffcff1 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(45deg,  #fef8fe 30%,#fed4f0 93%,#fedef4 98%,#ffcff1 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(45deg,  #fef8fe 30%,#fed4f0 93%,#fedef4 98%,#ffcff1 100%); /* IE10+ */
+  background: linear-gradient(45deg,  #fef8fe 30%,#fed4f0 93%,#fedef4 98%,#ffcff1 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fef8fe', endColorstr='#ffcff1',GradientType=1 ); /* IE6-8 fallback on horizontal gradient */
+}
 
 /* lists */
 li {
@@ -17,20 +33,116 @@ li:nth-last-child(1) {border-bottom: none;}
 .user_list li {border: none; display: inline-block;}
 .recent_reviews li {font-size: .8em;}
 .your_visitors li {min-height: 55px;}
+
 /* thumbs */
 .user_thumb {
-	display: block;
-	float: left;
-	margin-right: 5px;
+  width: 90px;
+  height: 100px;
+  display: block;
+  float: left;
+  margin-right: 5px;
 }
-.buddies_near_you .user_thumb {width: auto;height: 60px;}
+.user_small_thumb {
+  width: 60px;
+  height: 70px;
+  float: left;
+  margin-right: 5px;
+}
 .user_list li img.user_thumb {margin-right: 0px;}
 .movie_thumb {
-	height: 120px; 
-	float: left; 
-	display: block; 
+	height: 180px;
+  width: 120px;
+	float: left;
+	display: block;
 	margin-right: 5px;
 	-webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,.7);
-	   -moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,.7);
-			box-shadow: 0px 1px 5px 0px rgba(0,0,0,.7);
+	-moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,.7);
+	box-shadow: 0px 1px 5px 0px rgba(0,0,0,.7);
+}
+
+h3 {
+  font-weight: normal;
+}
+
+h2 {
+  color: $lgp-purple-color;
+  background-color: #efefef;
+  margin-bottom: 15px;
+  font-weight: normal;
+  padding-left: 20px;
+  form {
+    display: inline;
+    label {
+      color: $lgp-purple-color;
+      float: right;
+      margin-right: 10px;
+      margin-top: 9px;
+    }
+    input {
+      margin-top: 4px;
+      font-size: 15px;
+    }
+    input[type=submit] {
+      margin-top: 6px;
+      margin-right: 6px;
+      margin-left: 5px;
+      float:right
+    }
+  }
+}
+
+.buddies_near_you, .popular_movies, .sidebar {
+  height: 740px;
+}
+
+.buddies_near_you {
+  width: 470px;
+  float: left;
+  margin-left: 0px;
+  border-right: 1px solid #ddd;
+  .buddy {
+    float: left;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+}
+
+.popular_movies {
+  border-right: 1px solid #ddd;
+  width: 395px;
+  padding-right: 20px;
+  .movie {
+    margin-bottom: 25px;
+    float: left;
+    width: 100%;
+    p {
+      float: left;
+      width: 65%;
+    }
+  }
+}
+
+.sidebar {
+  float: left;
+  width: 144px;
+  margin-left: 20px;
+  .visitor {
+    float: left;
+    margin-bottom: 10px;
+    width: 135px;
+  }
+}
+
+.clearfloat {
+  clear: both;
+}
+
+a {
+  color: $lgp-purple-color;
+  font-weight: bold;
+}
+
+a.deco {
+  font-weight: normal;
+  text-decoration: underline;
 }

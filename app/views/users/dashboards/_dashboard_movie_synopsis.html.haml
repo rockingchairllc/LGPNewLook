@@ -1,0 +1,22 @@
+.movie
+  = image_tag movie.poster, class: 'movie_thumb'
+  = link_to movie.title, "#summary_#{movie.id.to_s}", :'data-toggle' => "modal"
+  %br/
+
+  - if movie.watchlisters.count != 0
+    %p
+      - watchlisters = movie.watchlisters.all
+      - watchlisters[0..2].each do |w|
+        = link_to users_profiles_path(w.id) do
+          %img{:src => (w.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:medium) rescue ''), :class => "user_small_thumb" }
+    %p
+      %a.purple{:href => users_profiles_path(watchlisters.first.id)}= watchlisters.first.firstname
+      - if watchlisters.count > 1
+        and
+        = watchlisters.count - 1
+        other people near you want to see this (
+        %a see all
+        )
+%br/
+
+= render partial: "users/movies/modal_movie_summary", locals: { movie: movie }

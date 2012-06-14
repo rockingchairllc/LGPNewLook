@@ -1,0 +1,9 @@
+.buddy
+  = image_tag buddy.profile_pic.photo(:thumb), class: "user_thumb"
+  = link_to buddy.firstname, users_profile_path(buddy)
+  = "#{age(buddy.birthdate)} / #{buddy.gender.humanize} / #{buddy.orientation.humanize} / #{buddy.zipcode}"
+  %br/
+  Wants to see: "BullHead"
+  %br/
+  Favorite Movie: "Harold and Kumar's Christmas Vacation"
+%br/

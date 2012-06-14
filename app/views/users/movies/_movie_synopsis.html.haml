@@ -78,13 +78,6 @@
                 = t.name
       .modal-footer
         %a.watch-lists-add.btn.btn-primary.btn-large{:data_movie_id=>movie.id.to_s, :data_user_id=>current_user.id} Add to Watchlist
-    .modal{:id => "summary_#{movie.id.to_s}",:style => 'display:none;'}
-      .modal-header
-        %a.close{'data-dismiss' =>"modal"} &times;
-        %h3 Summary
-      .modal-body
-        = movie.desc_long
-      .modal-footer
-        %a.watch-lists-add-summary.btn.btn-primary.btn-large{:data_movie_id=>movie.id.to_s, :data_user_id=>current_user.id} Add to Watchlist
-        %a.watch-lists-rem.btn.btn-primary.btn-large{:data_movie_id=>movie.id.to_s, :data_user_id=>current_user.id} Remove
+
+    = render partial: "users/movies/modal_movie_summary", locals: { movie: movie }
 %br

@@ -39,84 +39,62 @@
 <% end %>
 
 <header class="sub_head">
-  <h2>Welcome to Let's Get Popcorn!</h2>
-  <form>
-    <label>Search Members and Movies: </label>
-    <input type="search" placeholder="Start Typing" />
-  </form>
-
+  <h2>Welcome to Let's Get Popcorn!
+    <%= form_tag users_movies_path, :method => :get do -%>
+      <%= submit_tag "Search", :class => 'search_filter btn btn-primary' -%>
+      <%= text_field_tag :field_search, @param_search, :style => 'width: 150px;float:right;' -%>
+      <%= label_tag :field_search, "Search Movies:" -%>
+    <%- end -%>
+  </h2>
   <!-- clear the float -->
   <div class="clearfloat"></div>
 </header>
-	
-<section class="buddies_near_you">
+
+<div class="buddies_near_you">
   <h3>
     Popcorn Buddies near you
-    (<%= link_to "browse all" %>):
+    (<%= link_to "browse all", users_profiles_path, class: "deco" %>):
   </h3>
-  <ul>
-    <% 4.times do |num| %>
-      <li>
-        <%= image_tag 'user.jpeg', :class=>'user_thumb' %>
-        <%= link_to "Vinod" %>
-        32/M/Girls/Manhattan<br />
-        Wants to see: "BullHead" <br />
-        Favorite Movie: "Harold and Kumar's Christmas Vacation"
-      </li>
-    <% end %>
-  </ul>
-</section><!-- .buddies_near_you -->
-	
-<section class="popular_movies">
+  <%= render partial: 'dashboard_user_synopsis', collection: @near_buddies, as: :buddy -%>
+</div><!-- .buddies_near_you -->
+
+<div class="popular_movies span-4">
   <h3 class="cta">
-    Add a movie to your watchlist today and start connecting with nearby moviegoers!
+    Add a movie to your watchlist
+    <br />
+    today and start connecting with
+    <br />
+    nearby moviegoers!
   </h3><!-- .cta -->
   <h3>
     Popular Movies:
-    (<%= link_to "browse all" %>):
+    (<%= link_to "browse all", users_movies_path, class: "deco" %>):
   </h3>
-  <ul class="popular_movies">
-    <% 2.times do |num| %>
-      <li>
-        <a href="#">
-          <%= image_tag 'movie.jpg', :class=>'movie_thumb' %>
-          <%= link_to "Horrible Bosses (PG-13)" %> <br />
-          Ever wanted to kill your boss?
-          <ul class="user_list">
-            <% 3.times do |num| %>
-              <li><%= image_tag 'user.jpeg', :class=>'user_thumb' %></li>
-            <% end %>
-          </ul>
-          <small>
-            <%= link_to "8 people near you want to see this (see all)" %>
-          </small>
-        </a>
-      </li>
-    <% end %>
-  </ul>
-</section><!-- .popular_movies -->
+  <%= render partial: "dashboard_movie_synopsis", collection: @popular_movies, as: :movie -%>
+</div><!-- .popular_movies -->
 
-<aside>
+<div class="sidebar">
   <h3>Recent Reviews:</h3>
-  <ul class="recent_reviews">
+  <div class="recent_reviews">
     <% 2.times do |num| %>
-      <li><%= link_to "John" %> reviewed <%= link_to "Horrible Bosses" %></li>
+      <%= link_to "John", "#" %> reviewed
+      <%= link_to "Horrible Bosses", "#", class: "deco" %>
     <% end %>
-  </ul><!-- .recent_reviews -->
-</aside>
-<aside>
-  <h3>Your Visitors</h3>
-  <ul class="your_visitors">
-    <% 4.times do |num|  %>
-      <li>
-        <a href="#">
-          <%= image_tag 'user.jpeg', :class=>'user_thumb' %>
-          Vinod <br />32/M
-        </a>
-      </li>
-    <% end %>
-  </ul><!-- .your_visitors -->
-</aside>
+  </div><!-- .recent_reviews -->
+
+  <br />
+
+  <h3>Your Visitors:</h3>
+  <%- User.all.sample(4).each do |u| -%>
+    <div class="visitor">
+      <%= image_tag(u.profile_pic.photo(:thumb), :class => "user_small_thumb") -%>
+      <%= link_to u.firstname, "#" -%>
+      <br />
+      <%= "#{age(u.birthdate)} / #{u.gender.humanize}" -%>
+    </div>
+  <% end %>
+  <!-- .your_visitors -->
+</div>
 
 <!-- clear the float -->
 <div class="clearfloat"></div>
