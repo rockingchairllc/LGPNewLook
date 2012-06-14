@@ -7,7 +7,7 @@
     .container#the-container
       = render 'application/header'
       = render 'application/chromeframe'
-      .yield-here{:style => 'padding: 24px;'} 
+      .yield-here{:style => "padding:24px"}
         = content_for?(:content) ? yield(:content) : yield  # to enable nested layouts
       = render "application/footer"
 

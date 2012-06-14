@@ -5,6 +5,9 @@ class Users::DashboardsController < UsersController
     # currently using all users, will limit later
     @buddies=User.all
     @movies=Movie.all(:limit => 8)
+
+    @near_buddies = current_user.near_buddies
+    @popular_movies = Movie.popular
   end
 
   # processes second registration step for user
