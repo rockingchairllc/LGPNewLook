@@ -87,7 +87,7 @@
   <h3>Your Visitors:</h3>
   <%- User.all.sample(4).each do |u| -%>
     <div class="visitor">
-      <%= image_tag(u.profile_pic.photo(:thumb), :class => "user_small_thumb") -%>
+      <%= image_tag((u.profile_pic.photo(:thumb) rescue "default_#{u.get_gender}_profile_pic.gif"), :class => "user_small_thumb") -%>
       <%= link_to u.firstname, "#" -%>
       <br />
       <%= "#{age(u.birthdate)} / #{u.gender.humanize}" -%>

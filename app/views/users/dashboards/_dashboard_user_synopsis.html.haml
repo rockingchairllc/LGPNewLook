@@ -1,5 +1,5 @@
 .buddy
-  = image_tag buddy.profile_pic.photo(:thumb), class: "user_thumb"
+  = image_tag((buddy.profile_pic.photo(:thumb) rescue "default_#{buddy.get_gender}_profile_pic.gif"), class: "user_thumb")
   = link_to buddy.firstname, users_profile_path(buddy)
   = "#{age(buddy.birthdate)} / #{buddy.gender.humanize} / #{buddy.orientation.humanize} / #{buddy.zipcode}"
   %br/

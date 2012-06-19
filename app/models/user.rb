@@ -45,5 +45,9 @@ class User < ActiveRecord::Base
   def near_buddies(limit = 8)
     User.all.sample(limit)
   end
+
+  def get_gender
+    gender.present?? gender.downcase : 'male'
+  end
 end
 

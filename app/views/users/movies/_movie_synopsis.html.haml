@@ -34,7 +34,7 @@
           %li.span1
             .thumbnail
               %a{:href => users_profiles_path(w.id)}
-                %img{:src => (w.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:medium) rescue '') }
+                %img{:src => (w.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:medium) rescue "/assets/default_#{w.get_gender}_profile_pic.gif") }
       %p
         %a.purple{:href => users_profiles_path(watchlisters.first.id)}= watchlisters.first.firstname
         - if watchlisters.count > 1
