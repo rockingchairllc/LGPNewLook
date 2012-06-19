@@ -18,3 +18,5 @@
 
 #ignore project files
 .project
+*.swp
+routes.txt

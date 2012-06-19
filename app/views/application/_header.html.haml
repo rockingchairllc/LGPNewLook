@@ -21,7 +21,7 @@
                 %ul.dropdown-menu{:style => 'width: 240px'}
                   %li
                     .me{:style => 'padding: 18px;'}
-                      = image_tag current_user.profile_pic.photo(:tiny), :class=>'user_thumb larger', :hspace => '10px'
+                      = image_tag((current_user.profile_pic.photo(:tiny) rescue "default_#{current_user.get_gender}_profile_pic.gif"), :class=>'user_thumb larger', :hspace => '10px')
                       = current_user.firstname
                   - if current_user.is_admin
                     %li.divider

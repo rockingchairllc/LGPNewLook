@@ -8,7 +8,7 @@
       - watchlisters = movie.watchlisters.all
       - watchlisters[0..2].each do |w|
         = link_to users_profiles_path(w.id) do
-          %img{:src => (w.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:medium) rescue ''), :class => "user_small_thumb" }
+          %img{:src => (w.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:medium) rescue "/assets/default_#{w.get_gender}_profile_pic.gif"), :class => "user_small_thumb" }
     %p
       %a.purple{:href => users_profiles_path(watchlisters.first.id)}= watchlisters.first.firstname
       - if watchlisters.count > 1
