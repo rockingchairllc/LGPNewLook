@@ -1,22 +1,28 @@
-.movie
+.movie.movie_synopsis_lists
   = image_tag movie.poster, class: 'movie_thumb'
-  = link_to movie.title, "#summary_#{movie.id.to_s}", :'data-toggle' => "modal"
-  %br/
+  .description
+    = link_to movie.title, "#summary_#{movie.id.to_s}", :'data-toggle' => "modal"
+    %br/
 
-  - if movie.watchlisters.count != 0
-    %p
-      - watchlisters = movie.watchlisters.all
-      - watchlisters[0..2].each do |w|
-        = link_to users_profiles_path(w.id) do
-          %img{:src => (w.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:medium) rescue "/assets/bw_popcorn_kernel.jpg"), :class => "user_small_thumb" }
-    %p
-      %a.purple{:href => users_profiles_path(watchlisters.first.id)}= watchlisters.first.firstname
-      - if watchlisters.count > 1
-        and
-        = watchlisters.count - 1
-        other people near you want to see this (
-        %a see all
-        )
+    - if movie.watchlisters.count != 0
+      %p
+        - watchlisters = movie.watchlisters.all
+        - watchlisters[0..2].each do |w|
+          = link_to users_profiles_path(w.id) do
+            %img{:src => (w.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:medium) rescue "/assets/bw_popcorn_kernel.jpg"), :class => "user_small_thumb" }
+      %br/
+      %p
+        %a.purple{:href => users_profiles_path(watchlisters.first.id)}= watchlisters.first.firstname
+        - if watchlisters.size == 1
+          wants to see this
+        - if watchlisters.count > 1
+          and
+          = watchlisters.count - 1
+          other people near you want to see this (
+          %a see all
+          )
+  .span2.watchlist-action{'class' => (current_user.watch_lists.select{|x| x.movie_id == movie.id}.count != 0 ? 'is_watched' : ''), 'data-movie-id' => movie.id, 'data-user-id' => current_user.id }
+    = render partial: "users/movies/modal_movie_summary", locals: { movie: movie }
+
 %br/
 
-= render partial: "users/movies/modal_movie_summary", locals: { movie: movie }
