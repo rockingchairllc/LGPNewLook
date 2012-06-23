@@ -50,51 +50,53 @@
   <div class="clearfloat"></div>
 </header>
 
-<div class="buddies_near_you">
-  <h3>
-    Popcorn Buddies near you
-    (<%= link_to "browse all", users_profiles_path, class: "deco" %>):
-  </h3>
-  <%= render partial: 'dashboard_user_synopsis', collection: @near_buddies, as: :buddy -%>
-</div><!-- .buddies_near_you -->
+<div class="row-fluid">
+  <div class="buddies_near_you span5">
+    <h3>
+      Popcorn Buddies near you
+      (<%= link_to "browse all", users_profiles_path, class: "deco" %>):
+    </h3>
+    <%= render partial: 'dashboard_user_synopsis', collection: @near_buddies, as: :buddy -%>
+  </div><!-- .buddies_near_you -->
 
-<div class="popular_movies span-4">
-  <h3 class="cta">
-    Add a movie to your watchlist
-    <br />
-    today and start connecting with
-    <br />
-    nearby moviegoers!
-  </h3><!-- .cta -->
-  <h3>
-    Popular Movies:
-    (<%= link_to "browse all", users_movies_path, class: "deco" %>):
-  </h3>
-  <%= render partial: "dashboard_movie_synopsis", collection: @popular_movies, as: :movie -%>
-</div><!-- .popular_movies -->
-
-<div class="sidebar">
-  <h3>Recent Reviews:</h3>
-  <div class="recent_reviews">
-    <% 2.times do |num| %>
-      <%= link_to "John", "#" %> reviewed
-      <%= link_to "Horrible Bosses", "#", class: "deco" %>
-    <% end %>
-  </div><!-- .recent_reviews -->
-
-  <br />
-
-  <h3>Your Visitors:</h3>
-  <%- User.all.sample(4).each do |u| -%>
-    <div class="visitor">
-      <%= image_tag((u.profile_pic.photo(:thumb) rescue "bw_popcorn_kernel.jpg"), :class => "user_small_thumb") -%>
-      <%= link_to u.firstname, "#" -%>
+  <div class="popular_movies span5">
+    <h3 class="cta">
+      Add a movie to your watchlist
       <br />
-      <%= "#{age(u.birthdate)} / #{u.gender.humanize}" -%>
-    </div>
-  <% end %>
-  <!-- .your_visitors -->
-</div>
+      today and start connecting with
+      <br />
+      nearby moviegoers!
+    </h3><!-- .cta -->
+    <h3>
+      Popular Movies:
+      (<%= link_to "browse all", users_movies_path, class: "deco" %>):
+    </h3>
+    <%= render partial: "dashboard_movie_synopsis", collection: @popular_movies, as: :movie -%>
+  </div><!-- .popular_movies -->
 
-<!-- clear the float -->
-<div class="clearfloat"></div>
+  <div class="sidebar span2">
+    <h3>Recent Reviews:</h3>
+    <div class="recent_reviews">
+      <% 2.times do |num| %>
+        <%= link_to "John", "#" %> reviewed
+        <%= link_to "Horrible Bosses", "#", class: "deco" %>
+        <br />
+      <% end %>
+    </div><!-- .recent_reviews -->
+
+    <br />
+
+    <h3>Your Visitors:</h3>
+    <%- User.all.sample(4).each do |u| -%>
+      <div class="visitor">
+        <%= image_tag((u.profile_pic.photo(:thumb) rescue "bw_popcorn_kernel.jpg"), :class => "user_small_thumb") -%>
+        <div class="description">
+          <%= link_to u.firstname, "#" -%>
+          <br />
+          <p> <%= "#{age(u.birthdate)} / #{u.gender.humanize}" -%> </p>
+        </div>
+      </div>
+    <% end %>
+    <!-- .your_visitors -->
+  </div>
+</div>

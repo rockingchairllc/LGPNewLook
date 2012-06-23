@@ -64,6 +64,12 @@ li:nth-last-child(1) {border-bottom: none;}
 	box-shadow: 0px 1px 5px 0px rgba(0,0,0,.7);
 }
 
+.description {
+  display: table-cell;
+  vertical-align: middle;
+  height: 180px;
+}
+
 h3 {
   font-weight: normal;
 }
@@ -96,13 +102,11 @@ h2 {
 }
 
 .buddies_near_you, .popular_movies, .sidebar {
-  height: 740px;
+  height: 955px;
 }
 
 .buddies_near_you {
-  width: 470px;
   float: left;
-  margin-left: 0px;
   border-right: 1px solid #ddd;
   .buddy {
     float: left;
@@ -112,28 +116,30 @@ h2 {
 }
 
 .popular_movies {
+  margin-left: 0;
   border-right: 1px solid #ddd;
-  width: 395px;
-  padding-right: 20px;
+  padding-right: 11px;
   .movie {
     margin-bottom: 25px;
     float: left;
     width: 100%;
     p {
       float: left;
-      width: 65%;
+      width: 100%;
     }
   }
 }
 
 .sidebar {
   float: left;
-  width: 144px;
-  margin-left: 20px;
+  margin-left: 0;
   .visitor {
     float: left;
     margin-bottom: 10px;
-    width: 135px;
+    .description {
+      float: left;
+      height: auto;
+    }
   }
 }
 
@@ -149,4 +155,22 @@ a {
 a.deco {
   font-weight: normal;
   text-decoration: underline;
+}
+
+.row-fluid > [class*="span"] {
+  margin-left: 1.3%;
+}
+
+.watchlist-action {
+  p { text-align: center }
+  p, a.watch-lists-rem {
+    display: none;
+  }
+  a.watch-lists-add-display { display: block; }
+  a.watch-lists-add-summary { display: block; }
+  &.is_watched {
+    p, a.watch-lists-rem { display: block; }
+    a.watch-lists-add-display { display: none; }
+    a.watch-lists-add-summary { display: none; }
+  }
 }
