@@ -1,6 +1,8 @@
 %link{:href => 'https://fonts.googleapis.com/css?family=Open+Sans:400,700', :rel => 'stylesheet', :type => 'text/css'}
 = stylesheet_link_tag 'application', :media => nil
 = stylesheet_link_tag params[:controller].parameterize.sub('-', '/')
+- if params[:controller] == 'users/dashboards' && params[:action] == 'index' || params[:controller] == 'users/movies' && params[:action] == 'index'
+  = stylesheet_link_tag 'users/movie_add_modal'
 
 -# Append your own using content_for :stylesheets
 =# yield :stylesheets

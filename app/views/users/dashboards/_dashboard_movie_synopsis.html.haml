@@ -1,8 +1,14 @@
 .movie.movie_synopsis_lists
-  = image_tag movie.poster, class: 'movie_thumb'
+  = link_to image_tag(movie.poster, class: 'movie_thumb'), "#summary_#{movie.id.to_s}", :'data-toggle' => "modal"
   .description
     = link_to movie.title, "#summary_#{movie.id.to_s}", :'data-toggle' => "modal"
     %br/
+
+    .span2.watchlist-action{'class' => (current_user.watch_lists.select{|x| x.movie_id == movie.id}.count != 0 ? 'is_watched' : ''), 'data-movie-id' => movie.id, 'data-user-id' => current_user.id, :style => "margin:5px 0 12px 0"}
+      %a.watch-lists-rem.btn.btn-primary{:data_movie_id=>movie.id.to_s, :data_user_id=>current_user.id} Remove
+      = link_to "Add to Watch List", '#watchlist_'+ movie.id.to_s, 'data-toggle'=>'modal', :class=>'watch-lists-add-display btn btn-primary'
+      = render partial: 'users/movies/modal_add_to_watchlist', locals: { movie: movie }
+      = render partial: "users/movies/modal_movie_summary", locals: { movie: movie }
 
     - if movie.watchlisters.count != 0
       %p
@@ -21,8 +27,6 @@
           other people near you want to see this (
           %a see all
           )
-  .span2.watchlist-action{'class' => (current_user.watch_lists.select{|x| x.movie_id == movie.id}.count != 0 ? 'is_watched' : ''), 'data-movie-id' => movie.id, 'data-user-id' => current_user.id }
-    = render partial: "users/movies/modal_movie_summary", locals: { movie: movie }
 
 %br/
 

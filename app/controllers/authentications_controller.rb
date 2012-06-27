@@ -80,7 +80,9 @@ class AuthenticationsController < ApplicationController
           photo=user.user_images.new()
           if (fb_user.picture)
             photo.picture_from_url(fb_user.picture('large'))
-          else
+          end
+
+          if photo.photo.to_s.include?('temp_image')
             f=File.open(Rails.root.join('app','assets','images','bw_popcorn_kernel.jpg'))
             photo.photo=f
           end

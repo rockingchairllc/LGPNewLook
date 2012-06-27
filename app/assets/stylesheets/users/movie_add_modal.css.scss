@@ -1,0 +1,48 @@
+.add-to-watch-list-modal {
+  font-weight: bold;
+
+  .title {
+    color: #000;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 0;
+  }
+  .notes {
+    width: 90%;
+    text-align: left;
+    margin: 0 auto;
+  }
+  #optional_note {
+    margin-top: 8px;
+  }
+  .preferred_theaters {
+    width: 90%;
+    margin: 15px auto;
+    ul {
+      width: 90%;
+      margin: 20px auto;
+      list-style-type: none;
+      li {
+        float: left;
+        border-bottom: none;
+        width: 45%;
+        min-height: 50px;
+        input[type=checkbox] {
+          float: left;
+          margin-right: 10px;
+        }
+        label {
+          display: inline;
+          font-size: 1em;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  .modal-footer {
+    text-align: center;
+    border-top: none;
+    background-image: url("/images/bg-white-mesh.jpg");
+  }
+}

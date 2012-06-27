@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
 
   # This is just place-holder, please implement the true things.
   def near_buddies(limit = 8)
-    User.all.sample(limit)
+    User.all.reject { |user| user == self }.sample(limit)
   end
 
   def get_gender
