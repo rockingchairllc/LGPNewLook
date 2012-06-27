@@ -31,6 +31,12 @@ nav a {
 
 .current_user {float: right;}
 
-.sub_head {padding: 5px 10px;}
-.sub_head h2 {float: left;}
-.sub_head form {float: right;}
+.sub_head {
+  padding: 5px 10px;
+  h2 {
+    float: left;
+  }
+  form {
+    float: right;
+  }
+}

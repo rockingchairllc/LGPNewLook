@@ -1,7 +1,7 @@
 .buddy
   = image_tag((buddy.profile_pic.photo(:thumb) rescue "bw_popcorn_kernel.jpg"), class: "user_thumb")
   = link_to buddy.firstname, users_profile_path(buddy)
-  = "#{age(buddy.birthdate)} / #{buddy.gender.humanize} / #{buddy.orientation || '-'} / #{buddy.zipcode}"
+  = "#{age(buddy.birthdate)} / #{buddy.gender.humanize} / #{buddy.orientation && buddy.orientation.humanize || '-'} / #{buddy.zipcode}"
   %br/
   Wants to see: "BullHead"
   %br/

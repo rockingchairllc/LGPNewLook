@@ -53,31 +53,9 @@
     %br
   .span2.watchlist-action{'class' => (@watch_list.select{|x| x.movie_id == movie.id}.count != 0 ? 'is_watched' : ''), 'data-movie-id' => movie.id, 'data-user-id' => current_user.id }
     %p Added to watchlist.
-
     %a.watch-lists-rem.btn.btn-primary.btn-large{:data_movie_id=>movie.id.to_s, :data_user_id=>current_user.id} Remove
     = link_to "Add to Watch List", '#watchlist_'+ movie.id.to_s, 'data-toggle'=>'modal', :class=>'watch-lists-add-display btn btn-primary btn-large'
-    .modal{:id => "watchlist_#{movie.id.to_s}",:style => 'display:none;'}
-      .modal-header
-        %a.close{'data-dismiss' =>"modal"} &times;
-        %h3 Add to Watch List
-      .modal-body
-        = movie.title
-        .note Optional Note
-        =text_field_tag 'optional_note', '', :maxlength=>128
-        .preferred_theaters
-          Select Preferred theaters near
-          =text_field_tag 'preferred_theater_zip_code', @param_zip
-          %a.refresh_preferred_theaters{:movie_id=>"#{movie.id.to_s}"} Go
-          .search_error
-            No Theaters Found
-          %ul
-            - movie.theaters.each_with_index do |t,i|
-              - break if i==4
-              %li
-                = check_box_tag 'watch_list_theaters', t.id
-                = t.name
-      .modal-footer
-        %a.watch-lists-add.btn.btn-primary.btn-large{:data_movie_id=>movie.id.to_s, :data_user_id=>current_user.id} Add to Watchlist
+    = render partial: 'modal_add_to_watchlist', locals: { movie: movie }
 
     = render partial: "users/movies/modal_movie_summary", locals: { movie: movie }
 %br

@@ -8,6 +8,7 @@ class Users::DashboardsController < UsersController
 
     @near_buddies = current_user.near_buddies
     @popular_movies = Movie.popular
+    #@popular_movies = [Movie.find(14), Movie.find(56)]
   end
 
   # processes second registration step for user

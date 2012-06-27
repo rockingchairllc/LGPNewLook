@@ -1,0 +1,28 @@
+.modal{:id => "watchlist_#{movie.id.to_s}",:style => 'display:none;', :class => "add-to-watch-list-modal"}
+  .modal-header
+    %a.close{'data-dismiss' =>"modal"} &times;
+    %h3 Add to Watch List
+  .modal-body
+    %h3.title
+      = movie.title
+    .notes
+      Optional Note (128 characters):
+      %br/
+      = text_field_tag 'optional_note', '', :maxlength=>128, :style => "width:100%"
+    .preferred_theaters
+      Select Preferred theaters near:&nbsp;
+      =text_field_tag 'preferred_theater_zip_code', @param_zip, :class => "span2"
+      %a.refresh_preferred_theaters.btn.btn-primary{:movie_id=>"#{movie.id.to_s}"} Go
+      %ul
+        - movie.theaters.each_with_index do |t,i|
+          - break if i==4
+          - if i % 2 == 1
+            - margin_li = "20px"
+            .clear
+          - else
+            - margin_li = "0px"
+          %li{:style => "margin-right:#{margin_li}"}
+            = check_box_tag 'watch_list_theaters', t.id, false, :id => "watch_list_theater_#{t.id}"
+            = label_tag "watch_list_theater_#{t.id}", t.name
+  .modal-footer
+    %a.watch-lists-add.btn.btn-primary.btn-large{:data_movie_id=>movie.id.to_s, :data_user_id=>current_user.id} Post
