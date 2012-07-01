@@ -2,7 +2,7 @@
   .navbar
     .navbar-inner
       .container
-        %a.brand.logotype
+        %a.brand.logotype{:href => '/welcome'}
         .nav-collapse
           %ul.nav.pull-right{:style => 'margin: 18px 0px 0px;'}
             %li
@@ -37,4 +37,4 @@
             - else
               %li
                 %a{:href => '/users/sign_in'} Login
-  %hr
+  %hr{:style => 'margin-top: 5px'}
