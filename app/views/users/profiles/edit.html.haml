@@ -1,0 +1,71 @@
+.row-fluid
+  .span1
+    %ul.thumbnails{:style => 'padding: 0px; margin-top:0px;'}
+      %li.span1
+        .thumbnail.nopadding
+          != image_tag @user.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:thumb) rescue '<img src="http://placehold.it/75x100" >'
+  .span5
+    %h3= @user.firstname
+    %p
+      = "#{@user.gender} / #{age(@user.birthdate)} / #{@user.orientation} / #{@user.zipcode}"
+    %p
+      %i.icon-facetime-video
+      Personal Trailer
+    %p
+      %i.icon-camera
+      = pluralize(@user.user_images.count, "picture")
+  .span3.mutual-friends
+    .header{:style => 'padding: '}
+      6 Mutual Friends
+    %ul.thumbnails{:style => 'padding: 0px;'}
+      - (1..3).each do
+        %li{:style => 'width: 45px; height: 55px;'}
+          .thumbnail.nopadding
+            %img{:src => 'http://placehold.it/45x55'}
+    .footer
+      12 Common Interests
+
+%br
+%br
+.row-fluid
+  .span9
+    - if @user.watch_lists.count != 0
+      .watchlists
+        .header
+          = @user.firstname
+          is looking for buddies to see
+        %br
+        - @user.watch_lists.each do |w|
+          .row-fluid
+            .span2
+              %ul.thumbnails{:style => 'padding: 0px; margin-top:0px;'}
+                %li{:style => 'width: 75px; height: 100px;'}
+                  .thumbnail.nopadding
+                    = image_tag w.movie.poster.url, :class=>"mov_search_pic"
+            .span6
+              .description
+                %h3= w.movie.title
+                - if w.watch_list_preferred_theaters.count != 0
+                  %p
+                    %b Theaters:
+                    - w.watch_list_preferred_theaters.each do |t|
+                      = "#{t.theater.name} "
+            .span4
+              %span.btn-wrapper.pull-right
+                = link_to("Let's Get Popcorn", {:controller => "users/conversations", :action => "new", :recipient_id => @user.id, :watch_list_id => w.id}, {:class => "btn btn-primary btn-large span2"})
+
+    %ul.questions-and-answer-portion
+      - @questions.each do |q|
+        %li
+          %h2= q.content
+          - a=@user.answers.find_by_question_id(q.id)
+          - if a
+            .answer
+              = a.response
+              = form_for(a, :url=>users_answer_path(a.id), :remote=>true) do |f|
+                = f.text_area :response, :rows=>3
+                = f.submit
+
+          - else
+            .answer
+              no answer

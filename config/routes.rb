@@ -14,6 +14,7 @@ Lgp::Application.routes.draw do
   # user scoped
   devise_for :users
   namespace :users do
+    resources :answers, :only => [ :create, :update ]
     resources :dashboards, :only => [ :index, :update ]
     # change message to be resource based route --- not match when implemented.
     #match "/messages" => "messages#message", :as=>"message"

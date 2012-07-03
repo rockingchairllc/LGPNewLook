@@ -7,6 +7,9 @@ u1=User.find_by_email('matt@pestritto.com')
 u2=User.find_by_email('admin@rockingchairllc.com')
 (u2.is_admin=true; u2.save ) if u2
 
+Question.create(:content=>'About me:', :active=>true)
+Question.create(:content=>'Favorite movie of all time and why?', :active=>true)
+
 #default zips for austin for zipcode to latlong conversion
 ZipLoc.create(:zip => 73301, :lat => 30.22284, :lng => -97.74736)
 ZipLoc.create(:zip => 73344, :lat => 30.18, :lng => -97.73)
