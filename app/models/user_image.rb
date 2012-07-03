@@ -16,17 +16,10 @@ class UserImage < ActiveRecord::Base
 
   belongs_to :user
   has_attached_file :photo, 
-  :styles => { :medium => "", :thumb => "", :small_thumb => "", :tiny => "" },
+  :styles => { :medium => "300x300#", :thumb => "90x100#", :small_thumb=>"60x70#", :tiny => "35x45#" },
   :storage => :s3, 
   :s3_credentials => "#{Rails.root}/config/s3.yml", 
-  :path => "user_photo/:id/:style/:basename.:extension",
-  :processor => "rmagick",
-  :convert_options => {
-    :medium       => "-resize 300x300^ -gravity Center -crop 300x300+0+0",
-    :thumb        => "-resize 90x100^ -gravity Center -crop 90x100+0+0",
-    :small_thumb  => "-resize 60x70^ -gravity Center -crop 60x70+0+0",
-    :tiny         => "-resize 35x45^ -gravity Center -crop 35x45+0+0"
-  }
+  :path => "user_photo/:id/:style/:basename.:extension"
 
   validates_presence_of :photo_file_name
 

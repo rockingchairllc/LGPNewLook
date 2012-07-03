@@ -11,7 +11,6 @@ gem 'json'
 
 gem 'devise'
 gem 'paperclip', :git => 'git://github.com/thoughtbot/paperclip.git'
-gem 'rmagick'
 gem 'aws-sdk'
 gem 'libxml-ruby', '>= 0.8.3'
 gem 'xml-simple'
