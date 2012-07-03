@@ -18,6 +18,11 @@ $(document).ready(function () {
       answer_handle_callback(data, status);
     });
   });
+  $('.questions-and-answer-portion .new_answer').each(function(){
+    $(this).bind("ajax:success", function(xhr, data, status) {
+      answer_handle_callback(data, status);
+    });
+  });
 
 });
 
@@ -26,6 +31,8 @@ function answer_handle_callback(data){
   if (data.success){
     $('.questions-and-answer-portion  #edit-' + data.question_id).hide();
     $('.questions-and-answer-portion  #read-only-' + data.question_id).show();
+    if (data.new_response=='')
+      data.new_response='no answer';
     $('.questions-and-answer-portion  #read-only-' + data.question_id).html(data.new_response.replace(/\n/g, '<br />'));
   }
 }

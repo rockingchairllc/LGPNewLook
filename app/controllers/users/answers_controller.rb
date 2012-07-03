@@ -9,11 +9,16 @@ class Users::AnswersController < UsersController
       return
     end
 
-    if a.save
-      render :json => { :success=> true, :question_id=>a.question_id, :new_response=>a.response }
+    if a.response.blank?
+      render :json => { :success=> true, :question_id=>a.question_id, :new_response=>'' }
     else
-      render :json => { :success=> false, :errors=>a.errors.to_json }
+      if a.save
+        render :json => { :success=> true, :question_id=>a.question_id, :new_response=>a.response }
+      else
+        render :json => { :success=> false, :errors=>a.errors.to_json }
+      end
     end
+
 
   end
 
@@ -26,11 +31,18 @@ class Users::AnswersController < UsersController
       return
     end
 
-    if a.update_attributes(params[:answer])
-      render :json => { :success=> true, :question_id=>a.question_id, :new_response=>a.response }
+    if params[:answer][:response].blank?
+      qid=a.question_id
+      a.destroy
+      render :json => { :success=> true, :question_id=>qid, :new_response=>'' }
     else
-      render :json => { :success=> false, :errors=>a.errors.to_json }
+      if a.update_attributes(params[:answer])
+        render :json => { :success=> true, :question_id=>a.question_id, :new_response=>a.response }
+      else
+        render :json => { :success=> false, :errors=>a.errors.to_json }
+      end
     end
+
 
   end
 
