@@ -44,6 +44,18 @@
   .answer {
     padding: 0px 18px 18px 18px
   }
+  .heading {
+    overflow:auto;
+  }
+  h2, .edit_link {
+    float:left;
+  }
+  .edit {
+    display:none;
+  }
+  textarea {
+    width: 500px;
+  }
 }
 
 

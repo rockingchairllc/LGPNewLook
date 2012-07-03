@@ -53,22 +53,34 @@
                       = "#{t.theater.name} "
             .span4
               %span.btn-wrapper.pull-right
-                = link_to('Edit Watchlist Item', '#', :onclick=>'javascript:show_modal("watchlist_' + w.movie_id.to_s + '");', :class => "btn btn-primary btn-large span2" )
+                = link_to('Edit Watchlist Item', 'javascript:void(0);', :onclick=>'javascript:show_modal("watchlist_' + w.movie_id.to_s + '");', :class => "btn btn-primary btn-large span2" )
                 //= link_to("Let's Get Popcorn", {:controller => "users/conversations", :action => "new", :recipient_id => @user.id, :watch_list_id => w.id}, {:class => "btn btn-primary btn-large span2"})
           = render 'modal_edit_watchlist', :movie=>w.movie, :watchlist=>w
 
     %ul.questions-and-answer-portion
       - @questions.each do |q|
         %li
-          %h2= q.content
+          .heading
+            %h2= q.content
+            .edit_link= link_to('(edit)', 'javascript:void(0);', :data=>q.id)
           - a=@user.answers.find_by_question_id(q.id)
           - if a
-            .answer
-              = a.response
+            .read_only{:id=>'read-only-' + q.id.to_s}
+              = raw(a.response.gsub(/\n/, '<br>'))
+            .edit{:id=>'edit-' + q.id.to_s}
               = form_for(a, :url=>users_answer_path(a.id), :remote=>true) do |f|
+                = f.hidden_field :question_id
+                = f.hidden_field :user_id
+                = f.text_area :response, :rows=>3
+                = f.submit
+          - else
+            - a=@user.answers.new(:question_id=>q.id, :user_id=>@user.id)
+            .read_only{:id=>'read-only-' + q.id.to_s}
+              = 'no answer'
+            .edit{:id=>'edit-' + q.id.to_s}
+              = form_for(a, :url=>users_answers_path, :remote=>true) do |f|
+                = f.hidden_field :question_id
+                = f.hidden_field :user_id
                 = f.text_area :response, :rows=>3
                 = f.submit
 
-          - else
-            .answer
-              no answer
