@@ -52,6 +52,9 @@
           console.log(data);
           if (data.success){
             // do something to show it was added.
+            if (window.location.pathname.substring(0,15) == '/users/profiles'){
+              window.location.reload();
+            }
             self.removeClass('is_watched');
           } else{
             // handle the error however you want.... display error returned from app or generic message.
@@ -91,7 +94,6 @@
           if (data.success){
             // do something to show it was added.
             if (window.location.pathname.substring(0,15) == '/users/profiles'){
-              console.log('refreshing page');
               window.location.reload();
             }
             hide_modal('watchlist_' + movie_id);
