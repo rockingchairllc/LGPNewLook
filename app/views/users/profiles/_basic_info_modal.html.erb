@@ -1,0 +1,29 @@
+<div id="modal_user_profile" class="modal" style="display:none">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    Edit your details.
+  </div>
+  <div class="modal-body">
+    <%= form_for(@user, :url=>users_profile_path(@user.id), :html=>{:id=>'form_user_profile', :multipart=>true}) do |f| %>
+      <%= f.label :firstname %>
+      <%= f.text_field :firstname %>
+      <%= f.label :gender %>
+      <%= f.select :gender, options_for_select([["Female", 'female'],["Male", 'male']],  :selected=>@user.gender), { :include_blank=>true }%>
+      <%= f.label :orientation %>
+      <%= f.select :orientation, options_for_select([ ["Straight", "straight"], ["Gay/Lesbian", "gay"], ["Bisexual","bi"]], :selected=>@user.orientation),  { :include_blank=>true } %>
+      <%= f.label :zipcode %>
+      <%= f.text_field :zipcode %>
+      <%= f.label :birthdate %>
+      <%= f.date_select :birthdate %>
+      <br/>
+      <% if @user.errors.any? %>
+        <ul id="form_user_profile_errors">
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      <% end %>
+      <%= link_to raw('Save'), 'javascript:void(0);', :onclick=>"javascript:$('#form_user_profile').submit();", :remote=>true, :id=>'btn_submit_form_user_profile' %>
+    <% end %>
+  </div>
+</div>

@@ -1,3 +1,4 @@
+//= require users/movie_summary_modal
 
 $(document).ready(function () {
   if ($('#modal_user_profile_exists').attr('exists') == "1"){

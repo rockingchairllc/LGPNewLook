@@ -1,6 +1,7 @@
 (function($){
-  $('.movie_synopsis_lists').each(function(){
-    $(this).on('click', 'a.refresh_preferred_theaters', function(){
+
+  $('a.refresh_preferred_theaters').each(function(){
+    $(this).on('click', function(){
       var movie_id = $(this).attr('movie_id');
       var preferred_theaters = $(this).parents('.preferred_theaters');
       var zip_code = preferred_theaters.children('input')[0].value;
@@ -18,10 +19,16 @@
         function(data){
           console.log(data);
           if (data && data.theaters){
-            for (var i = 0; i < data.theaters.length && i < 4; i++) {
-              console.log(data.theaters[i]);
+            var number_loaded=0;
+            for (var i = 0; i < data.theaters.length; i++) {
+              // break after 4 have been loaded
+              if (number_loaded==4) break;
+              // if item is already on page -- ( existing subscription ) -- don't show it.
+              var current=$('#watch_list_theater_' + data.theaters[i].id);
+              if (current.length > 0) continue;
               error_div.hide();
-              theater_list.append('<li><input id="watch_list_theaters" type="checkbox" value="' + data.theaters[i].id + '" name="watch_list_theaters">' + data.theaters[i].name + '</li>');
+              theater_list.append('<li><input id="watch_list_theater_' + data.theaters[i].id + '" type="checkbox" value="' + data.theaters[i].id + '" name="watch_list_theaters">' + data.theaters[i].name + '</li>');
+              number_loaded++;
             }
           } else {
             // handle failure -- bad zip code?
@@ -31,8 +38,11 @@
         'json'
       );
     });
+  });
 
-    $(this).on('click', 'a.watch-lists-rem', function(){
+  $('a.watch-lists-rem').each(function(){
+    $(this).on('click', function(){
+
       var self      = $(this).parents('.watchlist-action');
       var movie_id  = $(this).attr('data_movie_id');
       var user_id   = $(this).attr('data_user_id');
@@ -50,21 +60,25 @@
         },
       'json' );
     });
+  });
 
-    $(this).on('click', 'a.watch-lists-add-summary', function(){
+  $('a.watch-lists-add-summary').each(function(){
+    $(this).on('click', function(){
       var movie_id=$(this).attr('data_movie_id');
       hide_modal('summary_' + movie_id);
       show_modal('watchlist_' + movie_id);
     });
+  });
 
-    $(this).on('click', 'a.watch-lists-add', function(){
+  $('a.watch-lists-add').each(function(){
+    $(this).on('click', function(){
       var self      = $(this).parents('.watchlist-action');
       var movie_id  = $(this).attr('data_movie_id');
       var user_id   = $(this).attr('data_user_id');
       var optional_note=$('#watchlist_' + movie_id + ' #optional_note').val();
       var watch_list_theaters = [];
 
-      $('#watchlist_' + movie_id + ' #watch_list_theaters').each(function(index, element){
+      $('#watchlist_' + movie_id + ' input[name="watch_list_theaters"]').each(function(index, element){
         if (element.checked){
           watch_list_theaters.push(element.value)
         }
@@ -76,6 +90,10 @@
           console.log(data);
           if (data.success){
             // do something to show it was added.
+            if (window.location.pathname.substring(0,15) == '/users/profiles'){
+              console.log('refreshing page');
+              window.location.reload();
+            }
             hide_modal('watchlist_' + movie_id);
             self.addClass('is_watched');
           } else{

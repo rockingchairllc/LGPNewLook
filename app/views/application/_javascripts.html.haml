@@ -1,7 +1,5 @@
 = javascript_include_tag "application"
 = javascript_include_tag params[:controller].parameterize.sub('-', '/')
-- if params[:controller] == 'users/dashboards' && params[:action] == 'index' || params[:controller] == 'users/movies' && params[:action] == 'index'
-  = javascript_include_tag 'users/movie_summary_modal'
 
 -#  Append your own using content_for :javascripts
   =# yield :javascripts

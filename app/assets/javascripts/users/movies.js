@@ -1,6 +1,4 @@
-/*
- * require jq/jquery.autoellipsis-1.0.3
- */
+//= require users/movie_summary_modal
 
 (function($){
 

@@ -3,17 +3,16 @@
     %ul.thumbnails{:style => 'padding: 0px; margin-top:0px;'}
       %li.span1
         .thumbnail.nopadding
-          != image_tag @user.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:thumb) rescue '<img src="http://placehold.it/75x100" >'
+          != link_to(image_tag(@user.profile_pic.photo.url(:thumb)), users_photos_path) rescue '<img src="http://placehold.it/75x100" >'
   .span5
     %h3= @user.firstname
     %p
       = "#{@user.gender} / #{age(@user.birthdate)} / #{@user.orientation} / #{@user.zipcode}"
     %p
-      %i.icon-facetime-video
-      Personal Trailer
-    %p
       %i.icon-camera
-      = pluralize(@user.user_images.count, "picture")
+      = link_to(pluralize(@user.user_images.count, "picture"), users_photos_path)
+    %p
+      = link_to('Edit your details', '#', :onclick=>'show_modal("modal_user_profile");')
   .span3.mutual-friends
     .header{:style => 'padding: '}
       6 Mutual Friends
@@ -24,6 +23,8 @@
             %img{:src => 'http://placehold.it/45x55'}
     .footer
       12 Common Interests
+
+= render 'basic_info_modal'
 
 %br
 %br
@@ -52,7 +53,9 @@
                       = "#{t.theater.name} "
             .span4
               %span.btn-wrapper.pull-right
-                = link_to("Let's Get Popcorn", {:controller => "users/conversations", :action => "new", :recipient_id => @user.id, :watch_list_id => w.id}, {:class => "btn btn-primary btn-large span2"})
+                = link_to('Edit Watchlist Item', '#', :onclick=>'javascript:show_modal("watchlist_' + w.movie_id.to_s + '");', :class => "btn btn-primary btn-large span2" )
+                //= link_to("Let's Get Popcorn", {:controller => "users/conversations", :action => "new", :recipient_id => @user.id, :watch_list_id => w.id}, {:class => "btn btn-primary btn-large span2"})
+          = render 'modal_edit_watchlist', :movie=>w.movie, :watchlist=>w
 
     %ul.questions-and-answer-portion
       - @questions.each do |q|

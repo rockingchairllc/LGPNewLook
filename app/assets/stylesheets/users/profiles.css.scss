@@ -1,6 +1,7 @@
-//--------------------------------------
-// application variables import
-//--------------------------------------
+/*
+ *= require users/movie_add_modal
+*/
+
 @import "variables";
 
 .mutual-friends {
@@ -80,4 +81,9 @@ margin: 0px
 
 h3 {
   color: #75628f;
+}
+
+.span1 {
+  width: 92px;
+  margin-right: 10px;
 }

@@ -24,7 +24,7 @@ Lgp::Application.routes.draw do
     match "sentbox" => "conversations#sent"
     resources :movies, :only => [ :index, :show ]
     resources :photos, :only => [ :index, :create , :update, :destroy ]
-    resources :profiles, :only => [ :index, :show, :edit ]
+    resources :profiles, :only => [ :index, :show, :edit, :update ]
     resources :watch_lists, :only => [ :create, :destroy ]
   end
 
