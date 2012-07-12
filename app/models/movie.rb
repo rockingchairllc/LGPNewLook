@@ -6,6 +6,7 @@ class Movie < ActiveRecord::Base
   has_attached_file :poster, :storage => :s3, :s3_credentials => "#{Rails.root}/config/s3.yml", :path => "movieposters/:id/:filename"
 
   def self.popular(zipcode, radius=50, count=3)
+    return unless zipcode
     m=Movie.near(zipcode, radius)
     m.sort_by! { |m| m.watch_lists.count }.reverse!
     m=m[0..count-1]

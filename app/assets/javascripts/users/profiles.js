@@ -1,6 +1,22 @@
 //= require users/movie_summary_modal
 
+function submit_search(){
+  var movie = $('#select_movie').val();
+  var miles = $('#select_miles').val();
+  var zip   = $('#field_zip').val();
+  window.location='/users/profiles?movie=' + movie + '&zip=' + zip + '&miles=' + miles;
+}
+
+
+
 $(document).ready(function () {
+
+  $('.search_filter').click(function(){
+    submit_search();
+  });
+  $('#field_zip').keypress(function(e) { if(e.which == 13) { submit_search(); } });
+
+
   if ($('#form_user_profile_errors').length > 0){
     show_modal('modal_user_profile');
   }

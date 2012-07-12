@@ -1,7 +1,16 @@
 class Users::ProfilesController < UsersController
 
   def index
-    @users=User.all
+    @user=User.find(current_user.id)
+    @movies=Movie.all.sort_by! { |m| m.title }
+
+    @param_movie_id=params[:movie]
+    @param_movie_id=nil if @param_movie_id=='0'
+    @param_miles=(params[:miles] || 20)
+    @param_zip=(params[:zip] || @user.zipcode)
+
+    @users=User.near_watchlists(@user,@param_zip,@param_miles,@param_movie_id)
+
   end
 
   def show

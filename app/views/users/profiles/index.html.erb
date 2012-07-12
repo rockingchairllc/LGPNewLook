@@ -1,4 +1,11 @@
 <% # here i am going to insert the filter form based on the theater filter form %>
+Buddies who want to see:
+<%= select_tag('select_movie', options_for_select(@movies.collect { |m| [ m.title, m.id ] }.insert(0,['All Movies', 0]), @param_movie_id)) %>
+within
+<%= select_tag('select_miles', options_for_select(['1','5','10','20','50','100'], @param_miles )) %>
+miles of
+<%= text_field_tag :field_zip, @param_zip, :placeholder => @param_zip, :style => 'width: 90px;' %>
+<%= submit_tag "Go", :class => 'search_filter btn btn-primary', :style => 'margin-top: -2px;'%>
 
 
 
@@ -22,44 +29,14 @@
 	<br>
 	Looking for buddies to see:
 	<br>
-	MOVIE NAME HERE
+	<%= user.watch_lists.first.movie.title %>
+  <% if user.watch_lists.first.watch_list_preferred_theaters.count > 0 %>
+    at
+    <%= user.watch_lists.first.watch_list_preferred_theaters.first.theater.name %>
+    <% if user.watch_lists.first.watch_list_preferred_theaters.count > 1 %>            
+      and
+      <%= pluralize(user.watch_lists.first.watch_list_preferred_theaters.count - 1, 'more theater') %>.
+    <% end %>
+  <% end %>
 	<br>
-<% end %>
-
-
-
-<% # this is the classic index look, being commented out for now -%>
-<% if false %>
-<table>
-  <tr>
-    <th>Id</th>
-    <th>First Name</th>
-    <th>Email</th>
-    <th>Encrypted_password</th>
-    <th>Gender</th>
-    <th>Orientation</th>
-    <th>Zipcode</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.id %></td>
-	<td><%= user.firstname %></td>
-	<td><%= user.email %></td>
-	<td><%= user.encrypted_password %></td>
-	<td><%= user.gender %></td>
-	<td><%= user.orientation %></td>
-	<td><%= user.zipcode %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New User', new_user_path %>
 <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120514014459) do
+ActiveRecord::Schema.define(:version => 20120712191554) do
 
   create_table "answers", :force => true do |t|
     t.text     "response"
@@ -171,6 +171,8 @@ ActiveRecord::Schema.define(:version => 20120514014459) do
     t.string   "zipcode"
     t.string   "orientation"
     t.integer  "invite_code_id"
+    t.float    "zipcode_longitude"
+    t.float    "zipcode_latitude"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
@@ -196,11 +198,11 @@ ActiveRecord::Schema.define(:version => 20120514014459) do
   add_index "watch_lists", ["user_id", "movie_id"], :name => "index_uniq_wl_user_movie", :unique => true
 
   create_table "zip_locs", :force => true do |t|
-    t.integer  "zip"
-    t.decimal  "lat"
-    t.decimal  "lng"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "zip"
+    t.float    "lat"
+    t.float    "lng"
   end
 
   add_foreign_key "notifications", "conversations", :name => "notifications_on_conversation_id"
