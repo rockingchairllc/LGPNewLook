@@ -41,6 +41,14 @@
 
 .thumbnails {
  .thumbnail {
-   padding: 0px
+   padding: 0px;
+   overflow: auto;
  }
+  .user_small_thumb {
+    width: 75px;
+    height: 75px;
+    float: left;
+    margin-right: 5px;
+  }
 }
+

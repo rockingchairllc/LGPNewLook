@@ -13,13 +13,17 @@
       = render partial: 'users/movies/modal_add_to_watchlist', locals: { movie: movie }
       = render partial: "users/movies/modal_movie_summary", locals: { movie: movie }
 
-    - if movie.watchlisters.count != 0
-      %p
-        - watchlisters = movie.watchlisters.all
-        - watchlisters[0..2].each do |w|
+    %p
+      - watchlisters = []
+      - movie.watchlisters.all.each do |w|
+        - if w.id != current_user.id
+          - watchlisters.push(w)
+      - watchlisters[0..5].each do |w|
+        - if w.id != current_user.id
           = link_to users_profiles_path(w.id) do
             %img{:src => (w.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:medium) rescue "/assets/bw_popcorn_kernel.jpg"), :class => "user_small_thumb" }
-      %br/
+    %br/
+    - if watchlisters.count != 0
       %p
         %a.purple{:href => users_profiles_path(watchlisters.first.id)}= watchlisters.first.firstname
         - if watchlisters.size == 1

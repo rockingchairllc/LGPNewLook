@@ -27,16 +27,19 @@
                 - unless t == movie.theaters.first
                   %li= t.name
 
-    - if movie.watchlisters.count != 0
-      - watchlisters = movie.watchlisters.all
-      %ul.thumbnails{:style => 'padding: 0px;'}
-        - watchlisters.each do |w|
-          %li.span1
-            .thumbnail
-              %a{:href => users_profiles_path(w.id)}
-                %img{:src => (w.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:medium) rescue "/assets/bw_popcorn_kernel.jpg") }
+    - watchlisters = []
+    - movie.watchlisters.all.each do |w|
+      - if w.id != current_user.id
+        - watchlisters.push(w)
+    %ul.thumbnails{:style => 'padding: 0px;'}
+      - watchlisters.each do |w|
+        %li.span1
+          .thumbnail
+            %a{:href => users_profile_path(w.id)}
+              %img{:src => (w.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:medium) rescue "/assets/bw_popcorn_kernel.jpg"), :class => "user_small_thumb" }
+    - if watchlisters.count != 0
       %p
-        %a.purple{:href => users_profiles_path(watchlisters.first.id)}= watchlisters.first.firstname
+        %a.purple{:href => users_profile_path(watchlisters.first.id)}= watchlisters.first.firstname
         - if watchlisters.count > 1
           and
           = watchlisters.count - 1
