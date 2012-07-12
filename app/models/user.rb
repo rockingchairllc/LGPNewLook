@@ -22,7 +22,6 @@ class User < ActiveRecord::Base
 
   def watchlist_movies
     watchlist = self.watch_lists
-    watchlist = self.watch_lists
     watchlist_movies = Array.new
     watchlist.each do |watchlist_item|
       movie = Movie.find_by_id(watchlist_item.movie_id)
@@ -43,7 +42,8 @@ class User < ActiveRecord::Base
 
   # This is just place-holder, please implement the true things.
   def near_buddies(limit = 8)
-    User.all.reject { |user| user == self }.sample(limit)
+    # all users with a watchlist ( not self ) -- sample selection of LIMIT
+    WatchList.all.collect { |w| w.user }.reject { |user| user == self }.uniq.sample(limit)
   end
 
   def get_gender

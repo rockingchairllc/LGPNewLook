@@ -2,13 +2,8 @@ class Users::DashboardsController < UsersController
 
   def index
     @user=User.find(current_user.id)
-    # currently using all users, will limit later
-    @buddies=User.all
-    @movies=Movie.all(:limit => 8)
-
-    @near_buddies = current_user.near_buddies
-    @popular_movies = Movie.popular
-    #@popular_movies = [Movie.find(14), Movie.find(56)]
+    @near_buddies = @user.near_buddies
+    @popular_movies = Movie.popular(@user.zipcode)
   end
 
   # processes second registration step for user

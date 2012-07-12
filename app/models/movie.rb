@@ -5,8 +5,12 @@ class Movie < ActiveRecord::Base
   has_many :watchlisters, :source => :user, :through => :watch_lists
   has_attached_file :poster, :storage => :s3, :s3_credentials => "#{Rails.root}/config/s3.yml", :path => "movieposters/:id/:filename"
 
-  # This is just a place-holder, please implement the method to get popular movies.
-  scope :popular, lambda { Movie.all.sample(2) }
+  def self.popular(zipcode, radius=50, count=3)
+    m=Movie.near(zipcode, radius)
+    m.sort_by! { |m| m.watch_lists.count }.reverse!
+    m=m[0..count-1]
+    m
+  end
 
   def self.near(zip, radius, movie_id=nil, search=nil)
     ziploc = ZipLoc.find_by_zip(zip)
