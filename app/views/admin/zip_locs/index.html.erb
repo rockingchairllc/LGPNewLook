@@ -15,13 +15,13 @@
     <td><%= zip_loc.zip %></td>
     <td><%= zip_loc.lat %></td>
     <td><%= zip_loc.lng %></td>
-    <td><%= link_to 'Show', zip_loc %></td>
-    <td><%= link_to 'Edit', edit_zip_loc_path(zip_loc) %></td>
-    <td><%= link_to 'Destroy', zip_loc, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Show', admin_zip_loc_path(zip_loc) %></td>
+    <td><%= link_to 'Edit', edit_admin_zip_loc_path(zip_loc) %></td>
+    <td><%= link_to 'Destroy', admin_zip_loc_path(zip_loc), confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Zip loc', new_zip_loc_path %>
+<%= link_to 'New Zip loc', new_admin_zip_loc_path %>

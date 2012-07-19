@@ -44,7 +44,7 @@ class Admin::ZipLocsController < AdminController
 
     respond_to do |format|
       if @zip_loc.save
-        format.html { redirect_to @zip_loc, notice: 'Zip loc was successfully created.' }
+        format.html { redirect_to admin_zip_loc_path(@zip_loc), notice: 'Zip loc was successfully created.' }
         format.json { render json: @zip_loc, status: :created, location: @zip_loc }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class Admin::ZipLocsController < AdminController
 
     respond_to do |format|
       if @zip_loc.update_attributes(params[:zip_loc])
-        format.html { redirect_to @zip_loc, notice: 'Zip loc was successfully updated.' }
+        format.html { redirect_to admin_zip_loc_path(@zip_loc), notice: 'Zip loc was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -76,7 +76,7 @@ class Admin::ZipLocsController < AdminController
     @zip_loc.destroy
 
     respond_to do |format|
-      format.html { redirect_to zip_locs_url }
+      format.html { redirect_to admin_zip_locs_path }
       format.json { head :no_content }
     end
   end

@@ -1,4 +1,5 @@
-<%= form_for(@zip_loc) do |f| %>
+<% url=(@zip_loc.id ? admin_zip_loc_path(@zip_loc) : admin_zip_locs_path ) %>
+  <%= form_for(@zip_loc, :url=>url) do |f| %>
   <% if @zip_loc.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@zip_loc.errors.count, "error") %> prohibited this zip_loc from being saved:</h2>
