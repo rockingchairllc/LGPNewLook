@@ -57,8 +57,11 @@ class Users::DashboardsController < UsersController
       @user.errors[:birthdate] << 'is required.'
     end
 
-    @user.save if @user.errors.count == 0
-    render :index
+    if @user.errors.count == 0 && @user.save
+      redirect_to users_dashboards_path
+    else
+      render :index
+    end
 
   end
 

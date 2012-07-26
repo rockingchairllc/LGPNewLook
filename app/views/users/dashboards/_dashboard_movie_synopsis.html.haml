@@ -18,7 +18,7 @@
       - movie.watchlisters.all.each do |w|
         - if w.id != current_user.id
           - watchlisters.push(w)
-      - watchlisters[0..5].each do |w|
+      - watchlisters[0..4].each do |w|
         - if w.id != current_user.id
           = link_to users_profiles_path(w.id) do
             %img{:src => (w.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:medium) rescue "/assets/bw_popcorn_kernel.jpg"), :class => "user_small_thumb" }
