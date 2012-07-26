@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120712191554) do
+ActiveRecord::Schema.define(:version => 20120726202004) do
 
   create_table "answers", :force => true do |t|
     t.text     "response"
@@ -37,6 +37,22 @@ ActiveRecord::Schema.define(:version => 20120712191554) do
     t.string   "subject",    :default => ""
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
+  end
+
+  create_table "facebook_interests", :force => true do |t|
+    t.string   "identifier"
+    t.string   "endpoint"
+    t.string   "name"
+    t.string   "category"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "facebook_interests_users", :id => false, :force => true do |t|
+    t.integer  "facebook_interest_id"
+    t.integer  "user_id"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
   end
 
   create_table "invite_codes", :force => true do |t|

@@ -5,7 +5,7 @@ class AuthenticationsController < ApplicationController
     fb_auth = FbGraph::Auth.new(LGPConfiguration.facebook_app_id, LGPConfiguration.facebook_secret)
     client = fb_auth.client
     client.redirect_uri = "http://" + request.host_with_port + "/auth/facebook/callback/"
-    redirect_to client.authorization_uri(:scope => [:email,:user_photos,:user_birthday,:user_interests,:user_relationship_details,:publish_actions])
+    redirect_to client.authorization_uri(:scope => [:email,:user_photos,:user_birthday,:user_likes, :user_interests,:user_relationship_details,:publish_actions])
   end
 
   # handle callbacks from APIs
@@ -105,6 +105,21 @@ class AuthenticationsController < ApplicationController
       # user could already be logged in
       unless current_user
         sign_in(:user, auth.user)
+      end
+
+      # set interests
+      logger.debug 'setting likes'
+      fb_user.likes.each do |l|
+        logger.debug l.inspect
+        fb_interest=FacebookInterest.find_by_identifier(l.identifier)
+        unless fb_interest
+          fb_interest=FacebookInterest.new(:identifier=>l.identifier, :endpoint=>l.endpoint, :name=>l.name, :category=>l.category)
+          fb_interest.save
+        end
+        fb_user_interest=FacebookInterestsUsers.find_by_facebook_interest_id_and_user_id(fb_interest.id, auth.user.id)
+        unless fb_user_interest
+          FacebookInterestsUsers.create(:user_id=>auth.user.id, :facebook_interest_id=>fb_interest.id)
+        end
       end
 
       respond_to do |format|

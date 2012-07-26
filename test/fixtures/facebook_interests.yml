@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  identifier: MyString
+  endpoint: MyString
+  name: MyString
+  category: MyString
+
+two:
+  identifier: MyString
+  endpoint: MyString
+  name: MyString
+  category: MyString

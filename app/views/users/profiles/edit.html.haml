@@ -13,16 +13,6 @@
       = link_to(pluralize(@user.user_images.count, "picture"), users_photos_path)
     %p
       = link_to('Edit your details', '#', :onclick=>'show_modal("modal_user_profile");')
-  .span3.mutual-friends
-    .header{:style => 'padding: '}
-      6 Mutual Friends
-    %ul.thumbnails{:style => 'padding: 0px;'}
-      - (1..3).each do
-        %li{:style => 'width: 45px; height: 55px;'}
-          .thumbnail.nopadding
-            %img{:src => 'http://placehold.it/45x55'}
-    .footer
-      12 Common Interests
 
 = render 'basic_info_modal'
 

@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   has_many :user_images, :dependent => :destroy
   has_one :profile_pic, :class_name => "UserImage", :conditions => {:is_profile_pic => true}
   has_many :watch_lists, :dependent => :destroy
+  has_many :facebook_interests_users, :class_name=>'FacebookInterestsUsers', :foreign_key => 'user_id', :dependent => :destroy
+  has_many :facebook_interests, :through=>:facebook_interests_users
 
   belongs_to :invite_code
 

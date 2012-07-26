@@ -25,11 +25,8 @@ class Users::ProfilesController < UsersController
                                   :access_token=>current_user.authentications.first.provider_auth_id)
     logger.debug fb_logged
     @mutual_friends=fb_logged.mutual_friends(@user.authentications.first.provider_user_id)
-    logger.debug @mutual_friends.inspect
 
-    @mutual_friends.each do |mf|
-      logger.debug mf.inspect
-    end
+    @mutual_likes=FacebookInterestsUsers.all(:conditions=>['user_id=? and facebook_interest_id in ( select facebook_interest_id from facebook_interests_users where user_id=?)',current_user.id, @user.id])
 
   end
 
