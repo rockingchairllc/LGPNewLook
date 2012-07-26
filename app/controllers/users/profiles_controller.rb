@@ -11,6 +11,8 @@ class Users::ProfilesController < UsersController
 
     @users=User.near_watchlists(@user,@param_zip,@param_miles,@param_movie_id)
 
+    @other_users=User.near_no_watchlists(@user,@param_zip,@param_miles)
+
   end
 
   def show

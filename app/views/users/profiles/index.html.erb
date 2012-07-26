@@ -7,36 +7,69 @@ miles of
 <%= text_field_tag :field_zip, @param_zip, :placeholder => @param_zip, :style => 'width: 90px;' %>
 <%= submit_tag "Go", :class => 'search_filter btn btn-primary', :style => 'margin-top: -2px;'%>
 
-
-
 <% @users.each do |user| %>
-	<br>
-  <% if user.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true') %>
-	  <%= image_tag user.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:medium), :class=>'buddy_search_profile_pic' %>
-  <% else %>
-    -- No Image Replace with handler. --
+  <% ct=0 %>
+  <% user.watch_lists.each do |wl| %>
+    <% ct+=1 %>
+    <% break if ct > 2 %>
+    <div class="user_watch_list">
+      <% if user.profile_pic %>
+        <%= image_tag user.profile_pic.photo.url(:medium), :class=>'buddy_search_profile_pic' %>
+      <% else %>
+        -- No Image Replace with handler. --
+      <% end %>
+      <div class="watch_list_profile">
+        <b><%= user.firstname %></b>
+        <br>
+        <%= user.gender %>
+        /
+        <%= age(user.birthdate) %>
+        /
+        <%= user.orientation %>
+        /
+        <% #we still need to convert zip to manhattan neighborhood %>
+        <%= user.zipcode%>
+        <br>
+        Looking for buddies to see:
+        <br>
+        <%= wl.movie.title %>
+        <% if wl.watch_list_preferred_theaters.count > 0 %>
+          at
+          <%= wl.watch_list_preferred_theaters.first.theater.name %>
+          <% if wl.watch_list_preferred_theaters.count > 1 %>
+            and
+            <%= pluralize(wl.watch_list_preferred_theaters.count - 1, 'more theater') %>.
+          <% end %>
+        <% end %>
+        <% if !wl.note.blank? %>
+          <br>
+          "<%= wl.note %>"
+        <% end %>
+      </div>
+    </div>
   <% end %>
-	<b><%= user.firstname %></b>
-	<br>
-	<%= user.gender %>
-	/
-	<%= age(user.birthdate) %>
-	/
-	<%= user.orientation %>
-	/
-	<% #we still need to convert zip to manhattan neighborhood %>
-	<%= user.zipcode%>
-	<br>
-	Looking for buddies to see:
-	<br>
-	<%= user.watch_lists.first.movie.title %>
-  <% if user.watch_lists.first.watch_list_preferred_theaters.count > 0 %>
-    at
-    <%= user.watch_lists.first.watch_list_preferred_theaters.first.theater.name %>
-    <% if user.watch_lists.first.watch_list_preferred_theaters.count > 1 %>            
-      and
-      <%= pluralize(user.watch_lists.first.watch_list_preferred_theaters.count - 1, 'more theater') %>.
+<% end %>
+
+<% @other_users.each do |user|  %>
+  <div class="user_watch_list">
+    <% if user.profile_pic %>
+      <%= image_tag user.profile_pic.photo.url(:medium), :class=>'buddy_search_profile_pic' %>
+    <% else %>
+      -- No Image Replace with handler. --
     <% end %>
-  <% end %>
-	<br>
+    <div class="watch_list_profile">
+      <b><%= user.firstname %></b>
+      <br>
+      <%= user.gender %>
+      /
+      <%= age(user.birthdate) %>
+      /
+      <%= user.orientation %>
+      /
+      <% #we still need to convert zip to manhattan neighborhood %>
+      <%= user.zipcode%>
+      <br>
+      No movies added to watch list.
+    </div>
+  </div>
 <% end %>

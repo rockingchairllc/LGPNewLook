@@ -57,6 +57,20 @@ class User < ActiveRecord::Base
     theaters
   end
 
+  def self.near_no_watchlists(user,zip,radius)
+    ziploc = ZipLoc.find_by_zip(zip)
+    # zip code not in our database
+    return [] unless ziploc
+
+    distance="sqrt(69.1*(users.zipcode_latitude - " + ziploc.lat.to_s + ")*69.1*(users.zipcode_latitude - " + ziploc.lat.to_s +
+      ") + 69.1*(users.zipcode_longitude - " + ziploc.lng.to_s + ")*69.1*(users.zipcode_longitude - " + ziploc.lng.to_s + "))"
+
+    all(:include => [ :watch_lists ],
+        :order=>[ distance ],
+        :conditions=>[ distance + " < ? and users.id!=? and users.id not in ( select user_id from watch_lists )",radius, user.id] )
+
+  end
+
   # if you pass movie_id, will filter for just that movie
   def self.near_watchlists(user, zip, radius, movie_id = nil)
     ziploc = ZipLoc.find_by_zip(zip)
