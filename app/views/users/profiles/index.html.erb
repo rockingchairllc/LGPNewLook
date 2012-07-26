@@ -14,18 +14,18 @@ miles of
     <% break if ct > 2 %>
     <div class="user_watch_list">
       <% if user.profile_pic %>
-        <%= image_tag user.profile_pic.photo.url(:medium), :class=>'buddy_search_profile_pic' %>
+        <%= link_to(image_tag(user.profile_pic.photo.url(:medium), :class=>'buddy_search_profile_pic'), users_profile_path(user.id)) %>
       <% else %>
         -- No Image Replace with handler. --
       <% end %>
       <div class="watch_list_profile">
-        <b><%= user.firstname %></b>
+        <b><%= link_to(user.firstname, users_profile_path(user.id)) %></b>
         <br>
-        <%= user.gender %>
+        <%= user.gender.camelize %>
         /
         <%= age(user.birthdate) %>
         /
-        <%= user.orientation %>
+        <%= user.orientation.camelize %>
         /
         <% #we still need to convert zip to manhattan neighborhood %>
         <%= user.zipcode%>
@@ -38,8 +38,23 @@ miles of
           <%= wl.watch_list_preferred_theaters.first.theater.name %>
           <% if wl.watch_list_preferred_theaters.count > 1 %>
             and
-            <%= pluralize(wl.watch_list_preferred_theaters.count - 1, 'more theater') %>.
-          <% end %>
+            <%= link_to(pluralize(wl.watch_list_preferred_theaters.count - 1, 'more theater'), '#more_theaters_' + wl.id.to_s, 'data-toggle'=>'modal') %>.
+            <div class='modal' id='more_theaters_<%= wl.id.to_s %>' style='display:none'>
+              <div class='modal-header'>
+                <%= link_to 'x', nil, :class=>'close', 'data-dismiss' => 'modal'%>
+                <h3>Also wants to see at</h3>
+              </div>
+              <div class="modal-body">
+                <ul>
+                  <% wl.watch_list_preferred_theaters.each do |wlt| %>
+                    <% unless wlt == wl.watch_list_preferred_theaters.first %>
+                      <li><%= wlt.theater.name %></li>
+                    <% end %>
+                <% end %>
+                </ul>
+              </div>
+            </div>
+      <% end %>
         <% end %>
         <% if !wl.note.blank? %>
           <br>
@@ -53,18 +68,18 @@ miles of
 <% @other_users.each do |user|  %>
   <div class="user_watch_list">
     <% if user.profile_pic %>
-      <%= image_tag user.profile_pic.photo.url(:medium), :class=>'buddy_search_profile_pic' %>
+      <%= link_to(image_tag(user.profile_pic.photo.url(:medium), :class=>'buddy_search_profile_pic'), users_profile_path(user.id)) %>
     <% else %>
       -- No Image Replace with handler. --
     <% end %>
     <div class="watch_list_profile">
-      <b><%= user.firstname %></b>
+      <b><%= link_to(user.firstname, users_profile_path(user.id)) %></b>
       <br>
-      <%= user.gender %>
+      <%= user.gender.camelize %>
       /
       <%= age(user.birthdate) %>
       /
-      <%= user.orientation %>
+      <%= user.orientation.camelize %>
       /
       <% #we still need to convert zip to manhattan neighborhood %>
       <%= user.zipcode%>
