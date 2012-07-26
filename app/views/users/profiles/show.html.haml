@@ -3,7 +3,7 @@
     %ul.thumbnails{:style => 'padding: 0px; margin-top:0px;'}
       %li.span1
         .thumbnail.nopadding
-          != image_tag @user.user_images.first(:order=>'id desc', :conditions=>'is_profile_pic=true').photo.url(:thumb) rescue '<img src="http://placehold.it/75x100" >'
+          != image_tag @user.profile_pic.photo.url(:thumb) rescue '<img src="http://placehold.it/75x100" >'
   .span5
     %h3= @user.firstname
     %p
@@ -11,9 +11,13 @@
     %p
       %i.icon-facetime-video
       Personal Trailer
-    %p
-      %i.icon-camera
-      = pluralize(@user.user_images.count, "picture")
+    - if @user.user_images.count > 0
+      %p
+        %i.icon-camera
+        = link_to(pluralize(@user.user_images.count, "picture"), @user.user_images.first.photo.url(:medium), "rel"=>"lightbox[profile]")
+        - @user.user_images.each do |i|
+          - if i!=@user.user_images.first
+            = link_to('my image', i.photo.url(:medium), "rel"=>"lightbox[profile]", :style=>'display:none;')
   .span3.mutual-friends
     .header{:style => 'padding: '}
       6 Mutual Friends

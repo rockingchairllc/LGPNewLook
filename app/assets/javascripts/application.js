@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require lightbox
 //= require bootstrap
 //= require site
 //= require welcome
