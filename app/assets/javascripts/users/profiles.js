@@ -11,6 +11,8 @@ function submit_search(){
 
 $(document).ready(function () {
 
+  $('[rel=tooltip]').tooltip({ delay: { show: 0, hide: 0 } } );
+
   $('.search_filter').click(function(){
     submit_search();
   });

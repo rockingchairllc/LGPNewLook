@@ -20,12 +20,27 @@
             = link_to('my image', i.photo.url(:medium), "rel"=>"lightbox[profile]", :style=>'display:none;')
   .span3.mutual-friends
     .header{:style => 'padding: '}
-      6 Mutual Friends
+      = link_to("#{ @mutual_friends.count } Mutual Friends",'#mutual_friends', 'data-toggle'=>'modal', :style=>'color:white;')
     %ul.thumbnails{:style => 'padding: 0px;'}
-      - (1..3).each do
+      - ct=0
+      - @mutual_friends.each do |f|
+        - ct+=1
+        - break if ct > 4
         %li{:style => 'width: 45px; height: 55px;'}
           .thumbnail.nopadding
-            %img{:src => 'http://placehold.it/45x55'}
+            = link_to(image_tag(f.picture), '#', :rel=>'tooltip', 'data-original-title'=>f.name, :style=>'display:inline:block')
+
+    .modal{:id => "mutual_friends",:style => 'display:none;'}
+      .modal-header
+        %a.close{'data-dismiss' =>"modal"} &times;
+        %h3 Also playing at
+      .modal-body
+        %ul
+          - @mutual_friends.each do |f|
+            %li
+              = image_tag f.picture
+              = f.name
+
     .footer
       12 Common Interests
   .span3

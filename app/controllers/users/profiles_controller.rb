@@ -20,6 +20,17 @@ class Users::ProfilesController < UsersController
     if @user.id == current_user.id
       redirect_to edit_users_profile_path(current_user.id)
     end
+
+    fb_logged = FbGraph::User.new(current_user.authentications.first.provider_user_id,
+                                  :access_token=>current_user.authentications.first.provider_auth_id)
+    logger.debug fb_logged
+    @mutual_friends=fb_logged.mutual_friends(@user.authentications.first.provider_user_id)
+    logger.debug @mutual_friends.inspect
+
+    @mutual_friends.each do |mf|
+      logger.debug mf.inspect
+    end
+
   end
 
   def edit
