@@ -26,7 +26,14 @@ class Users::ProfilesController < UsersController
     logger.debug fb_logged
     @mutual_friends=fb_logged.mutual_friends(@user.authentications.first.provider_user_id)
 
-    @mutual_likes=FacebookInterestsUsers.all(:conditions=>['user_id=? and facebook_interest_id in ( select facebook_interest_id from facebook_interests_users where user_id=?)',current_user.id, @user.id])
+    likes=FacebookInterestsUsers.all(:conditions=>['user_id=? and facebook_interest_id in ( select facebook_interest_id from facebook_interests_users where user_id=?)',current_user.id, @user.id])
+
+    @mutual_likes=[]
+    likes.each do |l|
+      @mutual_likes.push(l.facebook_interest)
+    end
+
+    @mutual_likes.sort_by! { |m| m.category }
 
   end
 

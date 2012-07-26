@@ -51,10 +51,27 @@
           %a.close{'data-dismiss' =>"modal"} &times;
           %h3 Common Interests
         .modal-body
-          %ul
-            - @mutual_likes.each do |i|
-              %li
-                = i.facebook_interest.name
+          - # movie category first
+          - ct=0
+          - @mutual_likes.each do |i|
+            - if i.category=='Movie'
+              - ct+=1
+              = 'Movies' if ct == 1
+              %ul
+                %li
+                  = "#{i.name}"
+
+          - # other categories
+          - cat=nil
+          - @mutual_likes.each do |i|
+            - if i.category!='Movie'
+              = i.category if cat != i.category
+              %ul
+                %li
+                  = "#{i.name}"
+              - cat=i.category
+
+
 
   .span3
     %span.btn-wrapper.pull-right
