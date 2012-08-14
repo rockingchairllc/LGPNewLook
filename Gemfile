@@ -2,20 +2,14 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.2'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-#gem 'sqlite3'
-
 gem 'json'
 
 gem 'devise'
-gem 'paperclip', :git => 'git://github.com/thoughtbot/paperclip.git'
+gem 'paperclip','3.0.2'
 gem 'aws-sdk'
 gem 'libxml-ruby', '>= 0.8.3'
 gem 'xml-simple'
 gem 'pg'
-# gem 'jquery-rails' --- used this for old rails
 
 # gem for facebook open graph api libraries
 gem 'fb_graph'
@@ -25,31 +19,11 @@ gem 'fb_graph'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-
   gem 'bootstrap-sass', '~> 2.0.2'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer'
-
   gem 'uglifier', '>= 1.0.3'
 end
 
 gem 'jquery-rails'
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug'
 
 # recommendations to use haml over erb
 gem 'haml-rails'
@@ -58,10 +32,13 @@ gem 'haml-rails'
 gem 'execjs'
 gem 'therubyracer'
 
-
-# for deploymenyt
-gem 'heroku'
-
 # for internal messaging
 gem 'mailboxer'
 
+group :development do
+  gem 'heroku'
+end
+
+group :production do
+  gem 'thin'
+end
