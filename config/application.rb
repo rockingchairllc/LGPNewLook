@@ -60,20 +60,15 @@ module Lgp
     # public javascripts, add this into the assets paths
     # all javascript files stored here are public javascripts
     # all controller specific javascripts and manifest files should be stored in assets/javascripts
-    config.assets.paths << Rails.root.join('public', 'javascripts').to_s
-    config.assets.paths << Rails.root.join('app','assets', 'javascripts').to_s
-    config.assets.paths << Rails.root.join('app','assets', 'javascripts', 'users').to_s
-    config.assets.paths << Rails.root.join('app','assets', 'javascripts', 'admin').to_s
+    # config.assets.paths << Rails.root.join('public', 'javascripts').to_s
 
     # public stylesheets, add this into the assets paths
     # all controller specific css and manifest files should be stored in assets/stylesheets
-    config.assets.paths << Rails.root.join('public', 'stylesheets').to_s
-    config.assets.paths << Rails.root.join('app','assets', 'stylesheets').to_s
-    config.assets.paths << Rails.root.join('app','assets', 'stylesheets', 'users').to_s
-    config.assets.paths << 'users/dashboards.css'
-    config.assets.paths << Rails.root.join('app','assets', 'stylesheets', 'admin').to_s
+    # config.assets.paths << Rails.root.join('public', 'stylesheets').to_s
 
-    config.assets.precompile += [ 'users/dashboards.css' ]
-
+    config.assets.precompile += [
+      'headscripts.js',
+      'users/dashboards.css', 'users/dashboards.js'
+    ]
   end
 end
