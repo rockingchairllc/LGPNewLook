@@ -70,7 +70,7 @@ module Lgp
     config.assets.paths << Rails.root.join('public', 'stylesheets').to_s
     config.assets.paths << Rails.root.join('assets', 'stylesheets').to_s
     config.assets.paths << Rails.root.join('assets', 'stylesheets', 'users').to_s
-    config.assets.paths << Rails.root.join('assets', 'stylesheets', 'users', 'dashboards.css').to_s
+    config.assets.paths << 'dashboards.css'
     config.assets.paths << Rails.root.join('assets', 'stylesheets', 'admin').to_s
 
   end
