@@ -73,5 +73,7 @@ module Lgp
     config.assets.paths << 'users/dashboards.css'
     config.assets.paths << Rails.root.join('app','assets', 'stylesheets', 'admin').to_s
 
+    config.assets.precompile += [ 'users/dashboards.css' ]
+
   end
 end
