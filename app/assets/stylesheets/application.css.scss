@@ -101,11 +101,6 @@ a.purple{
   }
 }
 
-.alert-info {
-  border-color: #ccc;
-  color: #333333;
-  @include gradientBar(#eee, #ccc);
-}
 
 .nopadding {
   padding: 0px;
