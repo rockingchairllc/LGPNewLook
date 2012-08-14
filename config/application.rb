@@ -66,9 +66,8 @@ module Lgp
     # all controller specific css and manifest files should be stored in assets/stylesheets
     # config.assets.paths << Rails.root.join('public', 'stylesheets').to_s
 
-    config.assets.precompile += [
-      'headscripts.js',
-      'users/dashboards.css', 'users/dashboards.js'
-    ]
+    # Precompile *all* assets, except those that start with underscore
+    config.assets.precompile << /(^[^_\/]|\/[^_])[^\/]*$/
+
   end
 end
